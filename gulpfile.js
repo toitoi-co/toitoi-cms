@@ -27,13 +27,13 @@ function getPostCSSPlugins() {
 function startLocalServer() {
 	var documentRoot = path.join(__dirname, "./public");
 	var port = 4000;
-	
+
 	var middleware = st({
 		path: documentRoot,
 		index: "index.html",
 		cache: false // for some reason, this broke stuff.
 	});
-	
+
 	return http.createServer(middleware)
 		.listen(port)
 		.on("listening", function() {
@@ -43,7 +43,7 @@ function startLocalServer() {
 
 function createWebpackTask(options) {
 	var options = (options != null) ? options : {};
-	
+
 	return function() {
 		var plugins = [];
 
@@ -54,7 +54,8 @@ function createWebpackTask(options) {
 			var targetFilename = "bundle.js";
 		}
 
-		return gulp.src("./src/index.jsx")
+		// return gulp.src("./src/index.jsx")
+		return gulp.src("./src/app.jsx")
 			.pipe(plumber())
 			.pipe(webpackStream({
 				watch: !(options.production),
@@ -65,7 +66,7 @@ function createWebpackTask(options) {
 						loader: "babel",
 						query: {
 							presets: ["react", "es2015"]
-						}	
+						}
 					}, {
 						test: /\.scss$/,
 						exclude: /(node_modules|bower_components)/,
@@ -89,7 +90,7 @@ function createWebpackTask(options) {
 
 function createSassTask(options) {
 	var options = (options != null) ? options : {};
-	
+
 	return function() {
 		return gulp.src("./src/scss/**/*")
 			.pipe(plumber())
@@ -125,7 +126,7 @@ gulp.task("watch", function() {
 	livereload.listen();
 	gulp.watch(["./src/scss/**/*"], ["sass"]);
 	gulp.watch(["./public/**/*"], livereload.changed);
-	
+
 	startLocalServer().on("listening", function() {
 		livereload.changed("*");
 	});
