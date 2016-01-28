@@ -25,6 +25,7 @@
     "classnames": "^2.2.3",
     "css-loader": "^0.23.1",
     "detect-dom-ready": "^1.0.2",
+    "express": "^4.13.4",
     "gulp": "^3.9.0",
     "gulp-livereload": "^3.8.1",
     "gulp-plumber": "^1.0.1",

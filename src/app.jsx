@@ -1,16 +1,8 @@
-// 'use strict';
-
-// var React = require('react'); // apparently the babel-loader is broken and will not add this by itself
-// var ReactDOM = require('react-dom');
-//
-// import Router from 'react-router';
-
-
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
-import auth from './shared/auth'
 import TestComponent from './components/jsx/test-component'
+import auth from './shared/auth'
 
 const App = React.createClass({
   render() {
