@@ -32,6 +32,11 @@ module.exports = {
     return !!localStorage.token
   },
 
+  loggedOut() {
+    delete localStorage.token
+    return
+  },
+
   onChange() {}
 }
 
