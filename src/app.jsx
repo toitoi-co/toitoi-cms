@@ -1,7 +1,7 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
-import TestComponent from './components/jsx/test-component'
+import SampleComponent from './components/jsx/Sample-component'
 import LoginComponent from './components/jsx/login-component'
 import auth from './shared/auth'
 
@@ -50,7 +50,7 @@ const App = React.createClass({
 
 const Login = React.createClass({
   render() {
-    return <LoginComponent location={this.props}/>
+    return <LoginComponent location={this.props} />
   }
 })
 
@@ -84,7 +84,7 @@ const Dashboard = React.createClass({
 
 const TestView = React.createClass({
   render() {
-    return <TestComponent/>
+    return <SampleComponent />
   }
 })
 
@@ -97,7 +97,7 @@ function requireAuth(nextState, replace) {
   }
 }
 
-render((
+ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={App}>
       <Route path='login' component={Login} />

@@ -1,5 +1,5 @@
-var React = require('react');
-var classnames = require('classnames');
+import React, { Component } from 'react'
+import classnames from 'classnames'
 import auth from '../../shared/auth'
 
 /* This stuff is required to make more-or-less 'isolated' styles for each component
@@ -10,20 +10,24 @@ import auth from '../../shared/auth'
  */
 require('../styles/login-component.scss')
 
-var classes = classnames('login-component', {
-  // no conditional classes yet - docs at https://www.npmjs.com/package/classnames
-});
+let classes = classnames('login-component', {
+  /* no conditional classes yet - docs at https://www.npmjs.com/package/classnames */
+})
 
-module.exports = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
+class LoginComponent extends Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
+    this.state = { error: false }
+  }
+
+  /*getInitialState() {
     return {
       error: false
     }
-  },
+  }*/
+
+
 
   handleSubmit(event) {
     event.preventDefault()
@@ -48,7 +52,7 @@ module.exports = React.createClass({
         }
       }
     })
-  },
+  }
 
 
 
@@ -69,4 +73,6 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}
+
+export default LoginComponent
