@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
-import SampleComponent from './components/jsx/Sample-component'
-import LoginComponent from './components/jsx/login-component'
+import SampleComponent from './components/Sample-component'
+// import LoginComponent from './components/login-component'
+import Login from './containers/login'
 import auth from './shared/auth'
 
 const App = React.createClass({
@@ -48,9 +49,9 @@ const App = React.createClass({
   }
 })
 
-const Login = React.createClass({
+const LoginView = React.createClass({
   render() {
-    return <LoginComponent location={this.props} />
+    return <Login location={this.props} />
   }
 })
 
@@ -100,7 +101,7 @@ function requireAuth(nextState, replace) {
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path='/' component={App}>
-      <Route path='login' component={Login} />
+      <Route path='login' component={LoginView} />
       <Route path="logout" component={Logout} />
       <Route path='password-recovery' component={PasswordRecovery} />
       <Route path='wizard' component={Wizard} onEnter={requireAuth}/>

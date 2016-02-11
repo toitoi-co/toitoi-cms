@@ -57,8 +57,8 @@ function createWebpackTask(options) {
 			var targetFilename = 'bundle.js';
 		}
 
-		// return gulp.src('./src/index.jsx')
-		return gulp.src('./src/app.jsx')
+		return gulp.src('./src/index.jsx')
+		// return gulp.src('./src/app.jsx')
 			.pipe(plumber())
 			.pipe(webpackStream({
 				watch: !(options.production),
