@@ -95,13 +95,14 @@ function createSassTask(options) {
 	var options = (options != null) ? options : {};
 
 	return function() {
+		var normalize = require('normalize');
 		var bourbon = require('node-bourbon');
 		var neat = require('node-neat');
 
 		return gulp.src('./src/scss/**/*')
 			.pipe(plumber())
 			.pipe(sass({
-				includePaths: [].concat(bourbon.includePaths, neat.includePaths),
+				includePaths: [].concat(normalize.includePaths, bourbon.includePaths, neat.includePaths),
 				outputStyle: (options.production) ? 'compressed' : 'nested'
 			}))
 			.pipe(rename(function(path) {

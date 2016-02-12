@@ -41,17 +41,20 @@ export default class Login extends Component {
     return (
       <div className={classes}>
         <form ref="loginForm" onSubmit={this.handleSubmit}>
+          <div className="form-group">
           <label><input
+            type="text"
             placeholder="joe@example.com"
             ref="email"
             value={this.state.username}
             onChange={this.onUsernameInputChange}/></label>
-          <label><input
-            type="password"
-            placeholder="password"
-            ref="pass"
-            value={this.state.password}
-            onChange={this.onPasswordInputChange}/></label> (hint: password1)<br />
+            <label><input
+              type="password"
+              placeholder="password"
+              ref="pass"
+              value={this.state.password}
+              onChange={this.onPasswordInputChange}/></label> (hint: password1)<br />
+          </div>
           First time here?<br/>
           <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>
