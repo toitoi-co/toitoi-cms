@@ -53,11 +53,13 @@ export default class Login extends Component {
               placeholder="password"
               ref="pass"
               value={this.state.password}
-              onChange={this.onPasswordInputChange}/></label> (hint: password1)<br />
+              onChange={this.onPasswordInputChange}/></label>
+            {/*(hint: password1)<br />*/}
           </div>
+          {/*
           First time here?<br/>
           <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
-          <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>
+          <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
           <button type="submit">login</button>
         </form>
       </div>

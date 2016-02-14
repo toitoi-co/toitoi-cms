@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Router, Route, Link, browserHistory } from 'react-router'
 import SampleComponent from './components/Sample-component'
 // import LoginComponent from './components/login-component'
-import Login from './containers/login'
+import Login from './components/login'
 import auth from './shared/auth'
 
 const App = React.createClass({

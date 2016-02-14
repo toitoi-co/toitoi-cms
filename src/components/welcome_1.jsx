@@ -1,27 +1,82 @@
-import React, { Component } from 'react'
-import classnames from 'classnames'
+import React, { Component, PropTypes } from 'react'
+import { reduxForm } from 'redux-form'
+// import { setPassword } from '../actions/index'
 import { Link } from 'react-router'
+import classnames from 'classnames'
+
 
 require ('./styles/welcome.scss')
-
 const classes = classnames('welcome', {})
 
-export default class Welcome_1 extends Component {
+class Welcome_1 extends Component {
   constructor(props) {
     super(props)
-    // this.onInputChange = this.onInputChange.bind(this)
-    // this.onFormSubmit = this.onFormSubmit.bind(this)
+    this.state = ({
+      password1: '',
+      password2: '',
+      match: false
+    })
+
+    this.onInput1Change = this.onInput1Change.bind(this)
+    this.onInput2Change = this.onInput2Change.bind(this)
+  }
+
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  formSubmit(props) {
+    this.context.router.push('/')
+  };
+
+  onInput1Change(event) {
+    const val = event.target.value;
+    this.setState({ password1: event.target.value })
+    if (val !== '' && this.state.password2 === val) {
+      this.setState({match: true})
+    }
+  }
+
+  onInput2Change(event) {
+    const val = event.target.value;
+    this.setState({ password2: val })
+    if (val !== '' && this.state.password1 === val) {
+      this.setState({match: true})
+    }
+  }
+
+  formSubmit(props) {
+    this.context.router.push('/welcome/2')
   }
 
   render() {
+    const { fields: {password1, password2}, handleSubmit } = this.props
+    // console.log('match:', this.state.match)
+
     return (
-      <div className={classes}>
+      <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
         <h1>Step 1</h1>
-        <h3>Welcome, set a password!</h3>
-        <Link to="/welcome/2" className="btn btn-primary">
-          Next
-        </Link>
-      </div>
+          <h3>Welcome!</h3>
+          <input
+            type="password"
+            placeholder="Enter a password."
+            className="form-control"
+            value={this.state.password1}
+            onChange={this.onInput1Change}/>
+          <br/>
+          <input
+            type="password"
+            placeholder="Repeat your password."
+            className="form-control"
+            value={this.state.password2}
+            onChange={this.onInput2Change}/>
+          <button type="submit" className="btn btn-primary" disabled={this.state.match ? '':'disabled'}>Next</button>
+      </form>
     )
   }
 }
+
+export default reduxForm({
+  form: 'PasswordNewForm', //name of the form, doesn't have to be same as component
+  fields: ['password1', 'password2'],
+}, null, null)(Welcome_1)

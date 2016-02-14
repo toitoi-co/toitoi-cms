@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Login from '../containers/login'
+import Login from './login'
 import classnames from 'classnames'
 
 require ('./styles/landing.scss')
