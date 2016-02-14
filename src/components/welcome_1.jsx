@@ -34,6 +34,8 @@ class Welcome_1 extends Component {
     this.setState({ password1: event.target.value })
     if (val !== '' && this.state.password2 === val) {
       this.setState({match: true})
+    } else {
+      this.setState({match: false})
     }
   }
 
@@ -42,6 +44,8 @@ class Welcome_1 extends Component {
     this.setState({ password2: val })
     if (val !== '' && this.state.password1 === val) {
       this.setState({match: true})
+    } else {
+      this.setState({match: false})
     }
   }
 
@@ -51,7 +55,6 @@ class Welcome_1 extends Component {
 
   render() {
     const { fields: {password1, password2}, handleSubmit } = this.props
-    // console.log('match:', this.state.match)
 
     return (
       <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
