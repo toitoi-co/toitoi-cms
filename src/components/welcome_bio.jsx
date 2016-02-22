@@ -6,7 +6,7 @@ require ('./styles/welcome.scss')
 
 const classes = classnames('welcome', {})
 
-export default class Welcome_3 extends Component {
+export default class WelcomeBio extends Component {
   constructor(props) {
     super(props)
     // this.onInputChange = this.onInputChange.bind(this)

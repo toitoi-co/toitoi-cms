@@ -6,7 +6,7 @@ require ('./styles/welcome.scss')
 
 const classes = classnames('welcome', {})
 
-export default class Welcome_2 extends Component {
+export default class WelcomeTheme extends Component {
   constructor(props) {
     super(props)
     // this.onInputChange = this.onInputChange.bind(this)
@@ -18,7 +18,7 @@ export default class Welcome_2 extends Component {
       <div className={classes}>
         <h1>Step 2</h1>
         <h3>Choose a theme!</h3>
-        <Link to="/welcome/3" className="btn btn-primary">
+        <Link to="/welcome/bio" className="btn btn-primary">
           Next
         </Link>
       </div>

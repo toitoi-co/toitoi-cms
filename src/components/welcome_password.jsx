@@ -8,7 +8,7 @@ import classnames from 'classnames'
 require ('./styles/welcome.scss')
 const classes = classnames('welcome', {})
 
-class Welcome_1 extends Component {
+class WelcomePassword extends Component {
   constructor(props) {
     super(props)
     this.state = ({
@@ -50,7 +50,7 @@ class Welcome_1 extends Component {
   }
 
   formSubmit(props) {
-    this.context.router.push('/welcome/2')
+    this.context.router.push('/welcome/theme')
   }
 
   render() {
@@ -82,4 +82,4 @@ class Welcome_1 extends Component {
 export default reduxForm({
   form: 'PasswordNewForm', //name of the form, doesn't have to be same as component
   fields: ['password1', 'password2'],
-}, null, null)(Welcome_1)
+}, null, null)(WelcomePassword)

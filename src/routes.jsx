@@ -4,19 +4,29 @@ import App from './components/app'
 import Landing from './components/landing'
 import Dashboard from './components/dashboard'
 import Welcome from './components/welcome'
-import Welcome_1 from './components/welcome_1'
-import Welcome_2 from './components/welcome_2'
-import Welcome_3 from './components/welcome_3'
+import WelcomePassword from './components/welcome_password'
+import WelcomeTheme from './components/welcome_theme'
+import WelcomeBio from './components/welcome_bio'
+import auth from './shared/auth'
 
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Landing} />
-    <Route path="dashboard" component={Dashboard} />
+    <Route path="dashboard" component={Dashboard} onEnter={requireAuth}/>
     <Route path="welcome" component={Welcome}>
-      <IndexRoute component={Welcome_1} />
-      <Route path="2" component={Welcome_2} />
-      <Route path="3" component={Welcome_3} />
+      <IndexRoute component={WelcomePassword} />
+      <Route path="theme" component={WelcomeTheme} />
+      <Route path="bio" component={WelcomeBio} />
     </Route>
   </Route>
 )
+
+function requireAuth(nextState, replace) {
+  if (!auth.loggedIn()) {
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}

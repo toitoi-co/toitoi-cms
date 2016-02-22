@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import auth from '../shared/auth'
 
 require('./styles/login.scss')
 
@@ -34,13 +35,31 @@ export default class Login extends Component {
     // this.props.fetchWeather(this.state.term)
     // Now, let's clear out the input field to clean up the UI
     // this.setState({term: ''})
-    console.log("password:", this.state.password)
+    console.log('password:', this.state.password)
+
+
+    // from react-router example:
+    // const email = this.refs.email.value
+    // const pass = this.refs.pass.value
+
+    auth.login(this.state.username, this.state.password, (loggedIn) => {
+      if (!loggedIn)
+        return this.setState({ error: true })
+
+      const { location } = this.props
+
+      if (location.state && location.state.nextPathname) {
+        this.context.router.replace(location.state.nextPathname)
+      } else {
+        this.context.router.replace('/')
+      }
+    })
   }
 
   render() {
     return (
       <div className={classes}>
-        <form ref="loginForm" onSubmit={this.handleSubmit}>
+        <form ref="loginForm" onSubmit={this.onFormSubmit}>
           <div className="form-group">
           <label><input
             type="text"
