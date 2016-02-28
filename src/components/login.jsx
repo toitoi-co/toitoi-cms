@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { reduxForm } from 'redux-form'
+import { loginUser } from '../actions/index'
+import { Link } from 'react-router'
 import classnames from 'classnames'
-import auth from '../shared/auth'
-
 require('./styles/login.scss')
 
 const classes = classnames('login', {})
@@ -9,71 +10,50 @@ const classes = classnames('login', {})
 export default class Login extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      username: '',
-      password: '',
-      error: false
-    }
-
-    this.onUsernameInputChange = this.onUsernameInputChange.bind(this)
-    this.onPasswordInputChange = this.onPasswordInputChange.bind(this)
-    this.onFormSubmit = this.onFormSubmit.bind(this)
   }
 
-  onUsernameInputChange(event) {
-    this.setState({ username: event.target.value })
-  }
+  static contextTypes = {
+    router: PropTypes.object
+  };
 
-  onPasswordInputChange(event) {
-    this.setState({ password: event.target.value })
-  }
-
-  onFormSubmit(event) {
+  formSubmit(creds) {
     event.preventDefault()
-    // We need to go and fetch weather data
-    // this.props.fetchWeather(this.state.term)
-    // Now, let's clear out the input field to clean up the UI
-    // this.setState({term: ''})
-    console.log('password:', this.state.password)
 
+    //test api call to local node jwt server
+    // this.props.loginUser(creds)
+    //   .then(() => {
+    //     // console.log('props:',this.props)
+    //     if (this.props.loginData.success) {
+    //       // enable the following when rest of page is ready
+    //       this.context.router.push('/dashboard')
+    //     }
+    //   })
 
-    // from react-router example:
-    // const email = this.refs.email.value
-    // const pass = this.refs.pass.value
-
-    auth.login(this.state.username, this.state.password, (loggedIn) => {
-      if (!loggedIn)
-        return this.setState({ error: true })
-
-      const { location } = this.props
-
-      if (location.state && location.state.nextPathname) {
-        this.context.router.replace(location.state.nextPathname)
-      } else {
-        this.context.router.replace('/')
-      }
-    })
+    this.context.router.push('/dashboard')
   }
 
   render() {
+    const { fields: { username, password }, handleSubmit, loginData } = this.props;
     return (
       <div className={classes}>
-        <form ref="loginForm" onSubmit={this.onFormSubmit}>
+        <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
           <div className="form-group">
-          <label><input
-            type="text"
-            placeholder="joe@example.com"
-            ref="email"
-            value={this.state.username}
-            onChange={this.onUsernameInputChange}/></label>
+            <label><input
+              type="text"
+              placeholder="joe@example.com"
+              onChange={this.handleUsernameInputChange}
+              {...username} /></label>
+            <div className="text-help">
+              {username.touched ? username.error:''}
+            </div>
             <label><input
               type="password"
               placeholder="password"
-              ref="pass"
-              value={this.state.password}
-              onChange={this.onPasswordInputChange}/></label>
-            {/*(hint: password1)<br />*/}
+              onChange={this.handlePasswordInputChange}
+              {...password} /></label>
+              <div className="text-help">
+                {password.touched ? password.error:''}
+              </div>
           </div>
           {/*
           First time here?<br/>
@@ -81,7 +61,36 @@ export default class Login extends Component {
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
           <button type="submit">login</button>
         </form>
+        {/*{this.renderSuccess(this.props)}*/}
+        {this.props.loginData.token}
+
       </div>
     )
   }
 }
+
+function validate(values) {
+  const errors = {}
+
+  if (!values.username) {
+    errors.username = 'Enter your username'
+  }
+  if (!values.password) {
+    errors.password = 'Enter your password.'
+  }
+
+  return errors
+}
+
+
+// connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
+// reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
+export default reduxForm({
+  form: 'LoginForm', //name of the form, doesn't have to be same as component
+  fields: ['username', 'password'],
+  validate
+},
+state => ({ // mapStateToProps
+  loginData: state.login
+}),
+{ loginUser })(Login)
