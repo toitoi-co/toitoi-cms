@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
-import { loginUser } from '../actions/index'
+import { loginUser, requestToken } from '../actions/index'
 import { Link } from 'react-router'
 import classnames from 'classnames'
 require('./styles/login.scss')
@@ -18,22 +18,25 @@ export default class Login extends Component {
 
   formSubmit(creds) {
     event.preventDefault()
+    this.props.loginUser(creds)
+  }
 
-    //test api call to local node jwt server
-    // this.props.loginUser(creds)
-    //   .then(() => {
-    //     // console.log('props:',this.props)
-    //     if (this.props.loginData.success) {
-    //       // enable the following when rest of page is ready
-    //       this.context.router.push('/dashboard')
-    //     }
-    //   })
+  getTokenHandler() {
+    event.preventDefault()
+    this.props.requestToken()
+  }
 
-    this.context.router.push('/dashboard')
+  componentDidUpdate() {
+    if (this.props.loginData.auth && this.props.loginData.token) {
+      // console.log('props:', this.props.loginData)
+      // this.setState({loginData.error: ''})
+      // enable the following when rest of page is ready
+      this.context.router.push('/dashboard')
+    }
   }
 
   render() {
-    const { fields: { username, password }, handleSubmit, loginData } = this.props;
+    const { fields: { email, password }, handleSubmit, loginData } = this.props;
     return (
       <div className={classes}>
         <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
@@ -42,9 +45,9 @@ export default class Login extends Component {
               type="text"
               placeholder="joe@example.com"
               onChange={this.handleUsernameInputChange}
-              {...username} /></label>
+              {...email} /></label>
             <div className="text-help">
-              {username.touched ? username.error:''}
+              {email.touched ? email.error:''}
             </div>
             <label><input
               type="password"
@@ -53,15 +56,15 @@ export default class Login extends Component {
               {...password} /></label>
               <div className="text-help">
                 {password.touched ? password.error:''}
+                {loginData.error}
               </div>
           </div>
           {/*
           First time here?<br/>
           <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
-          <button type="submit">login</button>
+          <button type="submit">login</button><br/><br/>
         </form>
-        {/*{this.renderSuccess(this.props)}*/}
         {this.props.loginData.token}
 
       </div>
@@ -72,8 +75,8 @@ export default class Login extends Component {
 function validate(values) {
   const errors = {}
 
-  if (!values.username) {
-    errors.username = 'Enter your username'
+  if (!values.email) {
+    errors.email = 'Enter your email'
   }
   if (!values.password) {
     errors.password = 'Enter your password.'
@@ -87,10 +90,10 @@ function validate(values) {
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
 export default reduxForm({
   form: 'LoginForm', //name of the form, doesn't have to be same as component
-  fields: ['username', 'password'],
+  fields: ['email', 'password'],
   validate
 },
 state => ({ // mapStateToProps
   loginData: state.login
 }),
-{ loginUser })(Login)
+{ loginUser, requestToken })(Login)
