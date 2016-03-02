@@ -4,10 +4,7 @@ const INITIAL_STATE = { auth: null, user: null, error: null, token: null }
 
 export default function(state = INITIAL_STATE, action) {
 
-  console.log('payload:', action.payload)
   switch(action.type){
-    // case LOGIN_REQUEST:
-    //   return { ...state, user:action.payload.data }
     case LOGIN_SUCCESS:
       return { ...state, auth: true, user: action.payload.data }
     case LOGIN_FAILURE:

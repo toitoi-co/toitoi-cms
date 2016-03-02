@@ -1,17 +1,20 @@
-import React, { Component } from 'react'
-import classnames from 'classnames'
+'use strict';
 
-require ('./styles/dashboard.scss')
+const React = require('react');
+const classnames = require('classnames');
+const classes = classnames('dashboard', {});
 
-const classes = classnames('dashboard', {})
+require ('./styles/dashboard.scss');
 
-export default class Landing extends Component {
 
-  render() {
+const Dashboard = React.createClass({
+  render: function() {
     return (
       <div className={classes}>
         Dashboard page
       </div>
-    )
+    );
   }
-}
+});
+
+export default Dashboard;

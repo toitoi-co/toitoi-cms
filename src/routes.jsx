@@ -9,8 +9,7 @@ import WelcomeTheme from './components/welcome_theme'
 import WelcomeBio from './components/welcome_bio'
 import auth from './shared/auth'
 
-
-export default (
+const routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Landing} />
     <Route path="dashboard" component={Dashboard} onEnter={requireAuth}/>
@@ -20,7 +19,7 @@ export default (
       <Route path="bio" component={WelcomeBio} />
     </Route>
   </Route>
-)
+);
 
 function requireAuth(nextState, replace) {
   if (!auth.loggedIn()) {
@@ -30,3 +29,5 @@ function requireAuth(nextState, replace) {
     })
   }
 }
+
+export default routes;

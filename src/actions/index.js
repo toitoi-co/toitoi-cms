@@ -1,19 +1,22 @@
-import axios from 'axios'
+// import axios from 'axios'
+'use strict';
 
-export const SET_PASSWORD = 'SET_PASSWORD'
-export const LOGIN_USER = 'LOGIN_USER'
-export const AUTH_SET_TOKEN = 'SET_TOKEN'
-export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN'
-export const AUTH_SET_USER = 'SET_USER'
+const axios = require ('axios')
 
-const LOGIN_URL = 'http://localhost:3000'
+export const SET_PASSWORD = 'SET_PASSWORD';
+export const LOGIN_USER = 'LOGIN_USER';
+export const AUTH_SET_TOKEN = 'SET_TOKEN';
+export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN';
+export const AUTH_SET_USER = 'SET_USER';
+
+const LOGIN_URL = 'http://localhost:3000';
 // using info learned from https://auth0.com/blog/2016/01/04/secure-your-react-and-redux-app-with-jwt-authentication/
 
 // TODO: need to integrate with auth server
 export function setPassword() {
   //make some API request here to set password
   //placeholder, set request = true
-  const request = true
+  const request = true;
 
   return {
     type: SET_PASSWORD,
@@ -48,7 +51,7 @@ function receiveLogin(response) {
 }
 
 function loginError(response) {
-  console.log('error:', response)
+  console.log('error:', response);
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
@@ -77,7 +80,7 @@ function requestToken() {
     })
     .catch((err) => {
       dispatch(loginError(err))
-    })
+    });
   }
 }
 
@@ -99,6 +102,4 @@ export function loginUser(creds) {
       dispatch(loginError(err));
     });
   }
-
-  return null;
 }

@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+'use strict';
 
-export default class App extends Component {
-  render() {
+const React = require('react');
+const { Link } = require('react-router');
+
+const App = React.createClass({
+  render: function() {
     return (
       <div>
         <h1><Link to="/">App Component</Link></h1>
@@ -16,4 +18,6 @@ export default class App extends Component {
       </div>
     );
   }
-}
+});
+
+export default App;
