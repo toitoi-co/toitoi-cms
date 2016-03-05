@@ -1,11 +1,10 @@
 'use strict';
 
-const React = require('react');
-const classnames = require('classnames');
+import React from 'react'
+import classnames from 'classnames';
 const classes = classnames('welcome', {});
 
 require ('./styles/welcome.scss');
-
 
 const Welcome = React.createClass({
   render: function() {

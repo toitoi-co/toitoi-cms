@@ -18,22 +18,26 @@ module.exports = {
     })
   },
 
+  setToken(token) {
+    localStorage.token = token;
+  },
+
   getToken() {
-    return localStorage.token
+    return localStorage.token;
   },
 
   logout(cb) {
-    delete localStorage.token
+    delete localStorage.token;
     if (cb) cb()
-    this.onChange(false)
+    this.onChange(false);
   },
 
   loggedIn() {
-    return !!localStorage.token
+    return !!localStorage.token;
   },
 
   loggedOut() {
-    delete localStorage.token
+    delete localStorage.token;
     return
   },
 
