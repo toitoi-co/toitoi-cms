@@ -27,9 +27,7 @@ let Login = React.createClass({
   },
 
   componentDidUpdate: function() {
-    console.log('comp update');
     if (this.props.loginData.auth && this.props.loginData.token) {
-      console.log('redirect');
       auth.setToken(this.props.loginData.token);
       // enable the following when rest of page is ready
       this.context.router.push('/dashboard');

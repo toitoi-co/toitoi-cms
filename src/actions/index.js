@@ -77,7 +77,7 @@ function requestToken() {
   return function(dispatch) {
     axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
     .then((response) => {
-      console.log('token response:', response)
+      // console.log('token response:', response)
       dispatch(receiveToken(response))
     })
     .catch((err) => {
@@ -94,7 +94,7 @@ export function loginUser(creds) {
 
     axios.post(`${CST.LOGIN_URL}/login`, creds)
     .then((response) => {
-      console.log('login response:', response)
+      // console.log('login response:', response)
       dispatch(receiveLogin(response));
     })
     .then(() => {
@@ -106,7 +106,39 @@ export function loginUser(creds) {
   }
 }
 
+function requestFirebase() {
+  return {
+    type: CST.FIREBASE_REQUEST,
+    isFetching: true
+  }
+}
+
+function receiveFirebase(response) {
+  return {
+    type: CST.FIREBASE_RECEIVE,
+    isFetching: false,
+    payload: response
+  }
+}
+
+function firebaseError(response) {
+  return {
+    type: CST.FIREBASE_FAILURE,
+    isFetching: false,
+    payload: response
+  }
+}
+
 export function getFirebaseData() {
-
-
+  return function(dispatch) {
+    dispatch(requestFirebase());
+    firebaseRef.on('value', function(snapshot) {
+      dispatch(receiveFirebase(snapshot.val()));
+      // base.setState({dashboardData: snapshot.val()});
+    }, function (errorObject) {
+      dispatch(firebaseError(errorObject));
+      console.log('The read failed: ' + errorObject.code);
+      // base.setState({error: 'The read failed: ' + errorObject.code});
+    });
+  }
 }
