@@ -1,15 +1,20 @@
 // import axios from 'axios'
 'use strict';
 
-const axios = require ('axios')
+const CST = require('../shared/constants');
+const axios = require('axios');
+const Firebase = require('firebase');
+const firebaseRef = new Firebase(CST.FIREBASE_URL);
 
+
+/*** TODO remove the following after setpassword code is finalized ***/
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const LOGIN_USER = 'LOGIN_USER';
 export const AUTH_SET_TOKEN = 'SET_TOKEN';
 export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN';
 export const AUTH_SET_USER = 'SET_USER';
 
-const LOGIN_URL = 'http://localhost:3000';
+
 // using info learned from https://auth0.com/blog/2016/01/04/secure-your-react-and-redux-app-with-jwt-authentication/
 
 // TODO: need to integrate with auth server
@@ -23,16 +28,13 @@ export function setPassword() {
     payload: request
   }
 }
+/*** end of TODO ***/
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const TOKEN_SUCCESS = 'TOKEN_SUCCESS'
+
 
 function requestLogin(creds) {
   return {
-    type: LOGIN_REQUEST,
+    type: CST.LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
     hasToken: false,
@@ -42,7 +44,7 @@ function requestLogin(creds) {
 
 function receiveLogin(response) {
   return {
-    type: LOGIN_SUCCESS,
+    type: CST.LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
     hasToken: false,
@@ -53,7 +55,7 @@ function receiveLogin(response) {
 function loginError(response) {
   console.log('error:', response);
   return {
-    type: LOGIN_FAILURE,
+    type: CST.LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
     hasToken: false,
@@ -63,7 +65,7 @@ function loginError(response) {
 
 function receiveToken(response) {
   return {
-    type: TOKEN_SUCCESS,
+    type: CST.TOKEN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
     hasToken: true,
@@ -73,7 +75,7 @@ function receiveToken(response) {
 
 function requestToken() {
   return function(dispatch) {
-    axios.post(`${LOGIN_URL}/generate-token`, null, { withCredentials: true })
+    axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
     .then((response) => {
       console.log('token response:', response)
       dispatch(receiveToken(response))
@@ -90,7 +92,7 @@ export function loginUser(creds) {
   return function(dispatch) {
     dispatch(requestLogin(creds))
 
-    axios.post(`${LOGIN_URL}/login`, creds)
+    axios.post(`${CST.LOGIN_URL}/login`, creds)
     .then((response) => {
       console.log('login response:', response)
       dispatch(receiveLogin(response));
@@ -102,4 +104,9 @@ export function loginUser(creds) {
       dispatch(loginError(err));
     });
   }
+}
+
+export function getFirebaseData() {
+
+
 }

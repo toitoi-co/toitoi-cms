@@ -1,45 +1,46 @@
 'use strict';
 
+const CST = require('../shared/constants');
 import React from 'react';
-import Firebase from 'firebase';
+// import Firebase from 'firebase';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 
+require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
 
-require ('./styles/dashboard.scss');
-
 function loginToFirebase(base) {
-  let ref = new Firebase('https://toitoidev.firebaseio.com');
-  // ref.authWithCustomToken("AUTH_TOKEN", function(error, authData) {
-  ref.authWithCustomToken(auth.getToken(), function(error, authData) {
-    if (error) {
-      console.log("Authentication Failed!", error);
-      base.setState({error: error});
-    } else {
-      console.log("Authenticated successfully with payload:", authData);
-      getData(base);
-    }
-  });
+  // let ref = new Firebase('https://toitoidev.firebaseio.com');
+  // ref.authWithCustomToken(auth.getToken(), function(error, authData) {
+  //   if (error) {
+  //     console.log("Authentication Failed!", error);
+  //     base.setState({error: error});
+  //   } else {
+  //     console.log("Authenticated successfully with payload:", authData);
+  //     getData(base);
+  //   }
+  // });
 }
 
 function getData(base) {
-  let ref = new Firebase('https://toitoidev.firebaseio.com/buckets/sites/test%2C1example%2C1com/somebucketsecretkey/dev/contentType');
-
-  // Attach an asynchronous callback to read the data
-  ref.on('value', function(snapshot) {
-    // console.log('contentType:', snapshot.val());
-    base.setState({dashboardData: snapshot.val()});
-  }, function (errorObject) {
-    // console.log('The read failed: ' + errorObject.code);
-    base.setState({error: 'The read failed: ' + errorObject.code});
-  });
+  // let ref = new Firebase('https://toitoidev.firebaseio.com/buckets/sites/test%2C1example%2C1com/somebucketsecretkey/dev/contentType');
+  //
+  // // Attach an asynchronous callback to read the data
+  // ref.on('value', function(snapshot) {
+  //   // console.log('contentType:', snapshot.val());
+  //   base.setState({dashboardData: snapshot.val()});
+  // }, function (errorObject) {
+  //   // console.log('The read failed: ' + errorObject.code);
+  //   base.setState({error: 'The read failed: ' + errorObject.code});
+  // });
 }
 
 
 function setData(base) {
+  // let ref = new Firebase('https://toitoidev.firebaseio.com/buckets/test%2C1example%2C1com/somebucketsecretkey/dev/contentType/aboutme/controls');
   let ref = new Firebase('https://toitoidev.firebaseio.com/buckets/test%2C1example%2C1com/somebucketsecretkey/dev/contentType/aboutme/controls');
   let controlsRef = ref.child('controls');
+
   ref.on('value', function(snapshot) {
     console.log('controls:', snapshot.val());
 
@@ -63,18 +64,18 @@ function setData(base) {
     console.log('The read failed: ' + errorObject.code);
   });
 
-  ref.push(
-    {
-      "controlType": "image",
-      "help": "Use as large a photo as possible. Image should be taller vertically than horizontally. A classic profile shot.",
-      "hidden": false,
-      "label": "Photo",
-      "locked": false,
-      "name": "photo",
-      "required": true,
-      "showInCms": true
-    }
-  );
+  // ref.push(
+  //   {
+  //     "controlType": "image",
+  //     "help": "Use as large a photo as possible. Image should be taller vertically than horizontally. A classic profile shot.",
+  //     "hidden": false,
+  //     "label": "Photo",
+  //     "locked": false,
+  //     "name": "photo",
+  //     "required": true,
+  //     "showInCms": true
+  //   }
+  // );
 
   // let ref= new Firebase('https://l5zx9dwl7rd.firebaseio-demo.com');
   // ref.on('value', function(snapshot) {
@@ -104,6 +105,8 @@ function updateData2(event) {
 }
 
 const Dashboard = React.createClass({
+
+
   getInitialState: function() {
     setData(this);
     return {
