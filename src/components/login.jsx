@@ -1,7 +1,7 @@
 'use strict';
 
 const CST = require('../shared/constants');
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { loginUser, requestToken } from '../actions/index';
 import { Link } from 'react-router';
@@ -64,7 +64,7 @@ let Login = React.createClass({
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
           <button type="submit">login</button><br/><br/>
         </form>
-        {this.props.loginData.token}
+        {/*{this.props.loginData.token}*/}
 
       </div>
     )

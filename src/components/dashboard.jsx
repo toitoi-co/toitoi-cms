@@ -1,7 +1,7 @@
 'use strict';
 
 const CST = require('../shared/constants');
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { getFirebaseData, updateSingleFirebaseData } from '../actions/index';
@@ -13,6 +13,10 @@ const classes = classnames('dashboard', {});
 
 
 let Dashboard = React.createClass({
+  contextTypes: {
+    router: PropTypes.object
+  },
+
   getInitialState: function() {
     return { };
     this.updateData = this.updateData.bind(this);
@@ -30,6 +34,12 @@ let Dashboard = React.createClass({
     this.props.getFirebaseData();
   },
 
+  logout: function(event) {
+    event.preventDefault;
+    auth.logout();
+    this.context.router.push('/');
+  },
+
   componentWillUpdate: function() {
     // console.log('dashboardData:', this.props.dashboardData);
   },
@@ -44,8 +54,9 @@ let Dashboard = React.createClass({
     if (!this.props.error && !this.props.dashboardData) {
       return (
         <div>
-          Loading...<br/>
-        <button onClick={this.updateData}>Get Data</button>
+          {/*Loading...<br/>*/}
+        <button onClick={this.updateData}>Get Data</button><br/><br/>
+        <button onClick={this.logout}>Logout</button><br/><br/>
         </div>
       )
     }
