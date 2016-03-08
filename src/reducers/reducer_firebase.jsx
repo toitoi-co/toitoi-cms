@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { controls: null, dashboardData: null, error: null }
+const INITIAL_STATE = { controls: null, dashboardData: null, error: null, udpated: false }
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type){
@@ -9,6 +9,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, dashboardData: action.payload }
     case CST.FIREBASE_SAVE:
       return { ...state, dashboardData: action.payload }
+    case CST.FIREBASE_UPDATE:
+      return { ...state, updated: true }
     case CST.FIREBASE_FAILURE:
       return { ...state, error: action.payload }
     default:

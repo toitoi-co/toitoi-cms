@@ -3,7 +3,8 @@
 const CST = require('../shared/constants');
 import React from 'react';
 import { connect } from 'react-redux';
-import { getFirebaseData } from '../actions/index';
+import { reduxForm } from 'redux-form';
+import { getFirebaseData, updateSingleFirebaseData } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 
@@ -11,10 +12,17 @@ require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
 
 
-const Dashboard = React.createClass({
+let Dashboard = React.createClass({
   getInitialState: function() {
-    return {};
+    return { };
     this.updateData = this.updateData.bind(this);
+  },
+
+  formSubmit: function(entry) {
+    event.preventDefault();
+    // this.props.loginUser(creds);
+    console.log('entry:', entry);
+    this.props.updateSingleFirebaseData(entry);
   },
 
   updateData: function(event) {
@@ -23,12 +31,16 @@ const Dashboard = React.createClass({
   },
 
   componentWillUpdate: function() {
-    console.log('dashboardData:', this.props.dashboardData);
+    // console.log('dashboardData:', this.props.dashboardData);
   },
 
+  componentWillReceiveProps: function() {
+  },
+
+
   render: function() {
-    console.log('props:', this.props);
-    console.log('dashboardData:', this.props.dashboardData);
+    const { fields: { key, name, description }, entryKey, handleSubmit, dashboardData, error, updated } = this.props;
+
     if (!this.props.error && !this.props.dashboardData) {
       return (
         <div>
@@ -41,25 +53,85 @@ const Dashboard = React.createClass({
       return (
         <div className={classes}>
           Dashboard page
-          <div>{this.state.error}</div>
+          <div>{this.props.error}</div>
         </div>
       );
     } else {
       return (
         <div className={classes}>
           Dashboard page<br/>
-          {/*<div>{auth.getToken()}</div>*/}
           <div>{JSON.stringify(this.props.dashboardData)}</div>
+        <form onSubmit={handleSubmit(this.formSubmit)} onFocus={() => {
+            this.props.fields.key.onChange(this.props.entryKey);
+          }}>
+            <div className="form-group">
+              <label>Name<br/><input
+                type="text"
+                value={this.props.dashboardData.name}
+                onChange=''
+                {...name} /></label>
+              <div className="text-help">
+                {/*{name.touched ? name.error:''}*/}
+              </div>
+              <label>Description<br/><textarea
+                type="text"
+                value={this.props.dashboardData.description}
+                onChange=''
+                {...description} /></label>
+                <div className="text-help">
+                  {/*{description.touched ? description.error:''}*/}
+                  {dashboardData.error}
+                </div>
+            </div>
+            <button type="submit">Update Data</button><br/><br/>
+          <div>{ this.props.updated ? 'Saved!' : '' }</div>
+          </form>
         </div>
       );
     }
   }
 });
 
+function validate(values) {
+  const errors = {};
+  if (!values.name) {
+    errors.name = 'Enter a title';
+  }
+  if (!values.description) {
+    errors.description = 'Enter a description.';
+  }
 
-function mapStateToProps(state) {
-  console.log('state:', state);
-  return { dashboardData: state.firebase.dashboardData };
+  return errors;
 }
 
-export default connect(mapStateToProps, { getFirebaseData })(Dashboard);
+function mapStateToProps(state) {
+  // console.log('state:', state);
+  if (state.firebase.updated) {
+    let thisKey = Object.keys(state.firebase.dashboardData)[0];
+    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey], updated: state.firebase.updated };
+  }
+
+  if (state.firebase.error) {
+    return { error: state.firebase.error }
+  }
+
+  if (state.firebase.dashboardData) {
+    let thisKey = Object.keys(state.firebase.dashboardData)[0];
+    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey] };
+  }
+}
+//
+// export default connect(mapStateToProps, { getFirebaseData, updateSingleFirebaseData })(Dashboard);
+
+
+// connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
+// reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
+Dashboard = reduxForm({
+  form: 'DashboardForm', //name of the form, doesn't have to be same as component
+  fields: ['key', 'name', 'description'],
+  // validate
+},
+mapStateToProps,
+{ getFirebaseData, updateSingleFirebaseData })(Dashboard)
+
+export default Dashboard;

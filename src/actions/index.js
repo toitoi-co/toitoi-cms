@@ -121,6 +121,13 @@ function receiveFirebase(response) {
   }
 }
 
+function updateFirebase() {
+  return {
+    type: CST.FIREBASE_UPDATE,
+    isFetching: false
+  }
+}
+
 function firebaseError(response) {
   return {
     type: CST.FIREBASE_FAILURE,
@@ -134,11 +141,33 @@ export function getFirebaseData() {
     dispatch(requestFirebase());
     firebaseRef.on('value', function(snapshot) {
       dispatch(receiveFirebase(snapshot.val()));
-      // base.setState({dashboardData: snapshot.val()});
     }, function (errorObject) {
       dispatch(firebaseError(errorObject));
       console.log('The read failed: ' + errorObject.code);
-      // base.setState({error: 'The read failed: ' + errorObject.code});
+    });
+  }
+}
+
+export function updateSingleFirebaseData(entry) {
+  return function(dispatch) {
+    // get firebase-generated key from object
+    let childRef = firebaseRef.child(entry.key);
+    // store attributes into object for passing into Firebase
+    let updateObj = {};
+    for (var prop in entry) {
+      if (prop != 'key') {
+        updateObj[prop] = entry[prop];
+        // console.log('prop:', entry[prop]);
+      }
+    }
+    childRef.update(updateObj, function(error){
+      if (error) {
+        console.log('Data could not be saved.' + error);
+        dispatch(updateFirebase(error));
+      } else {
+        // console.log('Data saved successfully.');
+        dispatch(updateFirebase());
+      }
     });
   }
 }
