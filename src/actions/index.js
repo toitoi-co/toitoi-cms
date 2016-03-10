@@ -30,6 +30,26 @@ export function setPassword() {
 }
 /*** end of TODO ***/
 
+// Calls the API to get a token and
+// dispatches actions along the way
+export function loginUser(creds) {
+  return function(dispatch) {
+    dispatch(requestLogin(creds))
+
+    axios.post(`${CST.LOGIN_URL}/login`, creds)
+    .then((response) => {
+      // console.log('login response:', response)
+      dispatch(receiveLogin(response));
+    })
+    .then(() => {
+      dispatch(requestToken());
+    })
+    .catch((err) => {
+      dispatch(loginError(err));
+    });
+  }
+}
+
 function requestLogin(creds) {
   return {
     type: CST.LOGIN_REQUEST,
@@ -61,16 +81,6 @@ function loginError(response) {
   }
 }
 
-function receiveToken(response) {
-  return {
-    type: CST.TOKEN_SUCCESS,
-    isFetching: false,
-    isAuthenticated: true,
-    hasToken: true,
-    payload: response
-  }
-}
-
 function requestToken() {
   return function(dispatch) {
     axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
@@ -84,22 +94,24 @@ function requestToken() {
   }
 }
 
-// Calls the API to get a token and
-// dispatches actions along the way
-export function loginUser(creds) {
-  return function(dispatch) {
-    dispatch(requestLogin(creds))
+function receiveToken(response) {
+  return {
+    type: CST.TOKEN_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    hasToken: true,
+    payload: response
+  }
+}
 
-    axios.post(`${CST.LOGIN_URL}/login`, creds)
-    .then((response) => {
-      // console.log('login response:', response)
-      dispatch(receiveLogin(response));
-    })
-    .then(() => {
-      dispatch(requestToken());
-    })
-    .catch((err) => {
-      dispatch(loginError(err));
+export function getFirebaseData() {
+  return function(dispatch) {
+    dispatch(requestFirebase());
+    firebaseRef.on('value', function(snapshot) {
+      dispatch(receiveFirebase(snapshot.val()));
+    }, function (errorObject) {
+      dispatch(firebaseError(errorObject));
+      console.log('The read failed: ' + errorObject.code);
     });
   }
 }
@@ -119,30 +131,11 @@ function receiveFirebase(response) {
   }
 }
 
-function updateFirebase() {
-  return {
-    type: CST.FIREBASE_UPDATE,
-    isFetching: false
-  }
-}
-
 function firebaseError(response) {
   return {
     type: CST.FIREBASE_FAILURE,
     isFetching: false,
     payload: response
-  }
-}
-
-export function getFirebaseData() {
-  return function(dispatch) {
-    dispatch(requestFirebase());
-    firebaseRef.on('value', function(snapshot) {
-      dispatch(receiveFirebase(snapshot.val()));
-    }, function (errorObject) {
-      dispatch(firebaseError(errorObject));
-      console.log('The read failed: ' + errorObject.code);
-    });
   }
 }
 
@@ -155,7 +148,6 @@ export function updateSingleFirebaseData(entry) {
     for (var prop in entry) {
       if (prop != 'key') {
         updateObj[prop] = entry[prop];
-        // console.log('prop:', entry[prop]);
       }
     }
     childRef.update(updateObj, function(error){
@@ -163,10 +155,16 @@ export function updateSingleFirebaseData(entry) {
         console.log('Data could not be saved.' + error);
         dispatch(updateFirebase(error));
       } else {
-        // console.log('Data saved successfully.');
         dispatch(updateFirebase());
       }
     });
+  }
+}
+
+function updateFirebase() {
+  return {
+    type: CST.FIREBASE_UPDATE,
+    isFetching: false
   }
 }
 

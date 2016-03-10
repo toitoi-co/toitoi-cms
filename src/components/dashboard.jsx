@@ -51,7 +51,6 @@ let Dashboard = React.createClass({
   },
 
   componentWillUpdate: function() {
-    // console.log('dashboardData:', this.props.dashboardData);
   },
 
   componentWillReceiveProps: function() {
@@ -129,32 +128,14 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-  // console.log('state:', state);
-
-  if (state.publish.published) {
-    let thisKey = Object.keys(state.firebase.dashboardData)[0];
-    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey], published: state.publish.published };
-  }
-
-  if (state.firebase.updated) {
-    let thisKey = Object.keys(state.firebase.dashboardData)[0];
-    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey], updated: state.firebase.updated };
-  }
-
-  if (state.firebase.error) {
-    return { error: state.firebase.error }
-  }
-
-  if (state.firebase.dashboardData) {
-    // console.log('state',state);
-    let thisKey = Object.keys(state.firebase.dashboardData)[0];
-    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey]};
-  }
-
+    return {
+      dashboardData: state.firebase.dashboardData,
+      entryKey: state.firebase.key,
+      error: state.firebase.error,
+      published: state.publish.published,
+      updated: state.firebase.updated
+    };
 }
-//
-// export default connect(mapStateToProps, { getFirebaseData, updateSingleFirebaseData })(Dashboard);
-
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
