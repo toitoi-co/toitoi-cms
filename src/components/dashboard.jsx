@@ -4,7 +4,7 @@ const CST = require('../shared/constants');
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { getFirebaseData, updateSingleFirebaseData } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 
@@ -29,15 +29,25 @@ let Dashboard = React.createClass({
     this.props.updateSingleFirebaseData(entry);
   },
 
-  updateData: function(event) {
+  getDataHandler: function(event) {
     event.preventDefault;
     this.props.getFirebaseData();
   },
 
-  logout: function(event) {
+  publishSiteHandler: function(event) {
+    event.preventDefault;
+    this.props.publishSite(auth.getToken());
+  },
+
+  logoutHandler: function(event) {
     event.preventDefault;
     auth.logout();
     this.context.router.push('/');
+  },
+
+  componentDidMount: function() {
+    // let webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
+    // webSocketRef.onopen = function(evt);
   },
 
   componentWillUpdate: function() {
@@ -49,14 +59,14 @@ let Dashboard = React.createClass({
 
 
   render: function() {
-    const { fields: { key, name, description }, entryKey, handleSubmit, dashboardData, error, updated } = this.props;
+    const { fields: { key, name, description }, entryKey, handleSubmit, dashboardData, error, updated, published } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (
         <div>
           {/*Loading...<br/>*/}
-        <button onClick={this.updateData}>Get Data</button><br/><br/>
-        <button onClick={this.logout}>Logout</button><br/><br/>
+        <button onClick={this.getDataHandler}>Get Data</button><br/><br/>
+        <button onClick={this.logoutHandler}>Logout</button><br/><br/>
         </div>
       )
     }
@@ -95,7 +105,10 @@ let Dashboard = React.createClass({
                 </div>
             </div>
             <button type="submit">Update Data</button><br/><br/>
-          <div>{ this.props.updated ? 'Saved!' : '' }</div>
+            <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
+            <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+            <div>{ this.props.updated ? 'Saved!' : '' }</div>
+            <div>{ this.props.published }</div>
           </form>
         </div>
       );
@@ -117,6 +130,12 @@ function validate(values) {
 
 function mapStateToProps(state) {
   // console.log('state:', state);
+
+  if (state.publish.published) {
+    let thisKey = Object.keys(state.firebase.dashboardData)[0];
+    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey], published: state.publish.published };
+  }
+
   if (state.firebase.updated) {
     let thisKey = Object.keys(state.firebase.dashboardData)[0];
     return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey], updated: state.firebase.updated };
@@ -127,9 +146,11 @@ function mapStateToProps(state) {
   }
 
   if (state.firebase.dashboardData) {
+    // console.log('state',state);
     let thisKey = Object.keys(state.firebase.dashboardData)[0];
-    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey] };
+    return { entryKey: thisKey, dashboardData: state.firebase.dashboardData[thisKey]};
   }
+
 }
 //
 // export default connect(mapStateToProps, { getFirebaseData, updateSingleFirebaseData })(Dashboard);
@@ -143,6 +164,6 @@ Dashboard = reduxForm({
   // validate
 },
 mapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData })(Dashboard)
+{ getFirebaseData, updateSingleFirebaseData, publishSite })(Dashboard)
 
 export default Dashboard;

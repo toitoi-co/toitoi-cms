@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { controls: null, dashboardData: null, error: null, udpated: false }
+const INITIAL_STATE = { controls: null, dashboardData: null, error: null, updated: false }
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type){
