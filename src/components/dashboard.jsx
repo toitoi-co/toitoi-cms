@@ -24,8 +24,6 @@ let Dashboard = React.createClass({
 
   formSubmit: function(entry) {
     event.preventDefault();
-    // this.props.loginUser(creds);
-    console.log('entry:', entry);
     this.props.updateSingleFirebaseData(entry);
   },
 
