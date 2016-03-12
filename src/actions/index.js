@@ -35,8 +35,8 @@ export function setPassword() {
 export function loginUser(creds) {
   return function(dispatch) {
     dispatch(requestLogin(creds))
-
-    axios.post(`${CST.LOGIN_URL}/login`, creds)
+    // axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.post(`${CST.LOGIN_URL}/login`, creds, { withCredentials: true })
     .then((response) => {
       // console.log('login response:', response)
       dispatch(receiveLogin(response));
@@ -81,7 +81,7 @@ function loginError(response) {
   }
 }
 
-function requestToken() {
+export function requestToken() {
   return function(dispatch) {
     axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
     .then((response) => {
@@ -89,6 +89,7 @@ function requestToken() {
       dispatch(receiveToken(response))
     })
     .catch((err) => {
+      // console.log('token req error:', err)
       dispatch(loginError(err))
     });
   }
@@ -103,6 +104,7 @@ function receiveToken(response) {
     payload: response
   }
 }
+
 
 export function getFirebaseData() {
   return function(dispatch) {

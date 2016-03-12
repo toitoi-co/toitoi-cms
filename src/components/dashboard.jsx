@@ -44,8 +44,6 @@ let Dashboard = React.createClass({
   },
 
   componentDidMount: function() {
-    // let webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
-    // webSocketRef.onopen = function(evt);
   },
 
   componentWillUpdate: function() {
@@ -56,7 +54,7 @@ let Dashboard = React.createClass({
 
 
   render: function() {
-    const { fields: { key, name, description }, entryKey, handleSubmit, dashboardData, error, updated, published } = this.props;
+    const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (

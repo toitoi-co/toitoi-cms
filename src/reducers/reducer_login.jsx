@@ -10,7 +10,7 @@ export default function(state = INITIAL_STATE, action) {
     case CST.LOGIN_SUCCESS:
       return { ...state, auth: true, user: action.payload.data }
     case CST.LOGIN_FAILURE:
-      return { ...state, error: action.payload.data.message }
+      return { ...state, error: action.payload.data }
     case CST.TOKEN_SUCCESS:
       return { ...state, token: action.payload.data.token }
     default:
