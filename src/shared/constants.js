@@ -16,7 +16,7 @@ module.exports = {
   FIREBASE_FAILURE: 'FIREBASE_FAILURE',
 
   // WebSocket
-  WEBSOCKET_URL: 'ws://echo.websocket.org',
+  WEBSOCKET_URL: 'ws://localhost:6557',
   PUBLISH_REQUEST: 'PUBLISH_REQUEST',
   PUBLISH_SUCCESS: 'PUBLISH_SUCCESS',
   PUBLISH_ERROR: 'PUBLISH_ERROR',
