@@ -81,11 +81,26 @@ function loginError(response) {
   }
 }
 
+function firebaseAuthHandler(error, authData) {
+  // return function(dispatch) {
+    if (error) {
+      console.log('Firebase login Failed!', error);
+      // dispatch(loginError(error));
+    } else {
+      console.log('Authenticated successfully with payload:', authData);
+      // dispatch(receiveToken(authData));
+    }
+  // }
+}
+
+
+
 export function requestToken() {
   return function(dispatch) {
     axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
     .then((response) => {
-      // console.log('token response:', response)
+      console.log('token response:', response)
+      firebaseRef.authWithCustomToken(response.data.token, firebaseAuthHandler);
       dispatch(receiveToken(response))
     })
     .catch((err) => {
@@ -108,6 +123,14 @@ function receiveToken(response) {
 
 export function getFirebaseData() {
   return function(dispatch) {
+    /* checks for firebase auth state */
+    // let authData = firebaseRef.getAuth();
+    // if (authData) {
+    //   console.log("User " + authData.uid + " is logged in with " + authData.provider);
+    // } else {
+    //   console.log("User is logged out");
+    // }
+
     dispatch(requestFirebase());
     firebaseRef.on('value', function(snapshot) {
       dispatch(receiveFirebase(snapshot.val()));
@@ -143,10 +166,10 @@ function firebaseError(response) {
 
 export function updateSingleFirebaseData(entry) {
   return function(dispatch) {
-    // get firebase-generated key from object
+    /* get firebase-generated key from object */
     let childRef = firebaseRef.child(entry.key);
-    // store attributes into object for passing into Firebase
-    let updateObj = {};
+    /* store attributes into object for passing into Firebase */
+    let updateObj = { };
     for (var prop in entry) {
       if (prop != 'key') {
         updateObj[prop] = entry[prop];
@@ -160,6 +183,7 @@ export function updateSingleFirebaseData(entry) {
         dispatch(updateFirebase());
       }
     });
+
   }
 }
 

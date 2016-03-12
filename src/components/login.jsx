@@ -27,10 +27,15 @@ let Login = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this.props.loginData.auth && this.props.loginData.token) {
+    if (this.props.loginData.auth && !this.props.loginData.token) {
       auth.setToken(this.props.loginData.token);
+    }
+    if (this.props.loginData.auth && this.props.loginData.token) {
       // enable the following when rest of page is ready
       this.context.router.push('/dashboard');
+
+
+
     }
   },
 
