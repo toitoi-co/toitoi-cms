@@ -6,6 +6,7 @@ const axios = require('axios');
 const Firebase = require('firebase');
 const firebaseRef = new Firebase(CST.FIREBASE_URL);
 const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
+import auth from '../shared/auth';
 
 /*** TODO remove the following after setpassword code is finalized ***/
 export const SET_PASSWORD = 'SET_PASSWORD';
@@ -100,6 +101,7 @@ export function requestToken() {
     axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
     .then((response) => {
       console.log('token response:', response)
+      auth.setToken(response.data.token);
       firebaseRef.authWithCustomToken(response.data.token, firebaseAuthHandler);
       dispatch(receiveToken(response))
     })
@@ -197,11 +199,11 @@ function updateFirebase() {
 export function publishSite(token) {
   return function(dispatch) {
     dispatch(requestPublishSite());
-    webSocketRef.send({
+    webSocketRef.send(JSON.stringify({
       'site': 'demo.toitoi.co',
       'token': token,
       'messageType': 'build'
-    });
+    }));
     webSocketRef.onerror = function(error) {
       console.log('WebSocket Error:', error);
       dispatch(publishSiteError(error));
