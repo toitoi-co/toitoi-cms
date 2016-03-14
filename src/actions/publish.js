@@ -1,11 +1,7 @@
 'use strict';
 
 const CST = require('../shared/constants');
-// const axios = require('axios');
-// const Firebase = require('firebase');
-// const firebaseRef = new Firebase(CST.FIREBASE_URL);
 const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
-// import auth from '../shared/auth';
 
 
 export function publishSite() {

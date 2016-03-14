@@ -83,7 +83,6 @@ let Dashboard = React.createClass({
             <div className="form-group">
               <label>Name<br/><input
                 type="text"
-                value={this.props.dashboardData.name}
                 onChange=''
                 {...name} /></label>
               <div className="text-help">
@@ -91,7 +90,6 @@ let Dashboard = React.createClass({
               </div>
               <label>Description<br/><textarea
                 type="text"
-                value={this.props.dashboardData.description}
                 onChange=''
                 {...description} /></label>
                 <div className="text-help">
@@ -100,11 +98,11 @@ let Dashboard = React.createClass({
                 </div>
             </div>
             <button type="submit">Update Data</button><br/><br/>
-            <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
-            <button onClick={this.logoutHandler}>Logout</button><br/><br/>
-            <div>{ this.props.updated ? 'Saved!' : '' }</div>
-            <div>{ this.props.published }</div>
           </form>
+          <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
+          <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+          <div>{ this.props.updated ? 'Saved!' : '' }</div>
+          <div>{ this.props.published }</div>
         </div>
       );
     }
@@ -125,6 +123,7 @@ function validate(values) {
 
 function mapStateToProps(state) {
     return {
+      initialValues: state.firebase.dashboardData,
       dashboardData: state.firebase.dashboardData,
       entryKey: state.firebase.key,
       error: state.firebase.error,

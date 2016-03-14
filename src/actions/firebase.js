@@ -1,18 +1,9 @@
 'use strict';
 
 const CST = require('../shared/constants');
-const axios = require('axios');
 const Firebase = require('firebase');
 const firebaseRef = new Firebase(CST.FIREBASE_URL);
-const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
 import auth from '../shared/auth';
-
-/*** TODO remove the following after setpassword code is finalized ***/
-export const LOGIN_USER = 'LOGIN_USER';
-export const AUTH_SET_TOKEN = 'SET_TOKEN';
-export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN';
-export const AUTH_SET_USER = 'SET_USER';
-
 
 
 export function getFirebaseData() {
