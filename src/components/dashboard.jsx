@@ -34,7 +34,7 @@ let Dashboard = React.createClass({
 
   publishSiteHandler: function(event) {
     event.preventDefault;
-    this.props.publishSite(auth.getToken());
+    this.props.publishSite();
   },
 
   logoutHandler: function(event) {

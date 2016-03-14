@@ -3,7 +3,7 @@
 const CST = require('../shared/constants');
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { loginUser, requestToken } from '../actions/index';
+import { loginUser, requestToken } from '../actions/login';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import auth from '../shared/auth';
@@ -28,14 +28,13 @@ let Login = React.createClass({
 
   componentDidUpdate: function() {
     if (this.props.loginData.auth && !this.props.loginData.token) {
-      auth.setToken(this.props.loginData.token);
+      /* auth'ed against admin server but not yet against Firebase */
     }
     if (this.props.loginData.auth && this.props.loginData.token) {
+      /* now auth'ed against both servers */
       // enable the following when rest of page is ready
+      // auth.setToken(this.props.loginData.token);
       this.context.router.push('/dashboard');
-
-
-
     }
   },
 
