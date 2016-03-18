@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { getThemes, selectTheme } from '../actions/index';
 import classnames from 'classnames';
 
 require ('./styles/themes.scss');
@@ -12,13 +13,18 @@ const Themes = React.createClass({
 
   installThemeHandler(id) {
     event.preventDefault;
-    console.log('theme installed:', id);
+    this.props.selectTheme(id);
+  },
+
+  getHandler() {
+    event.preventDefault;
+    this.props.getThemes();
   },
 
   renderThemes(themes) {
-    const id = themes.presetId;
+    const id = themes.id;
     const name = themes.name;
-    const img = themes.image;
+    const img = themes.thumbnail;
     const desc = themes.description;
     let base = this;
     return (
@@ -31,22 +37,28 @@ const Themes = React.createClass({
     )
   },
 
+  componentWillMount: function() {
+    // TODO enable following when theme data on backend is populated
+    // this.props.getThemes();
+  },
+
   render: function() {
     const { themes, error, selected } = this.props;
-    console.log('props:',this.props);
+    // console.log('props:',this.props);
     return (
       <div className={classes}>
         Select a Theme
         <ul className="select_themes">
-          {this.props.themes.map(this.renderThemes)}
+          {themes.map(this.renderThemes)}
         </ul>
+        {error}
       </div>
     )
   }
 });
 
 function MapStateToProps(state) {
-  console.log('state:', state);
+  // console.log('state:', state);
     return {
       themes: state.themes.list,
       error: state.themes.error,
@@ -54,4 +66,4 @@ function MapStateToProps(state) {
     };
 }
 
-export default connect(MapStateToProps)(Themes)
+export default connect(MapStateToProps, { getThemes, selectTheme })(Themes)

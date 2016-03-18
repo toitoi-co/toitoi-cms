@@ -12,12 +12,13 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const AUTH_SET_TOKEN = 'SET_TOKEN';
 export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN';
 export const AUTH_SET_USER = 'SET_USER';
+/*** end TODO
 
 
 /* Auth with -admin server then req Firebase token from it. */
 export function loginUser(creds) {
   return function(dispatch) {
-    dispatch(loginRequest())
+    dispatch(loginRequest());
     axios.post(`${CST.LOGIN_URL}/login`, creds, { withCredentials: true })
     .then((response) => {
       // console.log('login response:', response)

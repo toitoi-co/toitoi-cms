@@ -121,7 +121,7 @@ function validate(values) {
   return errors;
 }
 
-function mapStateToProps(state) {
+function MapStateToProps(state) {
     return {
       initialValues: state.firebase.dashboardData,
       dashboardData: state.firebase.dashboardData,
@@ -139,7 +139,7 @@ Dashboard = reduxForm({
   fields: ['key', 'name', 'description'],
   // validate
 },
-mapStateToProps,
+MapStateToProps,
 { getFirebaseData, updateSingleFirebaseData, publishSite })(Dashboard)
 
 export default Dashboard;
