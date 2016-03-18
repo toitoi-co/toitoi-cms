@@ -1,6 +1,6 @@
 'use strict';
 
-const CST = require('../shared/constants');
+// const CST = require('../shared/constants');
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';

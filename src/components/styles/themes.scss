@@ -1,0 +1,11 @@
+.themes {
+  margin: 20px 0;
+  .select_themes {
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    li {
+      margin: 0 20px 50px;
+      max-width: 200px;
+    }
+  }
+}

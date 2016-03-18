@@ -1,5 +1,8 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { published: null, error: null }
+const INITIAL_STATE = {
+  published: null,
+  error: null,
+}
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type){

@@ -43,3 +43,9 @@ function publishSiteError(response) {
     payload: response
   }
 }
+
+export function selectTheme() {
+  return function(dispatch) {
+    
+  }
+}
