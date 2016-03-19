@@ -7,8 +7,11 @@ Primary document guide for all pages and sections of the toitoi CMS.
 <a name="1.0"></a>
 #1.0 Onboarding
 
+
+
 <a name="1.1"></a>
 ##1.1 Get your site Configured
+
 
 <a name="1.1.1"></a>
 ###1.1.1 Set a password
@@ -22,7 +25,6 @@ Section | Type | Content
 **Form** | Form inputs | *Form as outlined in [**1.1.1.2**](#1.1.1.2)*
 **Continue** | Button | *Navigate to [**1.1.2**](#1.1.2)*
 
-
 <a name="1.1.1.2"></a>
 ####1.1.1.2 Form Eelements
 Field | Type | Instruction
@@ -30,6 +32,7 @@ Field | Type | Instruction
 **Password** | input[type=password] | <ul><li>Needs to match re-entered password</li><li>Must contain: <ul><li>Minimum 8 characters</li><li>One number of special character</li></ul></li></ul>
 **Re-Enter Password** | input[type=password] | <ul><li>Needs to match re-entered password</li><li>Must contain: <ul><li>Minimum 8 characters</li><li>One number of special character</li></ul></li></ul>
 **Password strength indicator** | Progress Bar | Visual progress bar that adjusts as the password is being entered
+
 
 <a name="1.1.2"></a>
 ###1.1.2 Confirm your site name
@@ -41,8 +44,8 @@ Section | Type | Content
 **Title** | Heading | "Confirm your site name"
 **Description** | Paragraph | "When you first signed up, you picked a name for your site. Take a moment to confirm this is what you want to call it. This will be your toitoi name from now on and cannot be changed once saved."
 **Form** | Form inputs | *Form as outlined in [**1.1.2.2**](#1.1.2.2)*
-**Have your own domain?** | CTA | *<ul><li>Clicking on this link will provide a text meassage that says the following, and will flag the flow to stop at [**1.1.4**](#1.1.3) where they can upgrade their account to a paid tier. </li><li>"Great! we've made a note and will ask you to upgrade your account in a few steps, don't worry, you'll be able to change your mind between now and then."</li></ul>*
-**Continue** | Button | *Navigate to [**1.1.3**](#1.1.3) or to [**1.1.4**](#1.1.4)*
+**Have your own domain?** | CTA | *<ul><li>Clicking on this link will provide a text meassage that says the following, and will flag the flow to stop at [**1.1.3**](#1.1.3) where they can upgrade their account to a paid tier. </li><li>"Great! we've made a note and will ask you to upgrade your account in a few steps, don't worry, you'll be able to change your mind between now and then."</li></ul>*
+**Continue** | Button | *Navigate to [**1.1.3**](#1.1.3) or to [**1.2.1**](#1.2.1) depending on selection above*
 
 <a name="1.1.2.2"></a>
 ####1.1.2.2 Form Elements
@@ -51,26 +54,44 @@ Field | Type | Instruction
 **Site Name** | input[type=text] | <ul><li>Needs to be a unique identifier</li><li>Maximum 24 characters</li><li>Cannot contain: <ul><li>Special characters</li><li>Spaces</li></ul>
 **.toitoi.co** | Label | Label that is placed to the right of the input that reads .toitoi.co 
 
+
 <a name="1.1.3"></a>
 ###1.1.3 Select your package
+
+<a name="1.1.3.1"></a>
+####1.1.3.1 Page construction
+Section | Type | Content
+:---  |:---  |:---  
+**Title** | Heading | "Select your package"
+**Description** | Paragraph | "Everyone starts with a free package at toitoi. If you'd like some additional features, or the ability to use your own domain name, please select one of the packages below. Don't worry, you can always change your mind later and either upgrade or downgrade your account!"
+**Table** | Pricing Table | *Display pricing table as outlined in {{something}}*
+**Customize your site** | Button | *Navigate to [**1.2.1**](#1.2.1)*
+
+
 
 <a name="1.2"></a>
 ##1.2 Customize your site
 
+
 <a name="1.2.1"></a>
 ###1.2.1 Pick a theme
+
 
 <a name="1.2.2"></a>
 ###1.2.2 Pick your colour scheme
 
+
 <a name="1.2.4"></a>
 ###1.2.4 Upload a hero image
+
 
 <a name="1.2.5"></a>
 ###1.2.5 Customize your hero area
 
+
 <a name="1.2.6"></a>
 ###1.2.6 Set up your domain name
+
 
 
 <a name="1.3"></a>
@@ -97,14 +118,22 @@ This section will effectively iterate through the content groups in the followin
 <a name="2.0"></a>
 #2.0 About you
 
+
+
 <a name="2.1"></a>
 ##2.1 What's your full name?
+
+
 
 <a name="2.2"></a>
 ##2.2 What do you look like?
 
+
+
 <a name="2.3"></a>
 ##2.3 Are you on Schmopera?
+
+
 
 <a name="2.4"></a>
 ##2.4 What do you do?
