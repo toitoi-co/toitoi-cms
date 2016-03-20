@@ -17,7 +17,7 @@ Section | Type | Content
 **Title** | Heading | "Welcome to your site!"
 **Description** | Paragraph | "Hello, it's nice to see you again here at toitoi.co. We need you to sign in with your username and password to make sure you are who you say you are. If you think you're in the wrong place, head on over to [http://toitoi.co](http://toitoi.co)"
 **Form** | Form inputs | *Form as outlined in [**0.0.2 Form elements**](#0.0.2)*
-**Forgot your password?** | CTA | *Navigate to [**0.0.3 Password Recovery**](#0.0.4)*
+**Forgot your password?** | CTA | *Navigate to [**0.0.4 Password Recovery**](#0.0.4)*
 **Log in** | Button | *If first time login, send user to [**0.1 - Onboarding**](#0.1) flow, otherwise, land on [**20.0 - Dashboard**](#20.0)*
 
 <a name="0.0.2"></a>
@@ -121,7 +121,7 @@ Section | Type | Content
 **Title** | Heading | "Confirm your site name"
 **Description** | Paragraph | "When you first signed up, you picked a name for your site. Take a moment to confirm this is what you want to call it. This will be your toitoi name from now on and cannot be changed once saved."
 **Form** | Form inputs | *Form as outlined in [**1.2.2 Form elements**](#1.2.2)*
-**Have your own domain?** | CTA | *<ul><li>Clicking on this link will provide a text meassage that says the following, and will flag the flow to stop at [**1.3**](#1.3) where they can upgrade their account to a paid tier. </li><li>"Great! we've made a note and will ask you to upgrade your account in a few steps, don't worry, you'll be able to change your mind between now and then."</li></ul>*
+**Have your own domain?** | CTA | *<ul><li>Clicking on this link will provide a text meassage that says the following, and will flag the flow to stop at [**1.3 Select your package**](#1.3) where they can upgrade their account to a paid tier. </li><li>"Great! we've made a note and will ask you to upgrade your account in a few steps, don't worry, you'll be able to change your mind between now and then."</li></ul>*
 **Continue** | Button | *Navigate to [**1.3 Select your package**](#1.3) or to [**2.1 Pick a theme**](#2.1) depending on selection above*
 
 <a name="1.2.2"></a>
@@ -132,11 +132,11 @@ Field | Type | Instruction
 **.toitoi.co** | Label | Label that is placed to the right of the input that reads .toitoi.co 
 
 
-<a name="1.1.3"></a>
+<a name="1.3"></a>
 ##1.3 Select your package
 `TODO - add general description`
 
-<a name="1.1.3.1"></a>
+<a name="1.3.1"></a>
 ###1.3.1 Page construction
 Section | Type | Content
 :---  |:---  |:---  
