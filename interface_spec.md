@@ -2,43 +2,71 @@
 
 Primary document guide for all pages and sections of the toitoi CMS.
 
+
 ---
+
 
 <a name="0.0"></a>
 #0.0 Login
+`TODO`
 
 <a name="0.0.1"></a>
-##0.0.1 Page Construct
+##0.0.1 Page construct
 Section | Type | Content
 :---  |:---  |:---  
 **Title** | Heading | "Welcome to your site!"
 **Description** | Paragraph | "Hello, it's nice to see you again here at toitoi.co. We need you to sign in with your username and password to make sure you are who you say you are. If you think you're in the wrong place, head on over to [http://toitoi.co](http://toitoi.co)"
-**Form** | Form inputs | *Form as outlined in [**0.0.2**](#0.0.2)*
-**Forgot your password?** | CTA | *Navigate to [**0.0.4**](#0.0.4)*
+**Form** | Form inputs | *Form as outlined in [**0.0.2 Form elements**](#0.0.2)*
+**Forgot your password?** | CTA | *Navigate to [**0.0.3 Password Recovery**](#0.0.4)*
 **Log in** | Button | *If first time login, send user to [**0.1 - Onboarding**](#0.1) flow, otherwise, land on [**20.0 - Dashboard**](#20.0)*
+
+<a name="0.0.2"></a>
+##0.0.2 Form elements
+Field | Type | Instruction
+:---  |:---  |:---  
+**Site Title** | Label | Diplay the site title for this account, based on the subdomain that has been used to reach this cms (http://`sitename`.toitoi.co/)
+**Email Address** | input[type=email] | User's email address for login
+**Password** | input[type=password] | User's password for login
+
+<a name="0.0.3"></a>
+##0.0.3 Business rules
+* **2 failed password attempts**, user will be prompted with a message "Did you forget your password? Click 'Forget your password?' below to recover it"
+* **3 failed password attempts**, CAPTCHA will be displayed and a message "Sorry, you've failed to enter your password at least 3 times, you now have to prove that you're not a robot. Feel free to click below on 'Forget your password?' to recover your password at any point. You have only 2 more tries to guess your password, after which, we will lock your account for security purposes."
+* **5 failed password attempts**, account will be locked, end user will be presented with a link to email support@toitoi.co to get their account unlocked.
 
 <a name="0.0.4"></a>
 ##0.0.4 Password recovery
+`TODO`
 
 <a name="0.0.4.1"></a>
 ###0.0.4.1 Password recovery email
+`TODO`
+
 
 ---
 
+
 <a name="0.1"></a>
 #0.1 Onboarding
+`TODO - add general description`
 
 
 <a name="0.1.1"></a>
-##0.1.1 Configure your site
+##0.1.1 Configure your account
+During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be it's own step and should save content as the user navigates from step to step.
+
+Configuring your site will include the following subsections, in this order:
+
+* [1.0 - Configure your account](#1.0)
+* [2.0 - Customize your site](#2.0)
 
 
 <a name="0.1.2"></a>
 ##0.1.2 Get started with your content
-This section will effectively iterate through the content groups in the following order:
+During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be it's own step and should save content as the user navigates from step to step.
 
-* [1.0 - Configure your site](#1.0)
-* [2.0 - Customize your site layout](#2.0)
+Get started with your content will include the following subsections, in this order:
+
 * [3.0 - About you](#3.0)
 * [4.0 - Social links](#4.0)
 * [5.0 - Gallery](#5.0)
@@ -53,25 +81,28 @@ This section will effectively iterate through the content groups in the followin
 * [14.0 - Schedule / Calendar](#14.0) `Not for MVP`
 
 
+---
+
 
 <a name="1.0"></a>
-#1.0 Configure your site
-
+#1.0 Configure your account
+`TODO - add general description`
 
 <a name="1.1"></a>
 ##1.1 Set a password
+`TODO - add general description, business rules`
 
 <a name="1.1.1"></a>
-###1.1.1 Page Construct
+###1.1.1 Page construct
 Section | Type | Content
 :---  |:---  |:---  
 **Title** | Heading | "Set a password below"
 **Description** | Paragraph | "The first step to securing your site is setting a password. We won't make you remember some crazy complicated thing, however, you do have to put in at least one special character!"
-**Form** | Form inputs | *Form as outlined in [**1.1.2**](#1.1.2)*
-**Continue** | Button | *Navigate to [**1.2**](#1.2)*
+**Form** | Form inputs | *Form as outlined in [**1.1.2 Form elements**](#1.1.2)*
+**Continue** | Button | *Navigate to [**1.2 Confirm your site name**](#1.2)*
 
 <a name="1.1.2"></a>
-###1.1.2 Form Eelements
+###1.1.2 Form elements
 Field | Type | Instruction
 :---  |:---  |:---  
 **Password** | input[type=password] | <ul><li>Needs to match re-entered password</li><li>Must contain: <ul><li>Minimum 8 characters</li><li>One number of special character</li></ul></li></ul>
@@ -81,19 +112,20 @@ Field | Type | Instruction
 
 <a name="1.2"></a>
 ##1.2 Confirm your site name
+`TODO - add general description`
 
 <a name="1.2.1"></a>
-###1.2.1 Page Construct
+###1.2.1 Page construct
 Section | Type | Content
 :---  |:---  |:---  
 **Title** | Heading | "Confirm your site name"
 **Description** | Paragraph | "When you first signed up, you picked a name for your site. Take a moment to confirm this is what you want to call it. This will be your toitoi name from now on and cannot be changed once saved."
-**Form** | Form inputs | *Form as outlined in [**1.2.2**](#1.2.2)*
+**Form** | Form inputs | *Form as outlined in [**1.2.2 Form elements**](#1.2.2)*
 **Have your own domain?** | CTA | *<ul><li>Clicking on this link will provide a text meassage that says the following, and will flag the flow to stop at [**1.3**](#1.3) where they can upgrade their account to a paid tier. </li><li>"Great! we've made a note and will ask you to upgrade your account in a few steps, don't worry, you'll be able to change your mind between now and then."</li></ul>*
-**Continue** | Button | *Navigate to [**1.3**](#1.3) or to [**1.2.1**](#1.2.1) depending on selection above*
+**Continue** | Button | *Navigate to [**1.3 Select your package**](#1.3) or to [**2.1 Pick a theme**](#2.1) depending on selection above*
 
 <a name="1.2.2"></a>
-###1.2.2 Form Elements
+###1.2.2 Form elements
 Field | Type | Instruction
 :---  |:---  |:---  
 **Site Name** | input[type=text] | <ul><li>Needs to be a unique identifier</li><li>Maximum 24 characters</li><li>Cannot contain: <ul><li>Special characters</li><li>Spaces</li></ul>
@@ -102,6 +134,7 @@ Field | Type | Instruction
 
 <a name="1.1.3"></a>
 ##1.3 Select your package
+`TODO - add general description`
 
 <a name="1.1.3.1"></a>
 ###1.3.1 Page construction
@@ -110,42 +143,50 @@ Section | Type | Content
 **Title** | Heading | "Select your package"
 **Description** | Paragraph | "Everyone starts with a free package at toitoi. If you'd like some additional features, or the ability to use your own domain name, please select one of the packages below. Don't worry, you can always change your mind later and either upgrade or downgrade your account!"
 **Table** | Pricing Table | *Display pricing table as outlined in {{something}}*
-**Customize your site** | Button | *Navigate to [**1.2.1**](#1.2.1)*
+**Customize your site** | Button | *Navigate to [**2.1 Pick a theme**](#2.1)*
 
 
 
 <a name="2.0"></a>
 #2.0 Customize your site
-
+`TODO`
 
 <a name="2.1"></a>
 ##2.1 Pick a theme
+`TODO`
 
 
 <a name="2.2"></a>
 ##2.2 Pick your colour scheme
+`TODO`
 
 
 <a name="2.3"></a>
 ##2.3 Upload a hero image
+`TODO`
 
 
 <a name="2.4"></a>
 ##2.4 Customize your hero area
+`TODO`
 
 <a name="2.4.1"></a>
 ###2.4.1 Add a heading
+`TODO`
 
 <a name="2.4.2"></a>
 ###2.4.2 Add some intro text
+`TODO`
 
 <a name="2.4.3"></a>
 ###2.4.3 Make this a carousel
-`Not for MVP`
+`Not for MVP`  
+`TODO`
 
 <a name="2.4.4"></a>
 ###2.4.4 Add a call to action
-`Not for MVP`
+`Not for MVP`  
+`TODO`
 
 
 <a name="2.5"></a>
@@ -261,6 +302,12 @@ Section | Type | Content
 #14.0 Schedule / Calendar
 `Not for MVP`
 
+
+---
+
+
+<a name="20.0"></a>
+#20.0 Dashboard
 
 
 
