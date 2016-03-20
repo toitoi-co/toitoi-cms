@@ -137,11 +137,11 @@ Field | Type | Instruction
 `TODO - add general description`
 
 <a name="1.3.1"></a>
-###1.3.1 Page construction
+###1.3.1 Page construct
 Section | Type | Content
 :---  |:---  |:---  
 **Title** | Heading | "Select your package"
-**Description** | Paragraph | "Everyone starts with a free package at toitoi. If you'd like some additional features, or the ability to use your own domain name, please select one of the packages below. Don't worry, you can always change your mind later and either upgrade or downgrade your account!"
+**Description** | Paragraph | "Everyone starts with a free package with toitoi.co; However, if you'd like some additional features, or the ability to use your own domain name, please select one of the packages below. Don't worry, you can always change your mind later and either upgrade or downgrade your account."
 **Table** | Pricing Table | *Display pricing table as outlined in {{something}}*
 **Customize your site** | Button | *Navigate to [**2.1 Pick a theme**](#2.1)*
 
