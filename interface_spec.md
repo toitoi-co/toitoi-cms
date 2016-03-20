@@ -88,6 +88,20 @@ Section | Type | Content
 <a name="1.2.5"></a>
 ###1.2.5 Customize your hero area
 
+<a name="1.2.5.1"></a>
+####1.2.5.1 Add a heading
+
+<a name="1.2.5.2"></a>
+####1.2.5.2 Add some intro text
+
+<a name="1.2.5.3"></a>
+####1.2.5.3 Make this a carousel
+`Not for MVP`
+
+<a name="1.2.5.4"></a>
+####1.2.5.4 Add a call to action
+`Not for MVP`
+
 
 <a name="1.2.6"></a>
 ###1.2.6 Set up your domain name
