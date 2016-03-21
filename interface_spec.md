@@ -8,7 +8,7 @@ Primary document guide for all pages and sections of the toitoi CMS.
 
 <a name="0.0"></a>
 #0.0 Login
-`TODO`
+`TODO - add general description`
 
 <a name="0.0.1"></a>
 ##0.0.1 Page construct
@@ -18,7 +18,6 @@ Section | Type | Content
 **Description** | Paragraph | "Hello, it's nice to see you again here at toitoi.co. We need you to sign in with your username and password to make sure you are who you say you are. If you think you're in the wrong place, head on over to [http://toitoi.co](http://toitoi.co)"
 **Form** | Form inputs | *Form as outlined in [**0.0.2 Form elements**](#0.0.2)*
 **Forgot your password?** | CTA | *Navigate to [**0.0.4 Password Recovery**](#0.0.4)*
-**Log in** | Button | *If first time login, send user to [**0.1 - Onboarding**](#0.1) flow, otherwise, land on [**20.0 - Dashboard**](#20.0)*
 
 <a name="0.0.2"></a>
 ##0.0.2 Form elements
@@ -27,19 +26,40 @@ Field | Type | Instruction
 **Site Title** | Label | Diplay the site title for this account, based on the subdomain that has been used to reach this cms (http://`sitename`.toitoi.co/)
 **Email Address** | input[type=email] | User's email address for login
 **Password** | input[type=password] | User's password for login
+**Log in** | Button | *<ul><li>If successul first time login, send user to [**0.1 - Onboarding**](#0.1) flow, otherwise, land on [**20.0 - Dashboard**](#20.0)</li><li>If unsuccessful login attempt, refer to [**0.0.3 Business rules**](#0.0.3)*
 
 <a name="0.0.3"></a>
 ##0.0.3 Business rules
 * **2 failed password attempts**, user will be prompted with a message "Did you forget your password? Click 'Forget your password?' below to recover it"
 * **3 failed password attempts**, CAPTCHA will be displayed and a message "Sorry, you've failed to enter your password at least 3 times, you now have to prove that you're not a robot. Feel free to click below on 'Forget your password?' to recover your password at any point. You have only 2 more tries to guess your password, after which, we will lock your account for security purposes."
-* **5 failed password attempts**, account will be locked, end user will be presented with a link to email support@toitoi.co to get their account unlocked.
+* **9 failed password attempts**, account will be locked, end user will be presented with a link to email support@toitoi.co to get their account unlocked.
 
 <a name="0.0.4"></a>
 ##0.0.4 Password recovery
-`TODO`
 
 <a name="0.0.4.1"></a>
-###0.0.4.1 Password recovery email
+###0.0.4.1 Page construct
+Section | Type | Content
+:---  |:---  |:---  
+**Title** | Heading | "Forgot your password?"
+**Description** | Paragraph | "No problem, we never remember our passwords either. Just put in your email address and we'll send you an email with instructions on how to reset your password."
+**Form** | Form inputs | *Form as outlined in [**0.0.2 Form elements**](#0.0.2)*
+**Log in** | Button | *If first time login, send user to [**0.1 - Onboarding**](#0.1) flow, otherwise, land on [**20.0 - Dashboard**](#20.0)*
+
+<a name="0.0.4.2"></a>
+###0.0.4.2 Form elements
+Field | Type | Instruction
+:---  |:---  |:---  
+**Email Address** | input[type=email] | User's email address for password recovery
+**Log in** | Button | *Outcome of which is described in [**0.0.4.3 Business rules**](#0.0.4.3)*
+
+<a name="0.0.4.3"></a>
+###0.0.4.3 Business rules
+* If email address exists in user database, trigger [**0.0.4.4 Password recovery email**](#0.0.4.4)
+* If email address does **not** exist in user database, display error message "Sorry, we couldn't find an account that matches that e-mail address, did you perhaps forget that too? Try again, and check for any typos, if you can't remember what e-mail address you used to sign up, we'll have to ask you to email us at support@toitoi.co and we'll do our best to help."
+
+<a name="0.0.4.4"></a>
+###0.0.4.4 Password recovery email
 `TODO`
 
 
@@ -108,6 +128,10 @@ Field | Type | Instruction
 **Password** | input[type=password] | <ul><li>Needs to match re-entered password</li><li>Must contain: <ul><li>Minimum 8 characters</li><li>One number of special character</li></ul></li></ul>
 **Re-Enter Password** | input[type=password] | <ul><li>Needs to match re-entered password</li><li>Must contain: <ul><li>Minimum 8 characters</li><li>One number of special character</li></ul></li></ul>
 **Password strength indicator** | Progress Bar | Visual progress bar that adjusts as the password is being entered
+
+<a name="1.1.3"></a>
+###1.1.3 Business rules
+
 
 
 <a name="1.2"></a>
