@@ -32,7 +32,8 @@ Field | Type | Instruction
 ##0.0.3 Business rules
 * **2 failed password attempts**, user will be prompted with a message "Did you forget your password? Click 'Forget your password?' below to recover it"
 * **3 failed password attempts**, CAPTCHA will be displayed and a message "Sorry, you've failed to enter your password at least 3 times, you now have to prove that you're not a robot. Feel free to click below on 'Forget your password?' to recover your password at any point. You have only 2 more tries to guess your password, after which, we will lock your account for security purposes."
-* **9 failed password attempts**, account will be locked, end user will be presented with a link to email support@toitoi.co to get their account unlocked.
+* **5 failed password attempts**, IP address is blocked for 30 minutes, and message is displayed "Your IP address has been blocked from any more password attempts for a while, please try again later"
+* **20 failed password attempts**, Lock the account, forward all subsequent password attempts to this account to goatse **(don't actually do this)**
 
 <a name="0.0.4"></a>
 ##0.0.4 Password recovery
