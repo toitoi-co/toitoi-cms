@@ -1,13 +1,13 @@
 'use strict';
 
-const loginActions = require('./login');
 const firebaseActions = require('./firebase');
+const loginActions = require('./login');
 const publishActions = require('./publish');
 const themesActions = require('./themes');
 
 module.exports = Object.assign({},
-  loginActions,
   firebaseActions,
+  loginActions,
   publishActions,
   themesActions
 );
