@@ -37,6 +37,7 @@ Field | Type | Instruction
 
 <a name="0.0.4"></a>
 ##0.0.4 Password recovery
+`TODO - add general description`
 
 <a name="0.0.4.1"></a>
 ###0.0.4.1 Page construct
