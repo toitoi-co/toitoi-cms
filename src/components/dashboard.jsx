@@ -52,7 +52,6 @@ let Dashboard = React.createClass({
   componentWillReceiveProps: function() {
   },
 
-
   render: function() {
     const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated } = this.props;
 
@@ -122,14 +121,15 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
-    return {
-      initialValues: state.firebase.dashboardData,
-      dashboardData: state.firebase.dashboardData,
-      entryKey: state.firebase.key,
-      error: state.firebase.error,
-      published: state.publish.published,
-      updated: state.firebase.updated
-    };
+  console.log('state:', state);
+  return {
+    initialValues: state.firebase.dashboardData,
+    dashboardData: state.firebase.dashboardData,
+    entryKey: state.firebase.key,
+    error: state.firebase.error,
+    published: state.publish.published,
+    updated: state.firebase.updated
+  };
 }
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps

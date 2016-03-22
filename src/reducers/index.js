@@ -9,8 +9,8 @@ import themesReducer from './reducer_themes';
 const rootReducer = combineReducers({
   form: formReducer,
   // auth: authReducer,
-  login: loginReducer,
   firebase: firebaseReducer,
+  login: loginReducer,
   publish: publishReducer,
   themes: themesReducer
 });
