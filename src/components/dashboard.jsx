@@ -7,6 +7,7 @@ import { reduxForm } from 'redux-form';
 import { getFirebaseData, updateSingleFirebaseData, publishSite } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
+import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
@@ -102,6 +103,12 @@ let Dashboard = React.createClass({
           <button onClick={this.logoutHandler}>Logout</button><br/><br/>
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
+          <div>
+            <h3>Upload files</h3>
+            <Dropzone onDrop={this.onDrop}>
+              <div>Try dropping some files here, or click to select files to upload.</div>
+            </Dropzone>
+          </div>
         </div>
       );
     }

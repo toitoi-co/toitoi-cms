@@ -8,7 +8,7 @@ export function getThemes() {
   return function(dispatch) {
     axios.get(`${CST.LOGIN_URL}/presets`, { withCredentials: true })
     .then((response) => {
-      // console.log('themes response:', response);
+      console.log('themes response:', response);
       dispatch(themesRequestSuccess(response.data));
     })
     .catch((error) => {

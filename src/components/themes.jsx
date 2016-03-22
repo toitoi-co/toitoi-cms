@@ -39,7 +39,7 @@ const Themes = React.createClass({
 
   componentWillMount: function() {
     // TODO enable following when theme data on backend is populated
-    // this.props.getThemes();
+    this.props.getThemes();
   },
 
   render: function() {

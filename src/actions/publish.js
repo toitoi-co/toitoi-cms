@@ -2,6 +2,7 @@
 
 const CST = require('../shared/constants');
 const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
+const auth = require('../shared/auth');
 
 
 export function publishSite() {
@@ -46,6 +47,6 @@ function publishSiteError(response) {
 
 export function selectTheme() {
   return function(dispatch) {
-    
+
   }
 }

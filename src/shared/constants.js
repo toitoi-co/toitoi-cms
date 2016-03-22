@@ -33,7 +33,7 @@ module.exports = {
   USER_STORED: 'USER_STORED',
 
   // WebSocket
-  WEBSOCKET_URL: 'ws://localhost:6557',
+  WEBSOCKET_URL: 'ws://localhost:6557/ws',
   PUBLISH_REQUEST: 'PUBLISH_REQUEST',
   PUBLISH_SUCCESS: 'PUBLISH_SUCCESS',
   PUBLISH_ERROR: 'PUBLISH_ERROR'
