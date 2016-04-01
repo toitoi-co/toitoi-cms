@@ -4,7 +4,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { getFirebaseData, updateSingleFirebaseData, publishSite } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 import Dropzone from 'react-dropzone';
@@ -19,7 +19,9 @@ let Dashboard = React.createClass({
   },
 
   getInitialState: function() {
-    return { };
+    return {
+      images: []
+    };
     this.updateData = this.updateData.bind(this);
   },
 
@@ -31,6 +33,14 @@ let Dashboard = React.createClass({
   getDataHandler: function(event) {
     event.preventDefault;
     this.props.getFirebaseData();
+  },
+
+  dropHandler: function(files) {
+    console.log('received:', files);
+    // this.setState({
+    //   images: files
+    // });
+    this.props.addImage(files);
   },
 
   publishSiteHandler: function(event) {
@@ -104,10 +114,15 @@ let Dashboard = React.createClass({
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
           <div>
-            <h3>Upload files</h3>
-            <Dropzone onDrop={this.onDrop}>
-              <div>Try dropping some files here, or click to select files to upload.</div>
+            <label>Upload files</label>
+          {/*<button onClick={this.props.addImage}>Check images</button>*/}
+            <Dropzone onDrop={this.dropHandler}>
+              <div>Drop your files here!</div>
             </Dropzone>
+            {this.state.images.length > 0 ? <div>
+                <h2>Uploading {this.state.images.length} files...</h2>
+              <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
+                </div> : null}
           </div>
         </div>
       );
@@ -147,6 +162,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite })(Dashboard)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage })(Dashboard)
 
 export default Dashboard;

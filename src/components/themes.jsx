@@ -13,7 +13,8 @@ const Themes = React.createClass({
 
   installThemeHandler(id) {
     event.preventDefault;
-    this.props.selectTheme(id);
+    // change 'firstName' attribute below to 'site' when -admin API is updated
+    this.props.selectTheme(id, this.props.user.firstName);
   },
 
   getHandler() {
@@ -38,13 +39,27 @@ const Themes = React.createClass({
   },
 
   componentWillMount: function() {
-    // TODO enable following when theme data on backend is populated
+    console.log('component will mount:', this.props);
+    if (!this.props.user) {
+      // if there isn't user info that means, login and subsequent user data is not stored
+      // in app and should go
+    }
     this.props.getThemes();
   },
 
+  componentWillReceiveProps: function() {
+    console.log('component received props:', this.props);
+  },
+
   render: function() {
-    const { themes, error, selected } = this.props;
+    const { themes, error, selected, user } = this.props;
     // console.log('props:',this.props);
+    // console.log('state:', this.state);
+    console.log('props:', this.props);
+
+    if (!this.props.user) {
+
+    }
     return (
       <div className={classes}>
         Select a Theme
@@ -58,11 +73,12 @@ const Themes = React.createClass({
 });
 
 function MapStateToProps(state) {
-  // console.log('state:', state);
+  console.log('state:', state);
     return {
       themes: state.themes.list,
       error: state.themes.error,
-      selected: state.themes.selected
+      selected: state.themes.selected,
+      user: state.login.user
     };
 }
 

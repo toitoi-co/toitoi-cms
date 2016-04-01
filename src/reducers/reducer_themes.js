@@ -48,7 +48,10 @@ const INITIAL_STATE = {
 }
 
 export default function(state = INITIAL_STATE, action) {
+  // console.log('action:', action);
   switch(action.type){
+    // case CST.LOGIN_SUCCESS:
+    //   return { ...state, user: action.payload.data };
     case CST.THEMES_REQUEST:
       return state;
     case CST.THEMES_REQUEST_SUCCESS:
@@ -60,8 +63,7 @@ export default function(state = INITIAL_STATE, action) {
     case CST.THEME_SELECTION_SUCCESS:
       return { ...state, selected: true }
     case CST.THEME_SELECTION_FAILURE:
-      console.log('action', action);
-      return { ...state, error: action.payload.statusText }
+      return { ...state, error: action.payload.message }
     default:
       return state;
   }

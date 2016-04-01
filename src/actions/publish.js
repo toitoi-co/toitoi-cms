@@ -1,29 +1,28 @@
 'use strict';
 
 const CST = require('../shared/constants');
-const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
+const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
 
 
 export function publishSite() {
   return function(dispatch) {
     dispatch(requestPublishSite());
-    webSocketRef.send(JSON.stringify({
+    webSocket.send(JSON.stringify({
       'site': 'demo.toitoi.co',
       'token': auth.getToken(),
       'messageType': 'build'
     }));
-    webSocketRef.onerror = function(error) {
+    webSocket.onerror = function(error) {
       console.log('WebSocket Error:', error);
       dispatch(publishSiteError(error));
     }
-    webSocketRef.onmessage = function(evt) {
+    webSocket.onmessage = function(evt) {
       console.log('WebSocket Message:', evt.data);
       dispatch(publishSiteSuccess(evt.data));
     }
   }
 }
-
 
 function requestPublishSite() {
   return {
