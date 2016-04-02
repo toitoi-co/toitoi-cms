@@ -7,6 +7,8 @@ import { loginUser, requestToken } from '../actions/login';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import auth from '../shared/auth';
+import { FormattedMessage } from 'react-intl';
+// import { IntlMixin } from 'react-intl';
 
 require('./styles/login.scss');
 const classes = classnames('login', {});
@@ -38,6 +40,10 @@ let Login = React.createClass({
     }
   },
 
+  componentWillMount: function() {
+    // console.log(IntlProvider('messages'));
+  },
+
   render: function() {
     const { fields: { email, password }, handleSubmit, loginData } = this.props;
     return (
@@ -66,7 +72,7 @@ let Login = React.createClass({
           First time here?<br/>
           <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
-          <button type="submit">login</button><br/><br/>
+          <button type="submit"><FormattedMessage id={'label_login'}/></button><br/><br/>
         </form>
         {/*{this.props.loginData.token}*/}
 
@@ -88,6 +94,9 @@ function validate(values) {
   return errors;
 }
 
+Login.propTypes = {
+
+};
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
 // reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
@@ -96,7 +105,7 @@ Login = reduxForm({
   fields: ['email', 'password'],
   validate
 },
-state => ({ // mapStateToProps
+state => (console.log(state), { // mapStateToProps
   loginData: state.login
 }),
 { loginUser, requestToken })(Login)
