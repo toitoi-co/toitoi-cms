@@ -12,13 +12,13 @@ const classes = classnames('themes', {});
 const Themes = React.createClass({
 
   installThemeHandler(id) {
-    event.preventDefault;
+    // event.preventDefault;
     // change 'firstName' attribute below to 'site' when -admin API is updated
     this.props.selectTheme(id, this.props.user.firstName);
   },
 
   getHandler() {
-    event.preventDefault;
+    // event.preventDefault;
     this.props.getThemes();
   },
 
