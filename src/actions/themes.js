@@ -49,7 +49,7 @@ export function selectTheme(id, site) {
     let req = {
       presetId: id,
       //need to get hostname dynamically
-      hostname: 'demo.demo.toitoi.co'
+      hostname: site
     };
     axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
     .then((response) => {

@@ -13,8 +13,8 @@ const Themes = React.createClass({
 
   installThemeHandler(id) {
     // event.preventDefault;
-    // change 'firstName' attribute below to 'site' when -admin API is updated
-    this.props.selectTheme(id, this.props.user.firstName);
+    let site = this.props.user.site.subdomainName + '.' + this.props.user.site.domainName;
+    this.props.selectTheme(id, site);
   },
 
   getHandler() {
