@@ -59,7 +59,7 @@ export function selectTheme(id, site) {
 
 
       webSocket.send(JSON.stringify({
-        'site': 'demo.demo.toitoi.co',
+        'site': site,
         'messageType': 'preset',
         'token': signedRequest
       }));

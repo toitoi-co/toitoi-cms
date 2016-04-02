@@ -43,7 +43,8 @@ let Dashboard = React.createClass({
 
   publishSiteHandler: function(event) {
     event.preventDefault;
-    this.props.publishSite();
+    let site = this.props.user.site.subdomainName + '.toitoi.co';
+    this.props.publishSite(site);
   },
 
   logoutHandler: function(event) {

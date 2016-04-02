@@ -5,11 +5,11 @@ const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
 
 
-export function publishSite() {
+export function publishSite(site) {
   return function(dispatch) {
     dispatch(requestPublishSite());
     webSocket.send(JSON.stringify({
-      'site': 'demo.toitoi.co',
+      'site': site,
       'token': auth.getToken(),
       'messageType': 'build'
     }));
