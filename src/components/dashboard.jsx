@@ -37,10 +37,8 @@ let Dashboard = React.createClass({
 
   dropHandler: function(files) {
     console.log('received:', files);
-    // this.setState({
-    //   images: files
-    // });
-    this.props.addImage(files);
+    let site = this.props.user.site.subdomainName + '.' + this.props.user.site.domainName;
+    this.props.addImage(files, site);
   },
 
   publishSiteHandler: function(event) {
@@ -64,7 +62,7 @@ let Dashboard = React.createClass({
   },
 
   render: function() {
-    const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated } = this.props;
+    const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (
@@ -143,14 +141,14 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
-  console.log('state:', state);
   return {
     initialValues: state.firebase.dashboardData,
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,
     published: state.publish.published,
-    updated: state.firebase.updated
+    updated: state.firebase.updated,
+    user: state.login.user
   };
 }
 

@@ -105,7 +105,7 @@ Login = reduxForm({
   fields: ['email', 'password'],
   validate
 },
-state => (console.log(state), { // mapStateToProps
+state => ({ // mapStateToProps
   loginData: state.login
 }),
 { loginUser, requestToken })(Login)

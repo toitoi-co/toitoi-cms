@@ -23,6 +23,8 @@ const createStoreWithMiddleware = applyMiddleware(
    loaded unless that is done client-side. Would need to use <script async> and have
    ReactDom.render work in conjunction with the file loading first.*/
 
+//TODO Need to consider how to handle loading multiple language files.
+
 // let locale = navigator.language.split('-');
 // locale = locale[1] ? `${locale[0]}-${locale[1].toUpperCase()}` : navigator.language;
 // console.log('locale:', locale);
@@ -36,11 +38,11 @@ const createStoreWithMiddleware = applyMiddleware(
 //   messages: strings
 // };
 
-if ('ReactIntlLocaleData' in window) {
-  Object.keys(ReactIntlLocaleData).forEach((lang) => {
-    addLocaleData(ReactIntlLocaleData[lang]);
-  });
-}
+// if ('ReactIntlLocaleData' in window) {
+//   Object.keys(ReactIntlLocaleData).forEach((lang) => {
+//     addLocaleData(ReactIntlLocaleData[lang]);
+//   });
+// }
 
 ReactDOM.render((
   <IntlProvider locale='en' messages={messages}>

@@ -53,12 +53,12 @@ const Themes = React.createClass({
 
   render: function() {
     const { themes, error, selected, user } = this.props;
-    // console.log('props:',this.props);
     // console.log('state:', this.state);
-    console.log('props:', this.props);
+    // console.log('props:', this.props);
 
     if (!this.props.user) {
-
+      // TODO
+      // no user object, therefore needs to login, so clear out auth & redirect back to login
     }
     return (
       <div className={classes}>
@@ -73,7 +73,7 @@ const Themes = React.createClass({
 });
 
 function MapStateToProps(state) {
-  console.log('state:', state);
+  // console.log('state:', state);
     return {
       themes: state.themes.list,
       error: state.themes.error,

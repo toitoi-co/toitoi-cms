@@ -5,20 +5,17 @@ const CST = require('../shared/constants');
 const auth = require('../shared/auth');
 const axios = require('axios');
 
-export function addImage(images) {
+export function addImage(images, site) {
+  console.log('site', site);
   return function(dispatch) {
     dispatch(imageUpload());
-    // let image = images[0];
-    let hostname = 'dev.toitoi.co';
+    let hostname = 'demo.toitoi.co';
 
-    axios.put(`${CST.GENERATE_URL}/images/`, images, {
+    axios.put(`${CST.GENERATE_URL}/images/${site}/${images[0].name}`, images[0], {
     // axios.get(`${CST.GENERATE_URL}/images/${hostname}`, {
       headers: {
         'X-Token': auth.getToken(),
-        'Content-Type': images.type
-        // 'Content-Type': 'multipart/form-data'
       },
-      // withCredentials: true,
       progress: function(progressEvent) {
         console.log('upload:', progressEvent);
       }
