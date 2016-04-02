@@ -5,7 +5,8 @@ module.exports = {
   IMAGE_UPLOAD_ERROR: 'IMAGE_UPLOAD_ERROR',
 
   // Login and Auth
-  LOGIN_URL: 'http://localhost:3000',
+  // LOGIN_URL: 'http://localhost:3000',
+  LOGIN_URL: getHostURL() + ':3000',
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   LOGIN_FAILURE: 'LOGIN_FAILURE',
@@ -28,7 +29,8 @@ module.exports = {
   FIREBASE_FAILURE: 'FIREBASE_FAILURE',
 
   // Generate & Images
-  GENERATE_URL: 'http://localhost:6557',
+  // GENERATE_URL: 'http://localhost:6557',
+  GENERATE_URL: getHostURL() + ':6557',
 
   // Themes
   THEMES_REQUEST: 'THEMES_REQUEST',
@@ -42,8 +44,15 @@ module.exports = {
   USER_STORED: 'USER_STORED',
 
   // WebSocket
-  WEBSOCKET_URL: 'ws://localhost:6557/ws',
+  // WEBSOCKET_URL: 'ws://localhost:6557/ws',
+  WEBSOCKET_URL: 'ws://' + window.location.hostname + ':6557/ws',
   PUBLISH_REQUEST: 'PUBLISH_REQUEST',
   PUBLISH_SUCCESS: 'PUBLISH_SUCCESS',
   PUBLISH_ERROR: 'PUBLISH_ERROR'
+}
+
+function getHostURL() {
+  var http = location.protocol;
+  var slashes = http.concat('//');
+  return slashes.concat(window.location.hostname);
 }
