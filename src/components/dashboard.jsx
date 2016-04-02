@@ -37,7 +37,7 @@ let Dashboard = React.createClass({
 
   dropHandler: function(files) {
     console.log('received:', files);
-    let site = this.props.user.site.subdomainName + '.' + this.props.user.site.domainName;
+    let site = this.props.user.site.subdomainName + '.toitoi.co';
     this.props.addImage(files, site);
   },
 

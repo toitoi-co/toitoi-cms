@@ -13,7 +13,7 @@ const Themes = React.createClass({
 
   installThemeHandler(id) {
     // event.preventDefault;
-    let site = this.props.user.site.subdomainName + '.' + this.props.user.site.domainName;
+    let site = this.props.user.site.subdomainName + '.toitoi.co';
     this.props.selectTheme(id, site);
   },
 
