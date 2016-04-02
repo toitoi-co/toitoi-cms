@@ -48,7 +48,6 @@ export function selectTheme(id, site) {
     dispatch(themeSelection());
     let req = {
       presetId: id,
-      //need to get hostname dynamically
       hostname: site
     };
     axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
@@ -61,7 +60,7 @@ export function selectTheme(id, site) {
       webSocket.send(JSON.stringify({
         'site': site,
         'messageType': 'preset',
-        'token': signedRequest
+        'signedRequest': signedRequest
       }));
       webSocket.onerror = function(error) {
         console.log('WebSocket Error:', error);
