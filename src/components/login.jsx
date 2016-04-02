@@ -19,12 +19,12 @@ let Login = React.createClass({
   },
 
   formSubmit: function(creds) {
-    event.preventDefault();
+    // event.preventDefault();
     this.props.loginUser(creds);
   },
 
   getTokenHandler: function() {
-    event.preventDefault();
+    // event.preventDefault();
     this.props.requestToken();
   },
 

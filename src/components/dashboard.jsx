@@ -19,14 +19,14 @@ let Dashboard = React.createClass({
   },
 
   getInitialState: function() {
+    // this.updateData = this.updateData.bind(this);
     return {
       images: []
     };
-    this.updateData = this.updateData.bind(this);
   },
 
   formSubmit: function(entry) {
-    event.preventDefault();
+    // event.preventDefault();
     this.props.updateSingleFirebaseData(entry);
   },
 
