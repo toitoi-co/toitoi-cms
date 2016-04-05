@@ -5,13 +5,12 @@ const CST = require('../shared/constants');
 const auth = require('../shared/auth');
 const axios = require('axios');
 
-export function addImage(images, site) {
-  console.log('site', site);
+export function addImage(images, user) {
+  let hostname = user.site.subdomainName + '.toitoi.co';
+  console.log('site', hostname);
   return function(dispatch) {
     dispatch(imageUpload());
-    let hostname = 'demo.toitoi.co';
-
-    axios.put(`${CST.GENERATE_URL}/images/${site}/${images[0].name}`, images[0], {
+    axios.put(`${CST.GENERATE_URL}/images/${hostname}/${images[0].name}`, images[0], {
     // axios.get(`${CST.GENERATE_URL}/images/${hostname}`, {
       headers: {
         'X-Token': auth.getToken(),

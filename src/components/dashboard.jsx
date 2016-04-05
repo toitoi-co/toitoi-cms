@@ -27,24 +27,22 @@ let Dashboard = React.createClass({
 
   formSubmit: function(entry) {
     // event.preventDefault();
-    this.props.updateSingleFirebaseData(entry);
+    this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
   },
 
   getDataHandler: function(event) {
     event.preventDefault;
-    this.props.getFirebaseData();
+    this.props.getFirebaseData(this.props.user);
   },
 
   dropHandler: function(files) {
     console.log('received:', files);
-    let site = this.props.user.site.subdomainName + '.toitoi.co';
-    this.props.addImage(files, site);
+    this.props.addImage(files, this.props.user);
   },
 
   publishSiteHandler: function(event) {
     event.preventDefault;
-    let site = this.props.user.site.subdomainName + '.toitoi.co';
-    this.props.publishSite(site);
+    this.props.publishSite(this.props.user);
   },
 
   logoutHandler: function(event) {
@@ -142,6 +140,7 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
+  // console.log('key:', state.firebase.key);
   return {
     initialValues: state.firebase.dashboardData,
     dashboardData: state.firebase.dashboardData,

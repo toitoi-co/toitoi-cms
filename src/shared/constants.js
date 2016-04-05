@@ -21,7 +21,8 @@ module.exports = {
 
   // Database
   // TODO remove key below to retrieve it instead from -admin auth response, and move path to action creator. Need to standardize on expected base path
-  FIREBASE_URL: 'https://toitoidev.firebaseio.com/buckets/demo%2C1toitoi%2C1co/208e6669-f310-4447-814c-6d19e27e6943/dev/data/notablework',
+  // FIREBASE_URL: 'https://toitoidev.firebaseio.com/buckets/demo%2C1toitoi%2C1co/208e6669-f310-4447-814c-6d19e27e6943/dev/data/notablework',
+  FIREBASE_URL: 'https://toitoidev.firebaseio.com/buckets/',
   FIREBASE_REQUEST: 'FIREBASE_REQUEST',
   FIREBASE_RECEIVE: 'FIREBASE_RECEIVE',
   FIREBASE_SAVE: 'FIREBASE_SAVE',
