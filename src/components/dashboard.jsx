@@ -26,12 +26,10 @@ let Dashboard = React.createClass({
   },
 
   formSubmit: function(entry) {
-    // event.preventDefault();
     this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
   },
 
   getDataHandler: function(event) {
-    event.preventDefault;
     this.props.getFirebaseData(this.props.user);
   },
 
@@ -41,12 +39,10 @@ let Dashboard = React.createClass({
   },
 
   publishSiteHandler: function(event) {
-    event.preventDefault;
     this.props.publishSite(this.props.user);
   },
 
   logoutHandler: function(event) {
-    event.preventDefault;
     auth.logout();
     this.context.router.push('/');
   },

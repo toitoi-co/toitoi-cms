@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 // import { setPassword } from '../actions/index'
 import { Link } from 'react-router'
+import InputPassword from '../components/InputPassword'
 import classnames from 'classnames'
-
 
 require ('./styles/welcome.scss')
 const classes = classnames('welcome', {})
@@ -25,9 +25,9 @@ class WelcomePassword extends Component {
     router: PropTypes.object
   };
 
-  formSubmit(props) {
-    this.context.router.push('/')
-  };
+  // formSubmit(props) {
+  //   this.context.router.push('/')
+  // };
 
   onInput1Change(event) {
     const val = event.target.value;
@@ -59,21 +59,25 @@ class WelcomePassword extends Component {
     return (
       <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
         <h1>Step 1</h1>
-          <h3>Welcome!</h3>
-          <input
-            type="password"
-            placeholder="Enter a password."
-            className="form-control"
-            value={this.state.password1}
-            onChange={this.onInput1Change}/>
-          <br/>
-          <input
-            type="password"
-            placeholder="Repeat your password."
-            className="form-control"
-            value={this.state.password2}
-            onChange={this.onInput2Change}/>
-          <button type="submit" className="btn btn-primary" disabled={this.state.match ? '':'disabled'}>Next</button>
+        <h3>Welcome!</h3>
+        <input
+          type="password"
+          placeholder="Enter a password."
+          className="form-control"
+          value={this.state.password1}
+          onChange={this.onInput1Change}/>
+        {/*<InputPassword
+          placeholder="Enter a password."
+          value={this.state.password1}
+        />*/}
+        <br/>
+        <input
+          type="password"
+          placeholder="Repeat your password."
+          className="form-control"
+          value={this.state.password2}
+          onChange={this.onInput2Change}/>
+        <button type="submit" className="btn btn-primary" disabled={this.state.match ? '':'disabled'}>Next</button>
       </form>
     )
   }

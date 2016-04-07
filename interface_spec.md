@@ -75,7 +75,7 @@ Field | Type | Instruction
 
 <a name="0.1.1"></a>
 ##0.1.1 Configure your account
-During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be it's own step and should save content as the user navigates from step to step.
+During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be its own step and should save content as the user navigates from step to step.
 
 Configuring your site will include the following subsections, in this order:
 
@@ -85,7 +85,7 @@ Configuring your site will include the following subsections, in this order:
 
 <a name="0.1.2"></a>
 ##0.1.2 Get started with your content
-During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be it's own step and should save content as the user navigates from step to step.
+During the onboarding flow, the following sections will be grouped under this heading, and will be broken up into individual steps per logical question. Each subset (#.#) will be its own step and should save content as the user navigates from step to step.
 
 Get started with your content will include the following subsections, in this order:
 
@@ -96,7 +96,7 @@ Get started with your content will include the following subsections, in this or
 * [7.0 - Testimonials](#7.0)
 * [8.0 - Public contact information](#8.0)
 * [9.0 - PDF resume / bio](#9.0) `Not for MVP`
-* [10.0 - Schmopera](#10.0) 
+* [10.0 - Schmopera](#10.0)
 * [11.0 - Live social feed](#11.0) `Not for MVP`
 * [12.0 - In the press](#12.0) `Not for MVP`
 * [13.0 - Blog](#13.0) `Not for MVP`
@@ -155,7 +155,7 @@ Section | Type | Content
 Field | Type | Instruction
 :---  |:---  |:---  
 **Site Name** | input[type=text] | <ul><li>Needs to be a unique identifier</li><li>Maximum 24 characters</li><li>Cannot contain: <ul><li>Special characters</li><li>Spaces</li></ul>
-**.toitoi.co** | Label | Label that is placed to the right of the input that reads .toitoi.co 
+**.toitoi.co** | Label | Label that is placed to the right of the input that reads .toitoi.co
 
 
 <a name="1.3"></a>
@@ -334,7 +334,3 @@ Section | Type | Content
 
 <a name="20.0"></a>
 #20.0 Dashboard
-
-
-
-
