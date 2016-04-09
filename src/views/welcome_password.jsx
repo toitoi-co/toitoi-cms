@@ -8,82 +8,64 @@ import classnames from 'classnames'
 require ('./styles/welcome.scss')
 const classes = classnames('welcome', {})
 
-class WelcomePassword extends Component {
-  constructor(props) {
-    super(props)
-    this.state = ({
-      password1: '',
-      password2: '',
-      match: false
-    })
-
-    this.onInput1Change = this.onInput1Change.bind(this)
-    this.onInput2Change = this.onInput2Change.bind(this)
-  }
-
-  static contextTypes = {
+let WelcomePassword = React.createClass({
+  contextTypes: {
     router: PropTypes.object
-  };
+  },
 
-  // formSubmit(props) {
-  //   this.context.router.push('/')
-  // };
-
-  onInput1Change(event) {
-    const val = event.target.value;
-    this.setState({ password1: event.target.value })
-    if (val !== '' && this.state.password2 === val) {
-      this.setState({match: true})
-    } else {
-      this.setState({match: false})
+  getInitialState: function() {
+    return {
+      saving: false
     }
-  }
-
-  onInput2Change(event) {
-    const val = event.target.value;
-    this.setState({ password2: val })
-    if (val !== '' && this.state.password1 === val) {
-      this.setState({match: true})
-    } else {
-      this.setState({match: false})
-    }
-  }
+  },
 
   formSubmit(props) {
     this.context.router.push('/welcome/theme')
-  }
+  },
 
   render() {
-    const { fields: {password1, password2}, handleSubmit } = this.props
+    const { fields, handleSubmit } = this.props;
+    const { saving, submitted } = this.state;
+
 
     return (
-      <form onSubmit={handleSubmit(this.formSubmit.bind(this))}>
+      <form onSubmit={handleSubmit(this.formSubmit)}>
         <h1>Step 1</h1>
         <h3>Welcome!</h3>
-        <input
-          type="password"
-          placeholder="Enter a password."
-          className="form-control"
-          value={this.state.password1}
-          onChange={this.onInput1Change}/>
-        {/*<InputPassword
-          placeholder="Enter a password."
-          value={this.state.password1}
-        />*/}
+        <InputPassword
+          field={fields.password}
+          id='welcome-pwd'
+          label='Input label:'
+          placeholder='Enter a password.'
+        />
         <br/>
-        <input
-          type="password"
-          placeholder="Repeat your password."
-          className="form-control"
-          value={this.state.password2}
-          onChange={this.onInput2Change}/>
-        <button type="submit" className="btn btn-primary" disabled={this.state.match ? '':'disabled'}>Next</button>
+        <InputPassword
+          field={fields.password2}
+          id='welcome-pwd2'
+          placeholder='Repeat your password.'
+          />
+        <button type="submit" className="btn btn-primary">Next</button>
       </form>
     )
   }
+});
+
+function validate(values) {
+  const errors = {};
+  if (!values.password) {
+    errors.password = 'Please enter your password.';
+  }
+  if (!values.password2) {
+    errors.password2 = 'Please repeat your password.';
+  }
+  if (values.password2 && values.password !== values.password2) {
+    errors.password2 = 'Your password does not match';
+  }
+  return errors;
 }
 
 export default reduxForm({
-  form: 'PasswordNewForm', //name of the form, doesn't have to be same as component
-  fields: ['password1', 'password2'],
+  form: 'welcomePasswordForm', //name of the form, doesn't have to be same as component
+  fields: ['password', 'password2'],
+  validate
 }, null, null)(WelcomePassword)
