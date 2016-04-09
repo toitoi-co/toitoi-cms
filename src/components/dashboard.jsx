@@ -7,6 +7,7 @@ import { reduxForm } from 'redux-form';
 import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
+import auth2 from '../shared/auth2';
 import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
@@ -47,7 +48,11 @@ let Dashboard = React.createClass({
     this.context.router.push('/');
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
+    console.log('props:', this.props);
+    if (!this.props.user) {
+      // auth2.checkAuth();
+    }
   },
 
   componentWillUpdate: function() {
@@ -137,6 +142,7 @@ function validate(values) {
 
 function MapStateToProps(state) {
   // console.log('key:', state.firebase.key);
+  console.log('state:', state);
   return {
     initialValues: state.firebase.dashboardData,
     dashboardData: state.firebase.dashboardData,

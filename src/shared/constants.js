@@ -4,6 +4,9 @@ module.exports = {
   IMAGE_UPLOAD_SUCCESS: 'IMAGE_UPLOAD_SUCCESS',
   IMAGE_UPLOAD_ERROR: 'IMAGE_UPLOAD_ERROR',
 
+  // CMS
+  CMS_URL: getHostURL() + ':4000',
+
   // Login and Auth
   // LOGIN_URL: 'http://localhost:3000',
   LOGIN_URL: getHostURL() + ':3000',
