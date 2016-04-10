@@ -1,11 +1,13 @@
-import React, { Component, PropTypes } from 'react'
-import { reduxForm } from 'redux-form'
+import React, { Component, PropTypes } from 'react';
+import { reduxForm } from 'redux-form';
 // import { setPassword } from '../actions/index'
-import { Link } from 'react-router'
-import InputPassword from '../components/InputPassword'
-import classnames from 'classnames'
+import { Link } from 'react-router';
+import InputPassword from '../components/InputPassword';
+import classnames from 'classnames';
+import messages from '../shared/messages';
 
 require ('./styles/welcome.scss')
+
 const classes = classnames('welcome', {})
 
 let WelcomePassword = React.createClass({
@@ -15,6 +17,7 @@ let WelcomePassword = React.createClass({
 
   getInitialState: function() {
     return {
+      messages: messages,
       saving: false
     }
   },
@@ -27,7 +30,6 @@ let WelcomePassword = React.createClass({
     const { fields, handleSubmit } = this.props;
     const { saving, submitted } = this.state;
 
-
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <h1>Step 1</h1>
@@ -36,13 +38,13 @@ let WelcomePassword = React.createClass({
           field={fields.password}
           id='welcome-pwd'
           label='Input label:'
-          placeholder='Enter a password.'
+          placeholder={this.state.messages.password_text}
         />
         <br/>
         <InputPassword
           field={fields.password2}
           id='welcome-pwd2'
-          placeholder='Repeat your password.'
+          placeholder={this.state.messages.password_repeat_text}
           />
         <button type="submit" className="btn btn-primary">Next</button>
       </form>

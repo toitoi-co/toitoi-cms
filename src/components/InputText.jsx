@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react';
 import FormField from './FormField';
 import classnames from 'classnames';
+
 const classes = classnames('input-text', {});
 
 require ('./styles/input.scss');

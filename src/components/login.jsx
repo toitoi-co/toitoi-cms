@@ -1,16 +1,16 @@
 'use strict';
 
-const CST = require('../shared/constants');
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { loginUser, requestToken } from '../actions/login';
 import { Link } from 'react-router';
 import classnames from 'classnames';
 import auth from '../shared/auth';
-import { FormattedMessage } from 'react-intl';
-// import { IntlMixin } from 'react-intl';
+import messages from '../shared/messages';
 
 require('./styles/login.scss');
+
+const CST = require('../shared/constants');
 const classes = classnames('login', {});
 
 let Login = React.createClass({
@@ -18,13 +18,17 @@ let Login = React.createClass({
     router: PropTypes.object
   },
 
+  getInitialState: function() {
+    return {
+      messages: messages
+    };
+  },
+
   formSubmit: function(creds) {
-    // event.preventDefault();
     this.props.loginUser(creds);
   },
 
   getTokenHandler: function() {
-    // event.preventDefault();
     this.props.requestToken();
   },
 
@@ -38,10 +42,6 @@ let Login = React.createClass({
       // auth.setToken(this.props.loginData.token);
       this.context.router.push('/dashboard');
     }
-  },
-
-  componentWillMount: function() {
-    // console.log(IntlProvider('messages'));
   },
 
   render: function() {
@@ -72,7 +72,7 @@ let Login = React.createClass({
           First time here?<br/>
           <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
           <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
-          <button type="submit"><FormattedMessage id={'label_login'}/></button><br/><br/>
+          <button type="submit">{this.state.messages.label_login}</button><br/><br/>
         </form>
         {/*{this.props.loginData.token}*/}
 

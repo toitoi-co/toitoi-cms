@@ -7,9 +7,6 @@ import reducers from './reducers';
 import routes from './routes';
 import promise from 'redux-promise';
 import thunk from 'redux-thunk';
-import { addLocaleData } from 'react-intl';
-import { IntlProvider } from 'react-intl';
-import messages from './locales/en-US';
 
 const createStoreWithMiddleware = applyMiddleware(
   promise,
@@ -45,10 +42,8 @@ const createStoreWithMiddleware = applyMiddleware(
 // }
 
 ReactDOM.render((
-  <IntlProvider locale='en' messages={messages}>
     <Provider store={createStoreWithMiddleware(reducers)}>
       <Router history={browserHistory} routes={routes}/>
     </Provider>
-  </IntlProvider>
   ), document.getElementById('app')
 )

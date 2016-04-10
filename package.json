@@ -44,7 +44,6 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-dropzone": "^3.3.2",
-    "react-intl": "^2.0.0-rc-1",
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0-rc5",
     "redux": "^3.3.1",

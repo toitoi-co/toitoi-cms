@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import App from './components/app'
-import Landing from './components/landing'
+import Landing from './views/landing'
 import Dashboard from './components/dashboard'
 import Themes from './components/themes'
 import Welcome from './views/welcome'

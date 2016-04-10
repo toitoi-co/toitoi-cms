@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Login from './login';
+import Login from '../components/login';
 import classnames from 'classnames';
 
 const classes = classnames('landing', {});
