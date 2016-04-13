@@ -17,7 +17,7 @@ let WelcomePassword = React.createClass({
 
   getInitialState: function() {
     return {
-      messages: messages,
+      msg: messages,
       saving: false
     }
   },
@@ -37,14 +37,15 @@ let WelcomePassword = React.createClass({
         <InputPassword
           field={fields.password}
           id='welcome-pwd'
-          label='Input label:'
-          placeholder={this.state.messages.password_text}
+          label='Some label:'
+          placeholder={this.state.msg.password_text}
         />
         <br/>
         <InputPassword
           field={fields.password2}
           id='welcome-pwd2'
-          placeholder={this.state.messages.password_repeat_text}
+          label='Some additional label:'
+          placeholder={this.state.msg.password_repeat_text}
           />
         <button type="submit" className="btn btn-primary">Next</button>
       </form>
@@ -55,13 +56,13 @@ let WelcomePassword = React.createClass({
 function validate(values) {
   const errors = {};
   if (!values.password) {
-    errors.password = 'Please enter your password.';
+    errors.password = messages.error_password;
   }
   if (!values.password2) {
-    errors.password2 = 'Please repeat your password.';
+    errors.password2 = messages.error_password_repeat;
   }
   if (values.password2 && values.password !== values.password2) {
-    errors.password2 = 'Your password does not match';
+    errors.password2 = messages.error_password_match;
   }
   return errors;
 }

@@ -4,6 +4,8 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { loginUser, requestToken } from '../actions/login';
 import { Link } from 'react-router';
+import InputText from '../components/InputText';
+import InputPassword from '../components/InputPassword';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 import messages from '../shared/messages';
@@ -20,7 +22,8 @@ let Login = React.createClass({
 
   getInitialState: function() {
     return {
-      messages: messages
+      msg: messages,
+      errorMsg: null
     };
   },
 
@@ -45,36 +48,27 @@ let Login = React.createClass({
   },
 
   render: function() {
-    const { fields: { email, password }, handleSubmit, loginData } = this.props;
+    const { fields, handleSubmit, loginData, error } = this.props;
     return (
       <div className={classes}>
         <form onSubmit={handleSubmit(this.formSubmit)}>
           <div className="form-group">
-            <label><input
-              type="text"
-              placeholder="joe@example.com"
-              onChange={this.handleUsernameInputChange}
-              {...email} /></label>
-            <div className="text-help">
-              {email.touched ? email.error:''}
-            </div>
-            <label><input
-              type="password"
-              placeholder="password"
-              onChange={this.handlePasswordInputChange}
-              {...password} /></label>
-              <div className="text-help">
-                {password.touched ? password.error:''}
-                {loginData.error}
-              </div>
+            <InputText
+              field={fields.email}
+              id='login-email'
+              label={this.state.msg.login_email_label}
+              placeholder='joe@example.com'
+            />
+            <InputPassword
+              field={fields.password}
+              id='login-pwd'
+              label={this.state.msg.login_password_label}
+              placeholder=''
+            />
           </div>
-          {/*
-          First time here?<br/>
-          <label><input type="radio" name="newUser" value="yes" defaultChecked/><span>Yes</span></label><br/>
-          <label><input type="radio" name="newUser" value="no"/><span>No</span></label><br/>*/}
-          <button type="submit">{this.state.messages.label_login}</button><br/><br/>
+          <button type="submit">{this.state.msg.button_login}</button><br/><br/>
         </form>
-        {/*{this.props.loginData.token}*/}
+        {this.props.loginData.error ? this.props.loginData.error.data.message:''}
 
       </div>
     )
@@ -83,19 +77,16 @@ let Login = React.createClass({
 
 function validate(values) {
   const errors = {};
-
   if (!values.email) {
-    errors.email = 'Enter your email';
+    errors.email = messages.error_email;
   }
   if (!values.password) {
-    errors.password = 'Enter your password.';
+    errors.password = messages.error_password;
   }
-
   return errors;
 }
 
 Login.propTypes = {
-
 };
 
 // connect: first argument is mapStateToProps, 2nd is mapDispatchToProps

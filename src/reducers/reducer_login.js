@@ -6,7 +6,7 @@ const INITIAL_STATE = { auth: null, user: null, error: null, token: null }
 
 export default function(state = INITIAL_STATE, action) {
 
-  // console.log('action:', action);
+  console.log('action:', action);
   switch(action.type){
     case CST.LOGIN_REQUEST:
       return { ...state }
