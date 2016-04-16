@@ -1,12 +1,9 @@
 const CST = require('../shared/constants');
-
-// import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, TOKEN_SUCCESS } from '../actions/index'
-
 const INITIAL_STATE = { auth: null, user: null, error: null, token: null }
 
 export default function(state = INITIAL_STATE, action) {
 
-  console.log('action:', action);
+  // console.log('action:', action);
   switch(action.type){
     case CST.LOGIN_REQUEST:
       return { ...state }

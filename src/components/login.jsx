@@ -69,7 +69,6 @@ let Login = React.createClass({
           <button type="submit">{this.state.msg.button_login}</button><br/><br/>
         </form>
         {this.props.loginData.error ? this.props.loginData.error.data.message:''}
-
       </div>
     )
   }

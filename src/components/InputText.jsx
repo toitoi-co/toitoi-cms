@@ -13,24 +13,23 @@ const InputText = React.createClass({
     field: PropTypes.object.isRequired
   },
 
-  componentDidMount: function() {
-    // console.log(this.props);
-  },
-
   shouldComponentUpdate: FormField.shouldFormFieldUpdate,
 
   render: function() {
-    const {field, label, onChange, ...inputProps} = this.props;
+    // const {field, label, onChange, ...inputProps} = this.props;
+    const {field, label, onChange, ...inputProps, ...rest} = this.props;
     return (
       <FormField field={field} inputProps={inputProps} label={label}>
         <input
-          {...inputProps}
-          className='form-control'
-          name={field.name}
-          onBlur={field.onBlur}
-          onChange={onChange && field.onChange}
+          {...field}
+          {...rest}
           type='text'
         />
+      {/*{...inputProps}
+      className='form-control'
+      name={field.name}
+      onBlur={field.onBlur}
+      onChange={onChange && field.onChange}*/}
       {/*<div className={classes}>
       <input type='text' placeholder={this.props.placeholder}/>
       </div>*/}
@@ -39,34 +38,8 @@ const InputText = React.createClass({
   }
 });
 
+InputText.propTypes = {
+  field: PropTypes.object.isRequired
+}
+
 export default InputText;
-
-
-
-
-//
-// var React = require('react')
-// var {PropTypes} = React
-//
-// var FormField = require('./FormField')
-//
-// var TextInput = React.createClass({
-//   propTypes: {
-//     field: PropTypes.object.isRequired
-//   },
-//   shouldComponentUpdate: FormField.shouldFormFieldUpdate,
-//   render() {
-//     var {field, help, label, onChange, ...inputProps} = this.props
-//     return <FormField field={field} help={help} inputProps={inputProps} label={label}>
-//       <input
-//         {...inputProps}
-//         className="form-control"
-//         name={field.name}
-//         onBlur={field.onBlur}
-//         onChange={onChange && field.onChange}
-//       />
-//     </FormField>
-//   }
-// })
-//
-// module.exports = TextInput

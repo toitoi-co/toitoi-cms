@@ -26,6 +26,21 @@ let Dashboard = React.createClass({
     };
   },
 
+  componentWillMount: function() {
+    // console.log('props:', this.props);
+    if (!this.props.user) {
+      // auth2.checkAuth();
+    } else {
+      this.props.getFirebaseData(this.props.user);
+    }
+  },
+
+  componentWillUpdate: function() {
+  },
+
+  componentWillReceiveProps: function() {
+  },
+
   formSubmit: function(entry) {
     this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
   },
@@ -48,21 +63,8 @@ let Dashboard = React.createClass({
     this.context.router.push('/');
   },
 
-  componentWillMount: function() {
-    console.log('props:', this.props);
-    if (!this.props.user) {
-      // auth2.checkAuth();
-    }
-  },
-
-  componentWillUpdate: function() {
-  },
-
-  componentWillReceiveProps: function() {
-  },
-
   render: function() {
-    const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
+    const { fields: { key, name, description }, contentType, data, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (
@@ -70,6 +72,7 @@ let Dashboard = React.createClass({
           {/*Loading...<br/>*/}
         <button onClick={this.getDataHandler}>Get Data</button><br/><br/>
         <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+        {this.props.children}
         </div>
       )
     }
@@ -78,6 +81,7 @@ let Dashboard = React.createClass({
         <div className={classes}>
           Dashboard page
           <div>{this.props.error}</div>
+          {this.props.children}
         </div>
       );
     } else {
@@ -102,7 +106,7 @@ let Dashboard = React.createClass({
                 {...description} /></label>
                 <div className="text-help">
                   {/*{description.touched ? description.error:''}*/}
-                  {dashboardData.error}
+                  {error}
                 </div>
             </div>
             <button type="submit">Update Data</button><br/><br/>
@@ -122,6 +126,7 @@ let Dashboard = React.createClass({
               <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
                 </div> : null}
           </div>
+          {this.props.children}
         </div>
       );
     }
@@ -145,6 +150,8 @@ function MapStateToProps(state) {
   console.log('state:', state);
   return {
     initialValues: state.firebase.dashboardData,
+    contentType: state.firebase.contentType,
+    data: state.firebase.data,
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,

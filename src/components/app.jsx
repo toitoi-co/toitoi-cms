@@ -12,6 +12,7 @@ const App = React.createClass({
         <h1><Link to="/">App Component</Link></h1>
         Links to:<br/>
         <ul>
+          <li><Link to="/dashboard/about">About</Link></li>
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/themes">Themes</Link></li>
           <li><Link to="/welcome">Welcome</Link></li>
