@@ -19,7 +19,7 @@ export default function(state = INITIAL_STATE, action) {
     case CST.FIREBASE_SAVE:
       return { dashboardData: action.payload.data.notablework[key], key: key }
     case CST.FIREBASE_UPDATE:
-      console.log('state:', state);
+      // console.log('state:', state);
       // return { dashboardData: action.payload[key], key: key, updated: true }
       return { contentType:action.payload.contentType, data: action.payload.data, dashboardData: state.dashboardData, key: state.key, updated: true }
     case CST.FIREBASE_FAILURE:

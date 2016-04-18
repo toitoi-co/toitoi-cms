@@ -1,5 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
+import { connect } from 'react-redux'
+import axios from 'axios';
 import App from './components/app'
 import Landing from './views/landing'
 import Dashboard from './components/dashboard'
@@ -11,15 +13,21 @@ import WelcomeTheme from './views/welcome_theme'
 import WelcomeBio from './views/welcome_bio'
 import About from './views/about'
 import auth from './shared/auth'
+import { checkAuth } from './actions/index'
+import CST from './shared/constants';
 
-const routes = (
+
+
+
+
+let routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Landing} />
-    <Route path="dashboard" component={Dashboard} onEnter={requireAuth}>
+    <Route path="dashboard" component={Dashboard}>
       <IndexRoute component={DashboardLanding}/>
       <Route path="about" component={About}/>
     </Route>
-    <Route path="themes" component={Themes} onEnter={requireAuth}/>
+    <Route path="themes" component={Themes}/>
     <Route path="welcome" component={Welcome}>
       <IndexRoute component={WelcomePassword} />
       <Route path="theme" component={WelcomeTheme} />
@@ -29,12 +37,27 @@ const routes = (
 );
 
 function requireAuth(nextState, replace) {
-  if (!auth.loggedIn()) {
+  axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
+  .then((response) => {
+    console.log('reqAuth:', response);
+
+  })
+  .catch((err) => {
     replace({
       pathname: '/',
       state: { nextPathname: nextState.location.pathname }
     })
-  }
+  });
+
+
+  // if (!auth.loggedIn()) {
+  //   replace({
+  //     pathname: '/',
+  //     state: { nextPathname: nextState.location.pathname }
+  //   })
+  // }
 }
 
 export default routes;
+
+// export default connect(null, {checkAuth})(routes)

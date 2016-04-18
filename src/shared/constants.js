@@ -21,6 +21,7 @@ module.exports = {
   FIREBASE_AUTH_FAILURE: 'FIREBASE_AUTH_FAILURE',
   LOGOUT_REQUEST: 'LOGOUT_REQUEST',
   LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+  RETURN_USER: 'RETURN_USER',
 
   // Database
   FIREBASE_URL: 'https://toitoidev.firebaseio.com/buckets/',

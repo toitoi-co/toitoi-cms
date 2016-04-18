@@ -4,10 +4,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
-import auth2 from '../shared/auth2';
+// import auth2 from '../shared/auth2';
 import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
@@ -29,7 +29,10 @@ let Dashboard = React.createClass({
   componentWillMount: function() {
     // console.log('props:', this.props);
     if (!this.props.user) {
+      // Could have lost current login info due to loss of connectivity or page refresh
       // auth2.checkAuth();
+      console.log('no props!')
+      this.props.checkAuth();
     } else {
       this.props.getFirebaseData(this.props.user);
     }
@@ -59,7 +62,7 @@ let Dashboard = React.createClass({
   },
 
   logoutHandler: function(event) {
-    auth.logout();
+    this.props.logoutUser();
     this.context.router.push('/');
   },
 
@@ -70,7 +73,7 @@ let Dashboard = React.createClass({
       return (
         <div>
           {/*Loading...<br/>*/}
-        <button onClick={this.getDataHandler}>Get Data</button><br/><br/>
+        <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
         <button onClick={this.logoutHandler}>Logout</button><br/><br/>
         {this.props.children}
         </div>
@@ -147,7 +150,7 @@ function validate(values) {
 
 function MapStateToProps(state) {
   // console.log('key:', state.firebase.key);
-  console.log('state:', state);
+  // console.log('state:', state);
   return {
     initialValues: state.firebase.dashboardData,
     contentType: state.firebase.contentType,
@@ -169,6 +172,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage })(Dashboard)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser })(Dashboard)
 
 export default Dashboard;
