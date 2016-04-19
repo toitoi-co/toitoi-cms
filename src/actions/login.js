@@ -21,7 +21,6 @@ export function loginUser(creds) {
     dispatch(loginRequest());
     axios.post(`${CST.LOGIN_URL}/login`, creds, { withCredentials: true })
     .then((response) => {
-      // console.log('login response:', response)
       dispatch(loginSuccess(response));
     })
     .then(() => {
@@ -37,8 +36,8 @@ function loginRequest() {
   return {
     type: CST.LOGIN_REQUEST,
     isFetching: true,
+    isLoggedIn: false,
     isAuthenticated: false,
-    hasToken: false,
   }
 }
 
@@ -47,8 +46,8 @@ function loginSuccess(response) {
   return {
     type: CST.LOGIN_SUCCESS,
     isFetching: false,
-    isAuthenticated: false,
     isLoggedIn: true,
+    isAuthenticated: false,
     payload: response
   }
 }
@@ -58,8 +57,8 @@ function loginFailure(response) {
   return {
     type: CST.LOGIN_FAILURE,
     isFetching: false,
-    isAuthenticated: false,
     isLoggedIn: false,
+    isAuthenticated: false,
     payload: response
   }
 }
@@ -76,8 +75,8 @@ export function requestToken() {
           /* Token failed with Firebase */
           dispatch(tokenFailure(error));
         } else {
-          console.log('Authenticated to Firebase successfully with payload:', authData);
-          auth.setToken(authData.token);
+          console.log('Authenticated to Firebase.', authData);
+          // auth.setToken(authData.token);
           dispatch(tokenSuccess(authData));
         }
       });
@@ -121,12 +120,29 @@ function tokenFailure(response) {
   }
 }
 
+function logoutSuccess(response) {
+  console.log('error:', response);
+  return {
+    type: CST.LOGOUT_SUCCESS,
+    isFetching: false,
+    isLoggedIn: false,
+    isAuthenticated: false,
+    payload: response
+  }
+}
+
 export function logoutUser() {
   return function(dispatch) {
     firebaseRef.unauth();
     axios.post(`${CST.LOGIN_URL}/logout`, { withCredentials: true })
+    .then((response) => {
+      dispatch(logoutSuccess(response));
+    })
     .catch((err) => {
       console.log('Failed to logout user:', err);
+      /* TODO The dispatch below should be removed... it's a false positive to resolve the
+       401 we're getting back when trying to logout */
+      dispatch(logoutSuccess(err));
     })
   }
 }

@@ -70,7 +70,7 @@ export function updateSingleFirebaseData(entry, user, entryPath) {
     childRef.update(updateObj, function(error){
       if (error) {
         console.log('Data could not be saved.', error);
-        dispatch(updateFirebase(error));
+        dispatch(firebaseError(error));
       } else {
         dispatch(updateFirebase());
       }
@@ -79,9 +79,9 @@ export function updateSingleFirebaseData(entry, user, entryPath) {
   }
 }
 
-function updateFirebase() {
+function updateFirebase(response) {
   return {
     type: CST.FIREBASE_UPDATE,
-    isFetching: false
+    isFetching: false,
   }
 }

@@ -30,11 +30,8 @@ let Dashboard = React.createClass({
     // console.log('props:', this.props);
     if (!this.props.user) {
       // Could have lost current login info due to loss of connectivity or page refresh
-      // auth2.checkAuth();
-      console.log('no props!')
+      console.log('No data, check if already authenticated.')
       this.props.checkAuth();
-    } else {
-      this.props.getFirebaseData(this.props.user);
     }
   },
 

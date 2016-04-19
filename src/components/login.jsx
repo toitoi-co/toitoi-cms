@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { loginUser, requestToken } from '../actions/login';
+import { loginUser, requestToken, getFirebaseData } from '../actions/index';
 import { Link } from 'react-router';
 import InputText from '../components/InputText';
 import InputPassword from '../components/InputPassword';
@@ -23,8 +23,8 @@ let Login = React.createClass({
   getInitialState: function() {
     return {
       msg: messages,
-      errorMsg: null
-    };
+      errorMsg: null,
+    }
   },
 
   formSubmit: function(creds) {
@@ -36,19 +36,33 @@ let Login = React.createClass({
   },
 
   componentDidUpdate: function() {
-    if (this.props.loginData.auth && !this.props.loginData.token) {
-      /* auth'ed against admin server but not yet against Firebase */
+    console.log('this.props:', this.props)
+    if (this.props.login.loggedIn && !this.props.login.token) {
+      /* auth'ed against admin server but not yet against Firebase. Check to see
+         whether user is confirmed before making Firebase auth request. */
+      if (!this.props.login.user.onboardingFlowCompleted) {
+        this.context.router.push('/welcome');
+      } else {
+        /* TODO go make firebase auth request. Remove automatic followup call in action creator */
+        this.props.getFirebaseData(this.props.login.user);
+      }
     }
-    if (this.props.loginData.auth && this.props.loginData.token) {
+    if (this.props.login.loggedIn && this.props.login.token) {
+      console.log('component did update props:', this.props);
       /* now auth'ed against both servers */
       // enable the following when rest of page is ready
       // auth.setToken(this.props.loginData.token);
-      this.context.router.push('/dashboard');
+      if (this.props.login.user.onboardingFlowCompleted) {
+        this.context.router.push('/dashboard');
+      }
+      // if (this.props.loginData.role === 'unconfirmed') {
+      //   this.context.router.push('/welcome');
+      // } else if (this.props.loginData.role === ('member' || 'admin'))
     }
   },
 
   render: function() {
-    const { fields, handleSubmit, loginData, error } = this.props;
+    const { fields, handleSubmit, login, error } = this.props;
     return (
       <div className={classes}>
         <form onSubmit={handleSubmit(this.formSubmit)}>
@@ -68,7 +82,7 @@ let Login = React.createClass({
           </div>
           <button type="submit">{this.state.msg.button_login}</button><br/><br/>
         </form>
-        {this.props.loginData.error ? this.props.loginData.error.data.message:''}
+        {this.props.login.error ? this.props.login.error.data.message:''}
       </div>
     )
   }
@@ -96,8 +110,8 @@ Login = reduxForm({
   validate
 },
 state => ({ // mapStateToProps
-  loginData: state.login
+  login: state.login
 }),
-{ loginUser, requestToken })(Login)
+{ loginUser, requestToken, getFirebaseData })(Login)
 
 export default Login;

@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { auth: null, user: null, error: null, token: null }
+const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null }
 
 export default function(state = INITIAL_STATE, action) {
   // console.log('action:', action);
@@ -7,7 +7,7 @@ export default function(state = INITIAL_STATE, action) {
     case CST.LOGIN_REQUEST:
       return { ...state }
     case CST.LOGIN_SUCCESS:
-      return { ...state, auth: true, user: action.payload.data }
+      return { ...state, loggedIn: action.isLoggedIn, user: action.payload.data }
     case CST.LOGIN_FAILURE:
       return { ...state, error: action.payload }
     case CST.TOKEN_REQUEST:
@@ -17,7 +17,9 @@ export default function(state = INITIAL_STATE, action) {
     case CST.TOKEN_FAILURE:
       return { ...state, error: action.payload }
     case CST.RETURN_USER:
-      return { auth: true, user: action.payload.data }
+      return { loggedIn: action.isLoggedIn, user: action.payload.data }
+    case CST.LOGOUT_SUCCESS:
+      return { ...state, user: null, loggedIn: action.isLoggedIn, token: null }
     default:
       return state;
   }
