@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import Login from '../components/login';
+import Login from './login';
 import classnames from 'classnames';
 
 const classes = classnames('dashboard--landing', {});

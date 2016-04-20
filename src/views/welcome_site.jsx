@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 // import { setPassword } from '../actions/index'
 import { Link } from 'react-router';
-import InputPassword from '../components/InputPassword';
+import InputText from '../components/InputText';
 import classnames from 'classnames';
 import messages from '../shared/messages';
 
@@ -10,7 +10,7 @@ require ('./styles/welcome.scss')
 
 const classes = classnames('welcome', {})
 
-let WelcomePassword = React.createClass({
+let WelcomeSite = React.createClass({
   contextTypes: {
     router: PropTypes.object
   },
@@ -34,19 +34,13 @@ let WelcomePassword = React.createClass({
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <h1>Step 1</h1>
         <h3>Welcome!</h3>
-        <InputPassword
-          field={fields.password}
-          id='welcome-pwd'
-          label='Some label:'
-          placeholder={this.state.msg.password_text}
-        />
-        <br/>
-        <InputPassword
-          field={fields.password2}
-          id='welcome-pwd2'
-          label='Some additional label:'
-          placeholder={this.state.msg.password_repeat_text}
-          />
+          <InputText
+            disabled={saving}
+            field={fields.site}
+            id='welcome-site'
+            label='Input label:'
+            placeholder='your site.'
+          /><span>.toitoi.co</span><br/>
         <button type="submit" className="btn btn-primary">Next</button>
       </form>
     )
@@ -68,7 +62,7 @@ function validate(values) {
 }
 
 export default reduxForm({
-  form: 'welcomePasswordForm', //name of the form, doesn't have to be same as component
-  fields: ['password', 'password2'],
+  form: 'welcomeSiteForm', //name of the form, doesn't have to be same as component
+  fields: ['site'],
   validate
-}, null, null)(WelcomePassword)
+}, null, null)(WelcomeSite)

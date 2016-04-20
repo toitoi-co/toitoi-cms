@@ -3,7 +3,7 @@
 const CST = require('../shared/constants');
 const Firebase = require('firebase');
 let firebaseRef = null;
-import auth from '../shared/auth';
+// import auth from '../shared/auth';
 
 
 export function getFirebaseData(user) {

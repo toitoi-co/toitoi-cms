@@ -22,9 +22,9 @@ export function loginUser(creds) {
     axios.post(`${CST.LOGIN_URL}/login`, creds, { withCredentials: true })
     .then((response) => {
       dispatch(loginSuccess(response));
-    })
-    .then(() => {
-      dispatch(requestToken());
+      if (response.data.onboardingFlowCompleted) {
+        dispatch(requestToken());
+      }
     })
     .catch((err) => {
       dispatch(loginFailure(err));

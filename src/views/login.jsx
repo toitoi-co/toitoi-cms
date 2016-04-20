@@ -36,12 +36,28 @@ let Login = React.createClass({
   },
 
   componentDidUpdate: function() {
-    console.log('this.props:', this.props)
+    // console.log('this.props:', this.props)
     if (this.props.login.loggedIn && !this.props.login.token) {
       /* auth'ed against admin server but not yet against Firebase. Check to see
          whether user is confirmed before making Firebase auth request. */
       if (!this.props.login.user.onboardingFlowCompleted) {
-        this.context.router.push('/welcome');
+
+        console.log('site:', this.props.login.site);
+        if (!this.props.login.user.site) {
+          let site = this.props.login.user.site;
+          /* If plan has been selected go to last step, otherwise
+             check to see if subdomainName exists then go to step 2.
+             Default to step 1 if all else fails. */
+          if (site.planId) {
+            this.context.router.push('/welcome/theme');
+          } else if (site.subdomainName) {
+            this.context.router.push('/welcome/plan');
+          } else {
+            this.context.router.push('/welcome');
+          }
+        } else {
+          this.context.router.push('/welcome');
+        }
       } else {
         /* TODO go make firebase auth request. Remove automatic followup call in action creator */
         this.props.getFirebaseData(this.props.login.user);
