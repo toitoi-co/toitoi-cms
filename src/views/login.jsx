@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 import InputText from '../components/InputText';
 import InputPassword from '../components/InputPassword';
 import classnames from 'classnames';
-import auth from '../shared/auth';
+// import auth from '../shared/auth';
 import messages from '../shared/messages';
 
 require('./styles/login.scss');
@@ -59,7 +59,6 @@ let Login = React.createClass({
           this.context.router.push('/welcome');
         }
       } else {
-        /* TODO go make firebase auth request. Remove automatic followup call in action creator */
         this.props.getFirebaseData(this.props.login.user);
       }
     }
@@ -71,9 +70,6 @@ let Login = React.createClass({
       if (this.props.login.user.onboardingFlowCompleted) {
         this.context.router.push('/dashboard');
       }
-      // if (this.props.loginData.role === 'unconfirmed') {
-      //   this.context.router.push('/welcome');
-      // } else if (this.props.loginData.role === ('member' || 'admin'))
     }
   },
 

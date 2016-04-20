@@ -3,9 +3,12 @@ const messages = {
   'button_login':'Login',
 
   /* Labels */
-  'login_email_label':      'Please enter your email',
-  'login_password_label':   'Please enter your password',
-  'welcome_site_label':     'Please enter your site name',
+  'login_email_label':    'Please enter your email',
+  'login_password_label': 'Please enter your password',
+  'save_site_label':      'Please enter your site name',
+  'save_plan_label':      'Please select your plan',
+  'save_theme_label':     'Please select your theme',
+  'welcome_continue':     'Next',
 
 
   /* Placeholder text for input fields*/
