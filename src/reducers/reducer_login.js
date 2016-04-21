@@ -4,6 +4,10 @@ const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null }
 export default function(state = INITIAL_STATE, action) {
   // console.log('action:', action);
   switch(action.type){
+    case CST.CONFIRM_USER_SUCCESS:
+      return { ...state, loggedIn: action.isLoggedIn }
+    case CST.CONFIRM_USER_FAILURE:
+      return { ...state, error: action.payload }
     case CST.LOGIN_REQUEST:
       return { ...state }
     case CST.LOGIN_SUCCESS:

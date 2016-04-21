@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import App from './components/app';
 import Landing from './views/landing';
+import Confirmation from './views/confirmation';
 import Dashboard from './components/dashboard';
 import DashboardLanding from './views/dashboard_landing';
-import Themes from './components/themes';
+import Themes from './views/themes';
 import Welcome from './views/welcome';
 import WelcomeSite from './views/welcome_site';
 import WelcomePlan from './views/welcome_plan';
@@ -22,7 +23,8 @@ import CST from './shared/constants';
 
 let routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Landing} />
+    <IndexRoute component={Landing}/>
+    <Route path="confirmation/:id" component={Confirmation}/>
     <Route path="dashboard" component={Dashboard}>
       <IndexRoute component={DashboardLanding}/>
       <Route path="about" component={About}/>

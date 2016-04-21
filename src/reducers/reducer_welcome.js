@@ -3,7 +3,7 @@ const CST = require('../shared/constants');
 const INITIAL_STATE = { siteSaved: false, planSaved: false, themeSaved: false, error: null }
 
 export default function(state = INITIAL_STATE, action) {
-  console.log('action:', action);
+  // console.log('action:', action);
   switch(action.type){
     case CST.WELCOME_SITE_REQUEST:
       return { ...state, }

@@ -74,7 +74,7 @@ let Login = React.createClass({
   },
 
   render: function() {
-    const { fields, handleSubmit, login, error } = this.props;
+    const { fields, handleSubmit, login } = this.props;
     return (
       <div className={classes}>
         <form onSubmit={handleSubmit(this.formSubmit)}>

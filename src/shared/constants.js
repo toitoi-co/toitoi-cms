@@ -10,6 +10,8 @@ module.exports = {
   // Login and Auth
   // LOGIN_URL: 'http://localhost:3000',
   LOGIN_URL:              getHostURL() + ':3000',
+  CONFIRM_USER_SUCCESS:   'confirm_user_success',
+  CONFIRM_USER_FAILURE:   'confirm_user_failure',
   LOGIN_REQUEST:          'login_request',
   LOGIN_SUCCESS:          'login_success',
   LOGIN_FAILURE:          'login_failure',
