@@ -24,7 +24,7 @@ import CST from './shared/constants';
 let routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Landing}/>
-    <Route path="confirmation/:id" component={Confirmation}/>
+    <Route path="confirm/:id" component={Confirmation}/>
     <Route path="dashboard" component={Dashboard}>
       <IndexRoute component={DashboardLanding}/>
       <Route path="about" component={About}/>

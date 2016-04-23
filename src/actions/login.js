@@ -17,7 +17,7 @@ export const AUTH_SET_USER = 'SET_USER';
 
 export function confirmUser(id) {
   return function(dispatch) {
-    axios.post(`${CST.LOGIN_URL}/confirm/:id`, null)
+    axios.post(`${CST.LOGIN_URL}/confirm/${id}`, {})
     .then((response) => {
       dispatch(confirmUserSuccess());
     })
@@ -91,7 +91,7 @@ function loginFailure(response) {
 export function requestToken() {
   return function(dispatch) {
     dispatch(tokenRequest());
-    axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
+    axios.post(`${CST.LOGIN_URL}/generate-token`, {}, { withCredentials: true })
     .then((response) => {
       /* Got token, now auth Firebase with it */
       firebaseRef.authWithCustomToken(response.data.token, function(error, authData){
@@ -159,7 +159,7 @@ function logoutSuccess(response) {
 export function logoutUser() {
   return function(dispatch) {
     firebaseRef.unauth();
-    axios.post(`${CST.LOGIN_URL}/logout`, { withCredentials: true })
+    axios.post(`${CST.LOGIN_URL}/logout`, {}, { withCredentials: true })
     .then((response) => {
       dispatch(logoutSuccess(response));
     })
@@ -204,7 +204,7 @@ export function checkAuth() {
      If indeed authenticated, will proceed to get Firebase token and retrieve user object */
   return function(dispatch) {
     dispatch(tokenRequest());
-    axios.post(`${CST.LOGIN_URL}/generate-token`, null, { withCredentials: true })
+    axios.post(`${CST.LOGIN_URL}/generate-token`, {}, { withCredentials: true })
     .then((response) => {
       console.log('check auth resp:', response);
       /* success...200 response */

@@ -27,6 +27,7 @@ let Confirmation = React.createClass({
 
   render: function() {
     const { login } = this.props;
+    console.log('login props:', this.props);
     if (this.props.login.loggedIn) {
       return (
         <div className={classes}>
