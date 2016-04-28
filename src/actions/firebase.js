@@ -79,6 +79,14 @@ export function updateSingleFirebaseData(entry, user, entryPath) {
   }
 }
 
+export function updateFirebaseEntry(path, entry) {
+  /* writing this new function to be the only update function... */
+  return function(dispatch) {
+    let childRef = firebaseRef.child(path);
+    childRef.update(entry);
+  }
+}
+
 function updateFirebase(response) {
   return {
     type: CST.FIREBASE_UPDATE,

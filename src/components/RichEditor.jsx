@@ -9,7 +9,7 @@ require ('./styles/rich-editor.scss');
 const RichEditor = React.createClass({
     getInitialState: function() {
       this.focus = () => this.refs.editor.focus();
-      this.onChange = (editorState) => this.setState({editorState});
+      this.onChange = (editorState) => this.setState({editorState:editorState});
       this.handleKeyCommand = (command) => this._handleKeyCommand(command);
       this.toggleBlockType = (type) => this._toggleBlockType(type);
       this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);

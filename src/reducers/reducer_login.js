@@ -2,7 +2,7 @@ const CST = require('../shared/constants');
 const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null }
 
 export default function(state = INITIAL_STATE, action) {
-  console.log('action:', action);
+  // console.log('action:', action);
   switch(action.type){
     case CST.CONFIRM_USER_SUCCESS:
       return { ...state, loggedIn: true}

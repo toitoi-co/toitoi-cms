@@ -42,6 +42,7 @@ let Dashboard = React.createClass({
   },
 
   formSubmit: function(entry) {
+    console.log('entry:', entry);
     this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
   },
 

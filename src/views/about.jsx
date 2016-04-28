@@ -3,8 +3,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
+import { stateToHTML } from 'draft-js-export-html';
 // import { Editor, EditorState, RichUtils, ContentState } from 'draft-js';
-import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage, updateFirebaseEntry } from '../actions/index';
+// import { Editor, EditorState, RichUtils } from 'draft-js';
 import InputText from '../components/InputText';
 import RichEditor from '../components/RichEditor';
 import classnames from 'classnames';
@@ -37,11 +39,19 @@ let About = React.createClass({
     //   // if (this.props.data.bio) {}
     //   ContentState.createFromText(this.props.data.bio));
     // this.onChange = (editorState) => this.setState({editorState});
-    this.setState({editorState: null});
+    // this.setState({editorState: null});
   },
 
   formSubmit: function(entry) {
     // this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
+    console.log('entry:', entry);
+    console.log('props:', this.props);
+    // console.log('refTagline', this.refs.editorTagline.state.getCurrentContent());
+    // console.log('refTagline', this.refs.tagline);
+    /* entry props need to match up to the params that will be updated in firebase */
+    /* regular form fields will be populated but rich text fields need to be assigned */
+    entry.tagline = stateToHTML(this.refs.tagline.state.editorState.getCurrentContent());
+    this.props.updateFirebaseEntry('data/aboutme', entry);
   },
 
   render: function() {
@@ -63,9 +73,7 @@ let About = React.createClass({
     return (
       <div>
         <div>About Me</div>
-        <form onSubmit={handleSubmit(this.formSubmit)} onFocus={() => {
-            this.props.fields.key.onChange(this.props.entryKey);
-          }}>
+        <form onSubmit={handleSubmit(this.formSubmit)}>
           <div className="form-group">
             <InputText
               field={fields.name}
@@ -76,12 +84,13 @@ let About = React.createClass({
           <h5>{this.props.controlList.controls[0].label}</h5>
           <p>{this.props.controlList.controls[0].help}</p>
           <h5>{this.props.controlList.controls[7].label}</h5>
-          <RichEditor contentState={this.props.data.bio?this.props.data.bio:''} />
+          <RichEditor ref="bio" contentState={this.props.data.bio?this.props.data.bio:''} />
           <p>{this.props.controlList.controls[7].help}</p>
           <h5>{this.props.controlList.controls[6].label}</h5>
-          <RichEditor contentState={this.props.data.tagline?this.props.data.tagline:''} />
+          <RichEditor ref="tagline" contentState={this.props.data.tagline?this.props.data.tagline:''} />
           <p>{this.props.controlList.controls[6].help}</p>
           </div>
+          <button type="submit">Update Data</button>
         </form>
       </div>
     )
@@ -103,7 +112,7 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
-  console.log('state:', state);
+  // console.log('state:', state);
   return {
     controlList: state.firebase.contentType.aboutme,
     data: state.firebase.data.aboutme,
@@ -128,6 +137,6 @@ About = reduxForm({
   validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage })(About)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, updateFirebaseEntry })(About)
 
 export default About;
