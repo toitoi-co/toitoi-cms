@@ -124,6 +124,7 @@ let Dashboard = React.createClass({
             <Dropzone onDrop={this.dropHandler}>
               <div>Drop your files here!</div>
             </Dropzone>
+            {this.props.uploadError ? this.props.uploadError.data.message : ''}
             {this.state.images.length > 0 ? <div>
                 <h2>Uploading {this.state.images.length} files...</h2>
               <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
@@ -152,6 +153,9 @@ function validate(values) {
 function MapStateToProps(state) {
   // console.log('key:', state.firebase.key);
   // console.log('state:', state);
+  if (state.images.error) {
+    console.log('images:', state.images);
+  }
   return {
     initialValues: state.firebase.dashboardData,
     contentType: state.firebase.contentType,
@@ -159,6 +163,7 @@ function MapStateToProps(state) {
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,
+    uploadError: state.images.error,
     published: state.publish.published,
     updated: state.firebase.updated,
     user: state.login.user

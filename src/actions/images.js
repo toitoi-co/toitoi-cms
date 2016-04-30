@@ -24,7 +24,7 @@ export function addImage(images, user) {
       dispatch(imageUploadSuccess(response));
     })
     .catch((error) => {
-      // console.log('upload error:', error);
+      console.log('upload error:', error);
       dispatch(imageUploadError(error));
     });
   }

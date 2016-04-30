@@ -16,7 +16,7 @@ export function publishSite(user) {
     }));
     webSocket.onerror = function(error) {
       console.log('WebSocket Error:', error);
-      dispatch(publishSiteError(error));
+      dispatch(publishSiteFailure(error));
     }
     webSocket.onmessage = function(evt) {
       console.log('WebSocket Message:', evt.data);
@@ -38,9 +38,9 @@ function publishSiteSuccess(response) {
   }
 }
 
-function publishSiteError(response) {
+function publishSiteFailure(response) {
   return {
-    type: CST.PUBLISH_ERROR,
+    type: CST.PUBLISH_Failure,
     payload: response
   }
 }

@@ -46,6 +46,12 @@ module.exports = {
   FIREBASE_UPDATE:  'firebase_update',
   FIREBASE_FAILURE: 'firebase_failure',
 
+  // Image uploads
+  IMAGE_UPLOAD_REQUEST: 'image_upload_request',
+  IMAGE_UPLOAD_SUCCESS: 'image_upload_success',
+  IMAGE_UPLOAD_FAILURE: 'image_upload_failure',
+
+
   // Generate & Images
   // GENERATE_URL: 'http://localhost:6557',
   GENERATE_URL: getHostURL() + ':6557',
@@ -66,7 +72,7 @@ module.exports = {
   WEBSOCKET_URL:    'ws://' + window.location.hostname + ':6557/ws',
   PUBLISH_REQUEST:  'publish_request',
   PUBLISH_SUCCESS:  'publish_success',
-  PUBLISH_ERROR:    'publish_error'
+  PUBLISH_FAILURE:  'publish_failure'
 }
 
 function getHostURL() {
