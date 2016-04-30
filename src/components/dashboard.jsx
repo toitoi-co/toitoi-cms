@@ -4,9 +4,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { getFirebaseData, updateSingleFirebaseData, publishSite } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
+// import auth2 from '../shared/auth2';
+import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
@@ -18,32 +20,19 @@ let Dashboard = React.createClass({
   },
 
   getInitialState: function() {
-    return { };
-    this.updateData = this.updateData.bind(this);
+    // this.updateData = this.updateData.bind(this);
+    return {
+      images: []
+    };
   },
 
-  formSubmit: function(entry) {
-    event.preventDefault();
-    this.props.updateSingleFirebaseData(entry);
-  },
-
-  getDataHandler: function(event) {
-    event.preventDefault;
-    this.props.getFirebaseData();
-  },
-
-  publishSiteHandler: function(event) {
-    event.preventDefault;
-    this.props.publishSite();
-  },
-
-  logoutHandler: function(event) {
-    event.preventDefault;
-    auth.logout();
-    this.context.router.push('/');
-  },
-
-  componentDidMount: function() {
+  componentWillMount: function() {
+    // console.log('props:', this.props);
+    if (!this.props.user) {
+      // Could have lost current login info due to loss of connectivity or page refresh
+      console.log('No data, check if already authenticated.')
+      this.props.checkAuth();
+    }
   },
 
   componentWillUpdate: function() {
@@ -52,15 +41,38 @@ let Dashboard = React.createClass({
   componentWillReceiveProps: function() {
   },
 
+  formSubmit: function(entry) {
+    this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
+  },
+
+  getDataHandler: function(event) {
+    this.props.getFirebaseData(this.props.user);
+  },
+
+  dropHandler: function(files) {
+    console.log('received:', files);
+    this.props.addImage(files, this.props.user);
+  },
+
+  publishSiteHandler: function(event) {
+    this.props.publishSite(this.props.user);
+  },
+
+  logoutHandler: function(event) {
+    this.props.logoutUser();
+    this.context.router.push('/');
+  },
+
   render: function() {
-    const { fields: { key, name, description }, handleSubmit, dashboardData, entryKey, error, published, updated } = this.props;
+    const { fields: { key, name, description }, contentType, data, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (
         <div>
           {/*Loading...<br/>*/}
-        <button onClick={this.getDataHandler}>Get Data</button><br/><br/>
+        <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
         <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+        {this.props.children}
         </div>
       )
     }
@@ -69,6 +81,7 @@ let Dashboard = React.createClass({
         <div className={classes}>
           Dashboard page
           <div>{this.props.error}</div>
+          {this.props.children}
         </div>
       );
     } else {
@@ -93,7 +106,7 @@ let Dashboard = React.createClass({
                 {...description} /></label>
                 <div className="text-help">
                   {/*{description.touched ? description.error:''}*/}
-                  {dashboardData.error}
+                  {error}
                 </div>
             </div>
             <button type="submit">Update Data</button><br/><br/>
@@ -102,6 +115,18 @@ let Dashboard = React.createClass({
           <button onClick={this.logoutHandler}>Logout</button><br/><br/>
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
+          <div>
+            <label>Upload files</label>
+          {/*<button onClick={this.props.addImage}>Check images</button>*/}
+            <Dropzone onDrop={this.dropHandler}>
+              <div>Drop your files here!</div>
+            </Dropzone>
+            {this.state.images.length > 0 ? <div>
+                <h2>Uploading {this.state.images.length} files...</h2>
+              <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
+                </div> : null}
+          </div>
+          {this.props.children}
         </div>
       );
     }
@@ -121,14 +146,18 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
-  console.log('state:', state);
+  // console.log('key:', state.firebase.key);
+  // console.log('state:', state);
   return {
     initialValues: state.firebase.dashboardData,
+    contentType: state.firebase.contentType,
+    data: state.firebase.data,
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,
     published: state.publish.published,
-    updated: state.firebase.updated
+    updated: state.firebase.updated,
+    user: state.login.user
   };
 }
 
@@ -140,6 +169,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite })(Dashboard)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser })(Dashboard)
 
 export default Dashboard;

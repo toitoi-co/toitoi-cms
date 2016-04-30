@@ -2,11 +2,15 @@
 
 const CST = require('../shared/constants');
 const Firebase = require('firebase');
-const firebaseRef = new Firebase(CST.FIREBASE_URL);
-import auth from '../shared/auth';
+let firebaseRef = null;
+// import auth from '../shared/auth';
 
 
-export function getFirebaseData() {
+export function getFirebaseData(user) {
+  let hostname = encodeURIComponent((user.site.subdomainName + '.toitoi.co').replace(/\./g, ',1'));
+  let firebaseURL = CST.FIREBASE_URL + hostname + '/' + user.site.bucketKey + '/dev/';
+  firebaseRef = new Firebase(firebaseURL);
+
   return function(dispatch) {
     /* checks for firebase auth state */
     // let authData = firebaseRef.getAuth();
@@ -18,6 +22,7 @@ export function getFirebaseData() {
 
     dispatch(requestFirebase());
     firebaseRef.on('value', function(snapshot) {
+      // console.log('snapshot', snapshot.val());
       dispatch(receiveFirebase(snapshot.val()));
     }, function (errorObject) {
       dispatch(firebaseError(errorObject));
@@ -49,10 +54,12 @@ function firebaseError(response) {
   }
 }
 
-export function updateSingleFirebaseData(entry) {
+export function updateSingleFirebaseData(entry, user, entryPath) {
+  let hostname = encodeURIComponent((user.site.subdomainName + '.toitoi.co').replace(/\./g, ',1'));
+  let entryRef = firebaseRef.child(entryPath);
   return function(dispatch) {
     /* get firebase-generated key from object */
-    let childRef = firebaseRef.child(entry.key);
+    let childRef = entryRef.child(entry.key);
     /* store attributes into object for passing into Firebase */
     let updateObj = { };
     for (var prop in entry) {
@@ -62,8 +69,8 @@ export function updateSingleFirebaseData(entry) {
     }
     childRef.update(updateObj, function(error){
       if (error) {
-        console.log('Data could not be saved.' + error);
-        dispatch(updateFirebase(error));
+        console.log('Data could not be saved.', error);
+        dispatch(firebaseError(error));
       } else {
         dispatch(updateFirebase());
       }
@@ -72,9 +79,9 @@ export function updateSingleFirebaseData(entry) {
   }
 }
 
-function updateFirebase() {
+function updateFirebase(response) {
   return {
     type: CST.FIREBASE_UPDATE,
-    isFetching: false
+    isFetching: false,
   }
 }

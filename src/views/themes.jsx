@@ -12,12 +12,13 @@ const classes = classnames('themes', {});
 const Themes = React.createClass({
 
   installThemeHandler(id) {
-    event.preventDefault;
-    this.props.selectTheme(id);
+    // event.preventDefault;
+    let site = this.props.user.site.subdomainName + '.toitoi.co';
+    this.props.selectTheme(id, site);
   },
 
   getHandler() {
-    event.preventDefault;
+    // event.preventDefault;
     this.props.getThemes();
   },
 
@@ -38,13 +39,27 @@ const Themes = React.createClass({
   },
 
   componentWillMount: function() {
-    // TODO enable following when theme data on backend is populated
-    // this.props.getThemes();
+    console.log('component will mount:', this.props);
+    if (!this.props.user) {
+      // if there isn't user info that means, login and subsequent user data is not stored
+      // in app and should go
+    }
+    this.props.getThemes();
+  },
+
+  componentWillReceiveProps: function() {
+    console.log('component received props:', this.props);
   },
 
   render: function() {
-    const { themes, error, selected } = this.props;
-    // console.log('props:',this.props);
+    const { themes, error, selected, user } = this.props;
+    // console.log('state:', this.state);
+    // console.log('props:', this.props);
+
+    if (!this.props.user) {
+      // TODO
+      // no user object, therefore needs to login, so clear out auth & redirect back to login
+    }
     return (
       <div className={classes}>
         Select a Theme
@@ -62,7 +77,8 @@ function MapStateToProps(state) {
     return {
       themes: state.themes.list,
       error: state.themes.error,
-      selected: state.themes.selected
+      selected: state.themes.selected,
+      user: state.login.user
     };
 }
 

@@ -2,6 +2,7 @@
 
 import React from 'react'
 import classnames from 'classnames';
+
 const classes = classnames('welcome', {});
 
 require ('./styles/welcome.scss');

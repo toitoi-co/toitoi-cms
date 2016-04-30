@@ -2,13 +2,14 @@
 
 const CST = require('../shared/constants');
 const axios = require('axios');
+const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 
 
 export function getThemes() {
   return function(dispatch) {
     axios.get(`${CST.LOGIN_URL}/presets`, { withCredentials: true })
     .then((response) => {
-      // console.log('themes response:', response);
+      console.log('themes response:', response);
       dispatch(themesRequestSuccess(response.data));
     })
     .catch((error) => {
@@ -41,14 +42,35 @@ function themesRequestFailure(response) {
   }
 }
 
-export function selectTheme(id) {
-  console.log('id', id);
+export function selectTheme(id, site) {
+  console.log('id, site:', id, site);
   return function(dispatch) {
     dispatch(themeSelection());
-    axios.post(`${CST.LOGIN_URL}/generate-signed-request/{id}`, null, { withCredentials: true })
+    let req = {
+      presetId: id,
+      hostname: site
+    };
+    axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
     .then((response) => {
+      let signedRequest = response.data.signedRequest;
       console.log('themes response:', response);
       dispatch(themeSelectionSuccess(response));
+
+
+      webSocket.send(JSON.stringify({
+        'site': site,
+        'messageType': 'preset',
+        'signedRequest': signedRequest
+      }));
+      webSocket.onerror = function(error) {
+        console.log('WebSocket Error:', error);
+        dispatch(publishSiteError(error));
+      }
+      webSocket.onmessage = function(evt) {
+        console.log('WebSocket Message:', evt.data);
+        dispatch(themeSelectionSuccess(evt.data));
+      }
+
     })
     .catch((error) => {
       console.log('themes error:', error);
@@ -59,7 +81,7 @@ export function selectTheme(id) {
       status: 405
       statusText: "Method Not Allowed" }
       */
-      dispatch(themeSelectionFailure(error));
+      dispatch(themeSelectionFailure(error.data));
     });
   }
 }
