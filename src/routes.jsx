@@ -13,12 +13,14 @@ import Welcome from './views/welcome';
 import WelcomeSite from './views/welcome_site';
 import WelcomePlan from './views/welcome_plan';
 import WelcomeTheme from './views/welcome_theme';
+
+import GiantForm from './views/giantform';
+
+
 import About from './views/about';
 import auth from './shared/auth';
 import { checkAuth } from './actions/index';
 import CST from './shared/constants';
-
-
 
 
 
@@ -38,6 +40,7 @@ let routes = (
       <Route path="plan" component={WelcomePlan}/>
       <Route path="theme" component={WelcomeTheme}/>
     </Route>
+    <Route path="giantform" component={GiantForm}/>
   </Route>
 );
 
