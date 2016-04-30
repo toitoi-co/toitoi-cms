@@ -233,3 +233,29 @@ export function checkAuth() {
     });
   }
 }
+
+export function resetPassword(id) {
+  return function(dispatch) {
+    /* TODO 'reset' endpoint is just a placeholder... need to add correct one */
+    axios.post(`${CST.LOGIN_URL}/reset/${id}`, {})
+    .then((response) => {
+      dispatch(resetPasswordSuccess());
+    })
+    .catch((err) => {
+      dispatch(resetPasswordFailure(err));
+    });
+  }
+}
+
+function resetPasswordSuccess() {
+  return {
+    type: CST.RESET_PASSWORD_SUCCESS,
+  }
+}
+
+function confirmUserFailure(err) {
+  return {
+    type: CST.RESET_PASSWORD_FAILURE,
+    payload: err
+  }
+}

@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null }
+const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null, passwordReset: null }
 
 export default function(state = INITIAL_STATE, action) {
   // console.log('action:', action);
@@ -24,6 +24,10 @@ export default function(state = INITIAL_STATE, action) {
       return { loggedIn: action.isLoggedIn, user: action.payload.data }
     case CST.LOGOUT_SUCCESS:
       return { ...state, user: null, loggedIn: action.isLoggedIn, token: null }
+    case CST.RESET_PASSWORD_SUCCESS:
+      return { ...state, passwordReset: true}
+    case CST.RESET_PASSWORD_FAILURE:
+      return { ...state, error: action.payload }
     default:
       return state;
   }

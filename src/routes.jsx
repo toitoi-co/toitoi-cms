@@ -7,6 +7,7 @@ import Landing from './views/landing';
 import Confirmation from './views/confirmation';
 import Dashboard from './components/dashboard';
 import DashboardLanding from './views/dashboard_landing';
+import PasswordReset from './views/password_reset';
 import Themes from './views/themes';
 import Welcome from './views/welcome';
 import WelcomeSite from './views/welcome_site';
@@ -25,6 +26,8 @@ let routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Landing}/>
     <Route path="confirm/:id" component={Confirmation}/>
+    <Route path="reset" component={PasswordReset}/>
+    <Route path="reset/:id" component={PasswordReset}/>
     <Route path="dashboard" component={Dashboard}>
       <IndexRoute component={DashboardLanding}/>
       <Route path="about" component={About}/>

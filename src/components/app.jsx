@@ -17,6 +17,7 @@ const App = React.createClass({
           <li><Link to="/themes">Themes</Link></li>
           <li><Link to="/welcome">Welcome</Link></li>
         </ul>
+        <br/><br/>
         {this.props.children}
       </div>
     );

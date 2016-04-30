@@ -25,6 +25,10 @@ module.exports = {
   LOGOUT_SUCCESS:         'logout_success',
   RETURN_USER:            'return_user',
 
+  // Passwords
+  RESET_PASSWORD_SUCCESS: 'password_reset_success',
+  RESET_PASSWORD_FAILURE: 'password_reset_failure',
+
   // Welcome or onboard flow
   WELCOME_SITE_REQUEST:   'site_request',
   WELCOME_SITE_SUCCESS:   'site_success',

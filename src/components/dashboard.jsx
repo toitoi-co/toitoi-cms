@@ -72,7 +72,8 @@ let Dashboard = React.createClass({
         <div>
           {/*Loading...<br/>*/}
         <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
-        <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+        <button onClick={this.logoutHandler}>Logout</button>
+        <br/><br/>
         {this.props.children}
         </div>
       )
@@ -82,6 +83,7 @@ let Dashboard = React.createClass({
         <div className={classes}>
           Dashboard page
           <div>{this.props.error}</div>
+          <br/><br/>
           {this.props.children}
         </div>
       );
@@ -127,6 +129,7 @@ let Dashboard = React.createClass({
               <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
                 </div> : null}
           </div>
+          <br/><br/>
           {this.props.children}
         </div>
       );
