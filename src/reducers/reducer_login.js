@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { user: null, error: null, loggedIn: null, token: null, passwordReset: null }
+const INITIAL_STATE = { user: null, error: null, imageToken: null, loggedIn: null, token: null, passwordReset: null }
 
 export default function(state = INITIAL_STATE, action) {
   // console.log('action:', action);
@@ -19,6 +19,12 @@ export default function(state = INITIAL_STATE, action) {
     case CST.TOKEN_SUCCESS:
       return { ...state, token: action.payload.token }
     case CST.TOKEN_FAILURE:
+      return { ...state, error: action.payload }
+    case CST.IMAGE_TOKEN_REQUEST:
+      return { ...state }
+    case CST.IMAGE_TOKEN_SUCCESS:
+      return { ...state, imageToken: action.payload.imageToken }
+    case CST.IMAGE_TOKEN_FAILURE:
       return { ...state, error: action.payload }
     case CST.RETURN_USER:
       return { loggedIn: action.isLoggedIn, user: action.payload.data }

@@ -4,7 +4,7 @@ const CST = require('../shared/constants');
 const axios = require('axios');
 const Firebase = require('firebase');
 const firebaseRef = new Firebase(CST.FIREBASE_URL);
-// const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
+const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
 
 /*** TODO remove the following after setpassword code is finalized ***/
@@ -50,6 +50,9 @@ export function loginUser(creds) {
       if (response.data.onboardingFlowCompleted) {
         dispatch(requestToken());
       }
+      if (response.data.site.subdomainName) {
+        dispatch(requestImageToken(response.data));
+      }
     })
     .catch((err) => {
       dispatch(loginFailure(err));
@@ -94,6 +97,7 @@ export function requestToken() {
     axios.post(`${CST.LOGIN_URL}/generate-token`, {}, { withCredentials: true })
     .then((response) => {
       /* Got token, now auth Firebase with it */
+      console.log('resp:', response);
       firebaseRef.authWithCustomToken(response.data.token, function(error, authData){
         if (error) {
           console.log('Firebase login Failed!', error);
@@ -142,6 +146,50 @@ function tokenFailure(response) {
     isAuthenticated: false,
     isLoggedIn: true,
     payload: response
+  }
+}
+
+export function requestImageToken(user) {
+  let hostname = user.site.subdomainName + '.toitoi.co';
+  return function(dispatch) {
+    dispatch(imageTokenRequest());
+    webSocketRef.send(JSON.stringify({
+      'site': hostname,
+      'token': auth.getToken(),
+      'messageType': 'imageToken'
+    }));
+    webSocketRef.onerror = function(error) {
+      console.log('WebSocket Error:', error);
+      dispatch(imageTokenFailure(error));
+    }
+    webSocketRef.onmessage = function(evt) {
+      console.log('WebSocket Message:', evt.data);
+      dispatch(imageTokenSuccess(evt.data));
+    }
+  }
+}
+
+function imageTokenRequest() {
+  return {
+    type: CST.IMAGE_TOKEN_REQUEST,
+    isFetching: true,
+  }
+}
+
+function imageTokenSuccess(response) {
+  return {
+    type: CST.IMAGE_TOKEN_SUCCESS,
+    isFetching: false,
+    payload: JSON.parse(response)
+  }
+}
+
+function imageTokenFailure(response) {
+  console.log('error:', response);
+  return {
+    type: CST.IMAGE_TOKEN_FAILURE,
+    isFetching: false,
+    payload: JSON.parse(response)
   }
 }
 

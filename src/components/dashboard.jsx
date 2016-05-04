@@ -4,11 +4,11 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser } from '../actions/index';
+import { getFirebaseData, updateSingleFirebaseData, publishSite, checkAuth, logoutUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 // import auth2 from '../shared/auth2';
-import Dropzone from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
@@ -48,11 +48,6 @@ let Dashboard = React.createClass({
 
   getDataHandler: function(event) {
     this.props.getFirebaseData(this.props.user);
-  },
-
-  dropHandler: function(files) {
-    console.log('received:', files);
-    this.props.addImage(files, this.props.user);
   },
 
   publishSiteHandler: function(event) {
@@ -121,17 +116,22 @@ let Dashboard = React.createClass({
           <div>
             <label>Upload files</label>
           {/*<button onClick={this.props.addImage}>Check images</button>*/}
-            <Dropzone onDrop={this.dropHandler}>
+            {/*<Dropzone onDrop={this.dropHandler}>
               <div>Drop your files here!</div>
-            </Dropzone>
-            {this.props.uploadError ? this.props.uploadError.data.message : ''}
-            {this.state.images.length > 0 ? <div>
+            </Dropzone>*/}
+            {/*{this.props.uploadError ? this.props.uploadError.data.message : ''}*/}
+            {/*{this.state.images.length > 0 ? <div>
                 <h2>Uploading {this.state.images.length} files...</h2>
               <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
-                </div> : null}
+                </div> : null}*/}
           </div>
           <br/><br/>
-          {this.props.children}
+          {/*{this.props.children}*/}
+          {React.cloneElement(this.props.children, {
+            imageToken: this.props.imageToken,
+            token: this.props.token,
+            user: this.props.user })
+          }
         </div>
       );
     }
@@ -163,8 +163,10 @@ function MapStateToProps(state) {
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,
-    uploadError: state.images.error,
+    imageToken: state.login.imageToken,
     published: state.publish.published,
+    token: state.login.token,
+    uploadError: state.images.error,
     updated: state.firebase.updated,
     user: state.login.user
   };
@@ -178,6 +180,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, checkAuth, logoutUser })(Dashboard)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, checkAuth, logoutUser })(Dashboard)
 
 export default Dashboard;

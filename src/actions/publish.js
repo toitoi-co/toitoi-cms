@@ -1,7 +1,7 @@
 'use strict';
 
 const CST = require('../shared/constants');
-const webSocket = new WebSocket(CST.WEBSOCKET_URL);
+const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
 
 
@@ -9,16 +9,16 @@ export function publishSite(user) {
   let hostname = user.site.subdomainName + '.toitoi.co';
   return function(dispatch) {
     dispatch(requestPublishSite());
-    webSocket.send(JSON.stringify({
+    webSocketRef.send(JSON.stringify({
       'site': hostname,
       'token': auth.getToken(),
       'messageType': 'build'
     }));
-    webSocket.onerror = function(error) {
+    webSocketRef.onerror = function(error) {
       console.log('WebSocket Error:', error);
       dispatch(publishSiteFailure(error));
     }
-    webSocket.onmessage = function(evt) {
+    webSocketRef.onmessage = function(evt) {
       console.log('WebSocket Message:', evt.data);
       dispatch(publishSiteSuccess(evt.data));
     }
@@ -34,14 +34,14 @@ function requestPublishSite() {
 function publishSiteSuccess(response) {
   return {
     type: CST.PUBLISH_SUCCESS,
-    payload: response
+    payload: JSON.parse(response)
   }
 }
 
 function publishSiteFailure(response) {
   return {
-    type: CST.PUBLISH_Failure,
-    payload: response
+    type: CST.PUBLISH_FAILURE,
+    payload: JSON.parse(response)
   }
 }
 
