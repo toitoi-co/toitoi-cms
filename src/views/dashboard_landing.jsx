@@ -1,18 +1,17 @@
 'use strict';
 
 import React from 'react';
-import Login from './login';
 import classnames from 'classnames';
 
-const classes = classnames('dashboard--landing', {});
+const classes = classnames('dashboard__landing', {});
 
-require ('./styles/landing.scss');
+require ('./styles/dashboard_landing.scss');
 
 const DashboardLanding = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        DashboardLanding page
+        Dashboard Landing page
       </div>
     )
   }

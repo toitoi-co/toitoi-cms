@@ -10,12 +10,12 @@ import RichEditor from '../components/RichEditor';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
 
-const classes = classnames('about', {});
+const classes = classnames('dashboard__about', {});
 const CST = require('../shared/constants');
 
-require ('./styles/about.scss');
+require ('./styles/dashboard_about.scss');
 
-let About = React.createClass({
+let DashboardAbout = React.createClass({
 
   getInitialState: function() {
     console.log('imageToken:', this.props.imageToken);
@@ -128,12 +128,12 @@ function MapStateToProps(state) {
   };
 }
 
-About = reduxForm({
+DashboardAbout = reduxForm({
   form: 'AboutForm', //name of the form, doesn't have to be same as component
   fields: ['name'],
   validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, updateFirebaseEntry })(About)
+{ getFirebaseData, updateSingleFirebaseData, publishSite, addImage, updateFirebaseEntry })(DashboardAbout)
 
-export default About;
+export default DashboardAbout;

@@ -194,7 +194,7 @@ function imageTokenFailure(response) {
 }
 
 function logoutSuccess(response) {
-  console.log('error:', response);
+  console.log('logout:', response);
   return {
     type: CST.LOGOUT_SUCCESS,
     isFetching: false,
@@ -210,6 +210,7 @@ export function logoutUser() {
     axios.post(`${CST.LOGIN_URL}/logout`, {}, { withCredentials: true })
     .then((response) => {
       dispatch(logoutSuccess(response));
+      window.location = `${CST.CMS_URL}/`;
     })
     .catch((err) => {
       console.log('Failed to logout user:', err);

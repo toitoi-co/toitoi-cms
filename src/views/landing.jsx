@@ -12,7 +12,7 @@ const Landing = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        Landing page
+        <h1>Landing page</h1>
         <Login />
       </div>
     )

@@ -33,8 +33,8 @@ let WelcomeSite = React.createClass({
     return (
       <div>
         <form onSubmit={handleSubmit(this.formSubmit)}>
-          <h1>Step 1</h1>
-          <h3>Welcome!</h3>
+          <h2>Step 1</h2>
+          <h3>Site name</h3>
             <InputText
               disabled={saving}
               field={fields.site}

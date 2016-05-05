@@ -4,6 +4,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { Link } from 'react-router';
 import { getFirebaseData, updateSingleFirebaseData, publishSite, checkAuth, logoutUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
@@ -60,23 +61,41 @@ let Dashboard = React.createClass({
   },
 
   render: function() {
+    var links = (
+      <div>
+        <h4>Dashboard Nav:</h4>
+        <ul>
+          <li><Link to="/dashboard/about">About</Link></li>
+          <li><Link to="/dashboard/social">Social Links</Link></li>
+          <li><Link to="/dashboard/gallery">Gallery</Link></li>
+          <li><Link to="/dashboard/media">Media Relations</Link></li>
+          <li><Link to="/dashboard/testimonials">Testimonials</Link></li>
+          <li><Link to="/dashboard/contact">Public Contact Information</Link></li>
+          <li><Link to="/dashboard/schmopera">Schmopera</Link></li>
+        </ul>
+        <br/>
+      </div>
+    );
+
     const { fields: { key, name, description }, contentType, data, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.error && !this.props.dashboardData) {
       return (
-        <div>
+        <div className={classes}>
           {/*Loading...<br/>*/}
-        <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
-        <button onClick={this.logoutHandler}>Logout</button>
-        <br/><br/>
-        {this.props.children}
+          <h1>Dashboard page</h1>
+          {links}
+          <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
+          <br/><br/>
+          {this.props.children}
         </div>
       )
     }
     if (this.props.error) {
       return (
         <div className={classes}>
-          Dashboard page
+          <h1>Dashboard page</h1>
+          {links}
           <div>{this.props.error}</div>
           <br/><br/>
           {this.props.children}
@@ -85,7 +104,8 @@ let Dashboard = React.createClass({
     } else {
       return (
         <div className={classes}>
-          Dashboard page<br/>
+          <h1>Dashboard page</h1>
+          {links}
           <div>{JSON.stringify(this.props.dashboardData)}</div>
         <form onSubmit={handleSubmit(this.formSubmit)} onFocus={() => {
             this.props.fields.key.onChange(this.props.entryKey);

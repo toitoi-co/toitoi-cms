@@ -14,8 +14,6 @@ let WelcomeTheme = React.createClass({
   },
 
   getInitialState: function() {
-    // this.onInputChange = this.onInputChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
     return {
       saving: false
     }
@@ -35,7 +33,7 @@ let WelcomeTheme = React.createClass({
     return (
       <form onSubmit={handleSubmit(this.formSubmit)}>
         <div className={classes}>
-          <h1>Step 2</h1>
+          <h2>Step 2</h2>
           <h3>Choose a theme!</h3>
           <InputText
             disabled={saving}

@@ -11,7 +11,7 @@ const Welcome = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        Welcome page
+        <h1>Welcome page</h1>
         {this.props.children}
       </div>
     );
