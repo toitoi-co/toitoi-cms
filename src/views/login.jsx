@@ -8,12 +8,12 @@ import InputText from '../components/InputText';
 import InputPassword from '../components/InputPassword';
 import classnames from 'classnames';
 // import auth from '../shared/auth';
-import messages from '../shared/messages';
 
 require('./styles/login.scss');
 
-const CST = require('../shared/constants');
 const classes = classnames('login', {});
+const CST = require('../shared/constants');
+const MSG = require('../shared/messages');
 
 let Login = React.createClass({
   contextTypes: {
@@ -22,7 +22,6 @@ let Login = React.createClass({
 
   getInitialState: function() {
     return {
-      msg: messages,
       errorMsg: null,
     }
   },
@@ -82,17 +81,17 @@ let Login = React.createClass({
             <InputText
               field={fields.email}
               id='login-email'
-              label={this.state.msg.login_email_label}
+              label={MSG.login_email_label}
               placeholder='joe@example.com'
             />
             <InputPassword
               field={fields.password}
               id='login-pwd'
-              label={this.state.msg.login_password_label}
+              label={MSG.login_password_label}
               placeholder=''
             />
           </div>
-          <button type="submit">{this.state.msg.button_login}</button><br/><br/>
+          <button type="submit">{MSG.button_login}</button><br/><br/>
         </form>
         {this.props.login.error ? this.props.login.error.data.message:''}
       </div>
@@ -103,10 +102,10 @@ let Login = React.createClass({
 function validate(values) {
   const errors = {};
   if (!values.email) {
-    errors.email = messages.error_email;
+    errors.email = MSG.error_email;
   }
   if (!values.password) {
-    errors.password = messages.error_password;
+    errors.password = MSG.error_password;
   }
   return errors;
 }

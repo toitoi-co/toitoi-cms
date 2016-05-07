@@ -13,7 +13,7 @@ import auth from '../shared/auth';
 
 require ('./styles/dashboard.scss');
 const classes = classnames('dashboard', {});
-
+const MSG = require('../shared/messages');
 
 let Dashboard = React.createClass({
   contextTypes: {
@@ -147,7 +147,6 @@ let Dashboard = React.createClass({
           <br/><br/>
           {/*{this.props.children}*/}
           {React.cloneElement(this.props.children, {
-            msg: this.props.msg,
             imageToken: this.props.imageToken,
             token: this.props.token,
             user: this.props.user })

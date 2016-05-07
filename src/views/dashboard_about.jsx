@@ -10,18 +10,19 @@ import RichEditor from '../components/RichEditor';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
 
+require ('./styles/dashboard_about.scss');
+
 const classes = classnames('dashboard__about', {});
 const CST = require('../shared/constants');
+const MSG = require('../shared/messages');
 
-require ('./styles/dashboard_about.scss');
 
 let DashboardAbout = React.createClass({
 
   getInitialState: function() {
-    console.log('about props', this.props);
+    console.log('about props:', this.props);
     console.log('imageToken:', this.props.imageToken);
     return {
-      imageToken: this.props.imageToken,
       images: []
     }
   },
@@ -55,50 +56,38 @@ let DashboardAbout = React.createClass({
     this.props.updateFirebaseEntry('data/aboutme', entry);
   },
 
-
-
   render: function() {
     const { fields, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
-    // if (!this.props.error && !this.props.dashboardData) {
-    //   return (
-    //     <div className={classes}>
-    //       About Me
-    //     </div>
-    //   )
-    // } else {
-    //   return (
-    //     <div>Loading...</div>
-    //   )
-    // }
-
     if (!this.props.data) {
       return (
-        <div>Loading...</div>
+        <div>
+          <h2>{MSG.about_page_label}</h2>
+          <p>Loading...</p>
+        </div>
       )
     } else if (this.props.msg) {
       return (
         <div>
-          <h2>About Me</h2>
+          <h2>{MSG.about_page_label}</h2>
           <form onSubmit={handleSubmit(this.formSubmit)}>
             <div className="form-group">
               <InputText
                 field={fields.name}
                 id='about-name'
-                label={this.props.msg.about_name_label}
+                label={MSG.about_name_label}
                 placeholder=''
               />
-              <p>{this.props.msg.about_name_help}</p>
+              <p>{MSG.about_name_help}</p>
 
-              <h4>{this.props.msg.about_bio_label}</h4>
+              <h4>{MSG.about_bio_label}</h4>
               <RichEditor ref="bio" contentState={this.props.data.bio?this.props.data.bio:''} />
-              <p>{this.props.msg.about_bio_help}</p>
+              <p>{MSG.about_bio_help}</p>
 
-              <h4>{this.props.msg.about_tagline_label}</h4>
+              <h4>{MSG.about_tagline_label}</h4>
               <RichEditor ref="tagline" contentState={this.props.data.tagline?this.props.data.tagline:''} />
-              <p>{this.props.msg.about_tagline_help}</p>
+              <p>{MSG.about_tagline_help}</p>
             </div>
-            {/*<img src={CST.IMAGES_URL + '/images/demo.toitoi.co/ChPQj7vUUAAMbny.jpg?token=' + this.props.imageToken}/>*/}
             {this.props.data.photo ?
               <img src={CST.IMAGES_URL + this.props.data.photo.resize_url + '?token=' + this.props.imageToken}/> : null
             }
@@ -134,10 +123,8 @@ function MapStateToProps(state) {
   // console.log('state:', state);
   var contentType;
   var data;
-  // contentType = state.firebase.contentType ? state.firebase.contentType.aboutme : null;
   data = state.firebase.data ? state.firebase.data.aboutme : null;
   return {
-    // controlList: contentType,
     data: data,
     initialValues: data,
     imageData: state.images.imageData,

@@ -1,4 +1,4 @@
-const messages = {
+module.exports = {
   /* Button labels */
   'button_login':'Login',
 
@@ -27,6 +27,7 @@ const messages = {
   /* Dashboard */
 
   /* About */
+  'about_page_label':     'About Me',
   'about_name_label':     'Name',
   'about_bio_label':      'Bio',
   'about_bio_help':       'Don\'t go overboard. This should be no more than a few short paragraphs.',
@@ -36,5 +37,3 @@ const messages = {
 
 
 }
-
-export default messages;
