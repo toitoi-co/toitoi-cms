@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import { getFirebaseData, updateSingleFirebaseData, publishSite, checkAuth, logoutUser } from '../actions/index';
+import { getFirebaseData, requestImageToken, updateSingleFirebaseData, publishSite, checkAuth, logoutUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 // import auth2 from '../shared/auth2';
@@ -29,17 +29,28 @@ let Dashboard = React.createClass({
 
   componentWillMount: function() {
     // console.log('props:', this.props);
+
+    //TODO check if user and if onboardingflowcompleted otherwise return to login page
+
     if (!this.props.user) {
       // Could have lost current login info due to loss of connectivity or page refresh
       console.log('No data, check if already authenticated.')
       this.props.checkAuth();
     }
+    // if (this.props.token) {
+    //   this.props.getFirebaseData(this.props.user);
+    //   this.props.requestImageToken(this.props.user);
+    // }
   },
 
   componentWillUpdate: function() {
   },
 
   componentWillReceiveProps: function() {
+    if (this.props.user && !this.props.data) {
+      this.props.getFirebaseData(this.props.user);
+      this.props.requestImageToken(this.props.user);
+    }
   },
 
   formSubmit: function(entry) {
@@ -85,7 +96,7 @@ let Dashboard = React.createClass({
           {/*Loading...<br/>*/}
           <h1>Dashboard page</h1>
           {links}
-          <button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>
+          {/*<button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>*/}
           <br/><br/>
           {this.props.children}
         </div>
@@ -130,24 +141,13 @@ let Dashboard = React.createClass({
             <button type="submit">Update Data</button><br/><br/>
           </form>
           <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
-          <button onClick={this.logoutHandler}>Logout</button><br/><br/>
+          {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
-          <div>
-            <label>Upload files</label>
-          {/*<button onClick={this.props.addImage}>Check images</button>*/}
-            {/*<Dropzone onDrop={this.dropHandler}>
-              <div>Drop your files here!</div>
-            </Dropzone>*/}
-            {/*{this.props.uploadError ? this.props.uploadError.data.message : ''}*/}
-            {/*{this.state.images.length > 0 ? <div>
-                <h2>Uploading {this.state.images.length} files...</h2>
-              <div>{this.state.images.map((image) => <img src={image.preview} /> )}</div>
-                </div> : null}*/}
-          </div>
           <br/><br/>
           {/*{this.props.children}*/}
           {React.cloneElement(this.props.children, {
+            msg: this.props.msg,
             imageToken: this.props.imageToken,
             token: this.props.token,
             user: this.props.user })
@@ -200,6 +200,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, checkAuth, logoutUser })(Dashboard)
+{ getFirebaseData, requestImageToken, updateSingleFirebaseData, publishSite, checkAuth, logoutUser })(Dashboard)
 
 export default Dashboard;

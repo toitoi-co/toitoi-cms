@@ -42,7 +42,7 @@ let Login = React.createClass({
          whether user is confirmed before making Firebase auth request. */
       if (!this.props.login.user.onboardingFlowCompleted) {
 
-        console.log('site:', this.props.login.site);
+        console.log('site:', this.props.login.user.site);
         if (!this.props.login.user.site) {
           let site = this.props.login.user.site;
           /* If plan has been selected go to last step, otherwise

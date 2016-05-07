@@ -224,6 +224,7 @@ export function logoutUser() {
 function returnUser(response) {
   return {
     type: CST.RETURN_USER,
+    isLoggedIn: true,
     payload: response
   }
 }

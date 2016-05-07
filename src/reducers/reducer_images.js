@@ -10,7 +10,7 @@ export default function(state = INITIAL_STATE, action) {
     case CST.IMAGE_UPLOAD_REQUEST:
       return { state }
     case CST.IMAGE_UPLOAD_SUCCESS:
-      return { ...state, imageUploaded: true, imageData: action.payload.data, error: null }
+      return { ...state, imageUploaded: true, imageData: action.payload, error: null }
     case CST.IMAGE_UPLOAD_FAILURE:
       if (action.payload.status === 409) {
         action.payload.data.message = 'The file already exists.'

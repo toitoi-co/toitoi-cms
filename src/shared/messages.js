@@ -24,6 +24,17 @@ const messages = {
   'error_password_repeat':  'Please repeat your password.',
   'error_password_match':   'Your password does not match',
 
+  /* Dashboard */
+
+  /* About */
+  'about_name_label':     'Name',
+  'about_bio_label':      'Bio',
+  'about_bio_help':       'Don\'t go overboard. This should be no more than a few short paragraphs.',
+  'about_tagline_label':  'Tagline',
+  'about_tagline_help':   'Make it a zinger.'
+
+
+
 }
 
 export default messages;

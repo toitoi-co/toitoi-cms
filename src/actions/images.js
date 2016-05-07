@@ -5,7 +5,7 @@ const CST = require('../shared/constants');
 const auth = require('../shared/auth');
 const axios = require('axios');
 
-export function addImage(images, user) {
+export function uploadImage(images, user) {
   let hostname = user.site.subdomainName + '.toitoi.co';
   console.log('site', hostname);
   return function(dispatch) {
@@ -20,8 +20,18 @@ export function addImage(images, user) {
       }
     })
     .then((response) => {
-      console.log('upload response:', response);
-      dispatch(imageUploadSuccess(response));
+      console.log(response);
+      let imageData = {
+        cms_url: response.data.url,
+        fileSize: response.data.fileSize,
+        height: response.data.height,
+        resize_path: response.data.filename,
+        resize_url: response.data.thumbnailUrl,
+        url: response.data.siteUrl,
+        width: response.data.url
+      }
+      console.log('upload response:', imageData);
+      dispatch(imageUploadSuccess(imageData));
     })
     .catch((error) => {
       console.log('upload error:', error);

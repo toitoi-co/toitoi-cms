@@ -4,6 +4,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/index';
 import { Link } from 'react-router';
+import messages from '../shared/messages';
 
 let App = React.createClass({
   logoutHandler: function(event) {
@@ -23,7 +24,9 @@ let App = React.createClass({
         </ul>
         <br/>
         {this.props.user ? <button onClick={this.logoutHandler}>Logout</button> : null}
-        {this.props.children}
+        {/*{this.props.children}*/}
+        {React.cloneElement(this.props.children, { msg: messages })
+        }
       </div>
     );
   }

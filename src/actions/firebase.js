@@ -22,7 +22,7 @@ export function getFirebaseData(user) {
 
     dispatch(requestFirebase());
     firebaseRef.on('value', function(snapshot) {
-      // console.log('snapshot', snapshot.val());
+      console.log('snapshot', snapshot.val());
       dispatch(receiveFirebase(snapshot.val()));
     }, function (errorObject) {
       dispatch(firebaseError(errorObject));
