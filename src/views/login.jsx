@@ -58,6 +58,7 @@ let Login = React.createClass({
           this.context.router.push('/welcome');
         }
       } else {
+        console.log('get firebase data');
         this.props.getFirebaseData(this.props.login.user);
       }
     }

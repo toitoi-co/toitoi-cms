@@ -1,5 +1,5 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { controls: null, data: null, key: null, dashboardData: null, error: null, updated: false }
+const INITIAL_STATE = { controls: null, key: null, preview: null, error: null, updated: false }
 
 export default function(state = INITIAL_STATE, action) {
   let key = null;
@@ -12,16 +12,17 @@ export default function(state = INITIAL_STATE, action) {
     case CST.FIREBASE_REQUEST:
       return { state }
     case CST.FIREBASE_RECEIVE:
+    console.log('firebase payload:', action.payload);
     // return { dashboardData: action.payload[key], key: key }
-      key = Object.keys(action.payload.data.notablework)[0];
+      key = Object.keys(action.payload.notablework)[0];
       // return { dashboardData: action.payload.data.notablework[key], path: '/data/notablework', key: key }
-      return { contentType:action.payload.contentType, data: action.payload.data, dashboardData: action.payload.data.notablework[key], path: '', key: key }
+      return { preview: action.payload, dashboardData: action.payload.notablework[key], path: '', key: key }
     case CST.FIREBASE_SAVE:
-      return { dashboardData: action.payload.data.notablework[key], key: key }
+      return { dashboardData: action.payload.notablework[key], key: key }
     case CST.FIREBASE_UPDATE:
       // console.log('state:', state);
       // return { dashboardData: action.payload[key], key: key, updated: true }
-      return { contentType:action.payload.contentType, data: action.payload.data, dashboardData: state.dashboardData, key: state.key, updated: true }
+      return { data: action.payload, dashboardData: state.dashboardData, key: state.key, updated: true }
     case CST.FIREBASE_FAILURE:
       return { error: action.payload }
     default:

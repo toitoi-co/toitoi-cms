@@ -22,6 +22,8 @@ let Dashboard = React.createClass({
 
   getInitialState: function() {
     // this.updateData = this.updateData.bind(this);
+    // this.props.getFirebaseData(this.props.user);
+    // this.props.requestImageToken(this.props.user);
     return {
       images: []
     };
@@ -47,10 +49,10 @@ let Dashboard = React.createClass({
   },
 
   componentWillReceiveProps: function() {
-    if (this.props.user && !this.props.data) {
-      this.props.getFirebaseData(this.props.user);
-      this.props.requestImageToken(this.props.user);
-    }
+    // if (this.props.user && !this.props.preview) {
+    //   this.props.getFirebaseData(this.props.user);
+    //   this.props.requestImageToken(this.props.user);
+    // }
   },
 
   formSubmit: function(entry) {
@@ -88,9 +90,9 @@ let Dashboard = React.createClass({
       </div>
     );
 
-    const { fields: { key, name, description }, contentType, data, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
+    const { fields: { key, name, description }, contentType, preview, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
-    if (!this.props.error && !this.props.dashboardData) {
+    if (!this.props.error && !this.props.preview) {
       return (
         <div className={classes}>
           {/*Loading...<br/>*/}
@@ -178,7 +180,7 @@ function MapStateToProps(state) {
   return {
     initialValues: state.firebase.dashboardData,
     contentType: state.firebase.contentType,
-    data: state.firebase.data,
+    preview: state.firebase,
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,
     error: state.firebase.error,

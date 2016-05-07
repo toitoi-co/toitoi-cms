@@ -8,7 +8,7 @@ let firebaseRef = null;
 
 export function getFirebaseData(user) {
   let hostname = encodeURIComponent((user.site.subdomainName + '.toitoi.co').replace(/\./g, ',1'));
-  let firebaseURL = CST.FIREBASE_URL + hostname + '/' + user.site.bucketKey + '/dev/';
+  let firebaseURL = CST.FIREBASE_URL + hostname + '/' + user.site.bucketKey + '/dev/previewData';
   firebaseRef = new Firebase(firebaseURL);
 
   return function(dispatch) {
