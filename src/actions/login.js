@@ -40,7 +40,7 @@ function confirmUserFailure(err) {
   }
 }
 
-/* Auth with -admin server then req Firebase token from it. */
+/* Auth with -admin server then req Firebase & image tokens. */
 export function loginUser(creds) {
   return function(dispatch) {
     dispatch(loginRequest());
@@ -221,24 +221,39 @@ export function logoutUser() {
   }
 }
 
-function returnUser(response) {
-  return {
-    type: CST.RETURN_USER,
-    isLoggedIn: true,
-    payload: response
-  }
-}
+// function returnUser(response) {
+//   return {
+//     type: CST.RETURN_USER,
+//     isLoggedIn: true,
+//     payload: response
+//   }
+// }
 
-function getUser() {
+export function reloadUser() {
   console.log('about to get user!');
   return function(dispatch) {
     axios.get(`${CST.LOGIN_URL}/profile`, { withCredentials: true })
+    // .then((response) => {
+    //   dispatch(returnUser(response));
+    // })
+    // .catch((err) => {
+    //   console.log('Failed to get user:', err);
+    // })
     .then((response) => {
-      dispatch(returnUser(response));
+      dispatch(loginSuccess(response));
+      if (response.data.onboardingFlowCompleted) {
+        dispatch(requestToken());
+      }
+      if (response.data.site.subdomainName) {
+        dispatch(requestImageToken(response.data));
+      }
     })
     .catch((err) => {
-      console.log('Failed to get user:', err);
-    })
+      dispatch(loginFailure(err));
+      if (err.status === 401) {
+        window.location = `${CST.CMS_URL}/`;
+      }
+    });
   }
 }
 
@@ -248,41 +263,41 @@ function getHostURL() {
   return slashes.concat(window.location.hostname);
 }
 
-export function checkAuth() {
-  console.log('Check auth');
-  /* This fn checks to see if user is still authenticated (200) otherwise will redirect to login page.
-     If indeed authenticated, will proceed to get Firebase token and retrieve user object */
-  return function(dispatch) {
-    dispatch(tokenRequest());
-    axios.post(`${CST.LOGIN_URL}/generate-token`, {}, { withCredentials: true })
-    .then((response) => {
-      console.log('check auth resp:', response);
-      /* success...200 response */
-      /* Got token, now auth Firebase with it */
-      firebaseRef.authWithCustomToken(response.data.token, function(error, authData){
-        if (error) {
-          console.log('Firebase login Failed!', error);
-          /* Token failed with Firebase */
-          dispatch(tokenFailure(error));
-        } else {
-          console.log('Authenticated to Firebase successfully with payload:', authData);
-          // auth.setToken(authData.token);
-          dispatch(tokenSuccess(authData));
-          dispatch(getUser());
-        }
-      });
-    })
-    .catch((err) => {
-      /* Didn't get token from -admin server */
-      dispatch(tokenFailure(err))
-      console.log('Firebase token error:', err);
-      if (err.status === 401) {
-        window.location = `${CST.CMS_URL}/`;
-      }
-
-    });
-  }
-}
+// export function checkAuth() {
+//   console.log('Check auth');
+//   /* This fn checks to see if user is still authenticated (200) otherwise will redirect to login page.
+//      If indeed authenticated, will proceed to get Firebase token and retrieve user object */
+//   return function(dispatch) {
+//     dispatch(tokenRequest());
+//     axios.post(`${CST.LOGIN_URL}/generate-token`, {}, { withCredentials: true })
+//     .then((response) => {
+//       console.log('check auth resp:', response);
+//       /* success...200 response */
+//       /* Got token, now auth Firebase with it */
+//       firebaseRef.authWithCustomToken(response.data.token, function(error, authData){
+//         if (error) {
+//           console.log('Firebase login Failed!', error);
+//           /* Token failed with Firebase */
+//           dispatch(tokenFailure(error));
+//         } else {
+//           console.log('Authenticated to Firebase successfully with payload:', authData);
+//           // auth.setToken(authData.token);
+//           dispatch(tokenSuccess(authData));
+//           dispatch(getUser());
+//         }
+//       });
+//     })
+//     .catch((err) => {
+//       /* Didn't get token from -admin server */
+//       dispatch(tokenFailure(err))
+//       console.log('Firebase token error:', err);
+//       if (err.status === 401) {
+//         window.location = `${CST.CMS_URL}/`;
+//       }
+//
+//     });
+//   }
+// }
 
 export function resetPassword(id) {
   return function(dispatch) {
@@ -303,7 +318,7 @@ function resetPasswordSuccess() {
   }
 }
 
-function confirmUserFailure(err) {
+function resetPasswordFailure(err) {
   return {
     type: CST.RESET_PASSWORD_FAILURE,
     payload: err

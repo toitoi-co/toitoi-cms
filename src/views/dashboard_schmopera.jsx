@@ -4,6 +4,9 @@ import React from 'react';
 import classnames from 'classnames';
 
 const classes = classnames('dashboard__schmopera', {});
+const CST = require('../shared/constants');
+const MSG = require('../shared/messages');
+
 
 require ('./styles/dashboard_schmopera.scss');
 
@@ -11,7 +14,7 @@ const DashboardSchmopera = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        Schmopera page
+        <h2>{MSG.schmopera_page_label}</h2>
       </div>
     )
   }

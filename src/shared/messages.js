@@ -32,8 +32,24 @@ module.exports = {
   'about_bio_label':      'Bio',
   'about_bio_help':       'Don\'t go overboard. This should be no more than a few short paragraphs.',
   'about_tagline_label':  'Tagline',
-  'about_tagline_help':   'Make it a zinger.'
+  'about_tagline_help':   'Make it a zinger.',
 
+  /* Contact */
+  'contact_page_label':   'Contact Me',
 
+  /* Gallery */
+  'gallery_page_label':   'Gallery',
+
+  /* Media Relations */
+  'mediarelations_page_label':   'Media Relations',
+
+  /* Schmopera */
+  'schmopera_page_label':   'Schmopera',
+
+  /* Social */
+  'social_page_label':    'Social Links',
+
+  /* Testimonials */
+  'testimonials_page_label':   'Testimonials'
 
 }

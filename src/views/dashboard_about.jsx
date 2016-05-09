@@ -18,16 +18,7 @@ const MSG = require('../shared/messages');
 
 
 let DashboardAbout = React.createClass({
-
   getInitialState: function() {
-    console.log('about props:', this.props);
-    console.log('imageToken:', this.props.imageToken);
-
-    // if (!this.props.preview && this.props.user) {
-    //   console.log('okay now get firebase data');
-    //   this.props.getFirebaseData(this.props.user);
-    // }
-
     return {
       images: []
     }
@@ -40,13 +31,6 @@ let DashboardAbout = React.createClass({
     }
   },
 
-  componentWillReceiveProps: function() {
-    // if (!this.props.preview && this.props.user) {
-    //   console.log('okay now get firebase data');
-    //   this.props.getFirebaseData(this.props.user);
-    // }
-  },
-
   dropHandler: function(images) {
     console.log('received:', images);
     this.props.uploadImage(images, this.props.user);
@@ -54,10 +38,6 @@ let DashboardAbout = React.createClass({
   },
 
   formSubmit: function(entry) {
-    // this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
-    console.log('props:', this.props);
-    // console.log('refTagline', this.refs.editorTagline.state.getCurrentContent());
-    // console.log('refTagline', this.refs.tagline);
     /* entry props need to match up to the params that will be updated in firebase */
     /* regular form fields will be populated but rich text fields need to be assigned */
     entry.bio = stateToHTML(this.refs.bio.state.editorState.getCurrentContent());
@@ -133,7 +113,6 @@ function validate(values) {
 }
 
 function MapStateToProps(state) {
-  console.log('about state:', state);
   var contentType;
   var preview;
   preview = state.firebase.preview ? state.firebase.preview.aboutme : null;

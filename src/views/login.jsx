@@ -58,15 +58,12 @@ let Login = React.createClass({
           this.context.router.push('/welcome');
         }
       } else {
-        console.log('get firebase data');
+        // console.log('get firebase data');
         this.props.getFirebaseData(this.props.login.user);
       }
     }
     if (this.props.login.loggedIn && this.props.login.token) {
-      console.log('component did update props:', this.props);
       /* now auth'ed against both servers */
-      // enable the following when rest of page is ready
-      // auth.setToken(this.props.loginData.token);
       if (this.props.login.user.onboardingFlowCompleted) {
         this.context.router.push('/dashboard');
       }
@@ -114,8 +111,8 @@ function validate(values) {
 Login.propTypes = {
 };
 
-// connect: first argument is mapStateToProps, 2nd is mapDispatchToProps
-// reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps
+/* connect: first argument is mapStateToProps, 2nd is mapDispatchToProps */
+/* reduxForm: 1st is form config, 2nd is mapStateToProps, 3rd is mapDispatchToProps */
 Login = reduxForm({
   form: 'LoginForm', //name of the form, doesn't have to be same as component
   fields: ['email', 'password'],

@@ -11,7 +11,7 @@ const DashboardLanding = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        Dashboard Landing page
+        <h2>Dashboard Landing page</h2>
       </div>
     )
   }
