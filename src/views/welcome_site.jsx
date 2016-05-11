@@ -4,11 +4,11 @@ import { saveSite } from '../actions/index'
 import { Link } from 'react-router';
 import InputText from '../components/InputText';
 import classnames from 'classnames';
-import messages from '../shared/messages';
 
 require ('./styles/welcome.scss')
 
 const classes = classnames('welcome', {})
+const MSG = require('../shared/messages');
 
 let WelcomeSite = React.createClass({
   contextTypes: {
@@ -17,12 +17,12 @@ let WelcomeSite = React.createClass({
 
   getInitialState: function() {
     return {
-      msg: messages,
       saving: false
     }
   },
 
   formSubmit: function(vals) {
+    console.log('vals:', vals);
     this.props.saveSite(vals);
   },
 
@@ -37,12 +37,21 @@ let WelcomeSite = React.createClass({
           <h3>Site name</h3>
             <InputText
               disabled={saving}
-              field={fields.site}
-              id='welcome-site'
-              label={this.state.msg.save_site_label}
-              placeholder='your site.'
-            /><span>.toitoi.co</span><br/>
-          <button type="submit" className="btn btn-primary">{this.state.msg.welcome_continue}</button>
+              field={fields.subdomainName}
+              id='welcome-subdomainName'
+              label={MSG.save_subdomainName_label}
+              placeholder={MSG.save_subdomainName_placeholder}
+            /><span>.toitoi.co</span>
+            <br/><br/>
+            <InputText
+              disabled={saving}
+              field={fields.siteName}
+              id='welcome-siteName'
+              label={MSG.save_siteName_label}
+              placeholder=''
+            />
+          <br/>
+          <button type="submit" className="btn btn-primary">{MSG.welcome_continue}</button>
         </form>
         {this.props.welcome.error ? this.props.welcome.error.data.message:''}
       </div>
@@ -52,8 +61,8 @@ let WelcomeSite = React.createClass({
 
 function validate(values) {
   const errors = {};
-  if (!values.site) {
-    errors.password = messages.error_password;
+  if (!values.subdomainName) {
+    errors.subdomainName = MSG.error_subdomainName
   }
   return errors;
 }
@@ -66,6 +75,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'welcomeSiteForm', //name of the form, doesn't have to be same as component
-  fields: ['site'],
+  fields: ['subdomainName', 'siteName'],
   validate
 }, mapStateToProps, {saveSite})(WelcomeSite)

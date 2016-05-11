@@ -4,12 +4,12 @@ const CST = require('../shared/constants');
 const axios = require('axios');
 
 export function saveSite(vals) {
-  console.log('save vals:', vals)
   return function(dispatch) {
     dispatch(saveSiteRequest());
-    axios.put(`${CST.LOGIN_URL}/profile`, vals, { withCredentials: true })
+    axios.put(`${CST.LOGIN_URL}/site`, vals, { withCredentials: true })
     .then((response) => {
       dispatch(saveSiteSuccess());
+      window.location = `${CST.CMS_URL}/welcome/theme`;
     })
     .catch((err) => {
       dispatch(welcomeFailure(err));

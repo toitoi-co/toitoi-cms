@@ -2,13 +2,15 @@ module.exports = {
   /* Button labels */
   'button_login':'Login',
 
-  /* Labels */
-  'login_email_label':    'Please enter your email',
-  'login_password_label': 'Please enter your password',
-  'save_site_label':      'Please enter your site name',
-  'save_plan_label':      'Please select your plan',
-  'save_theme_label':     'Please select your theme',
-  'welcome_continue':     'Next',
+  /* Form Labels */
+  'login_email_label':              'Please enter your email',
+  'login_password_label':           'Please enter your password',
+  'save_subdomainName_label':       'Please enter your site name',
+  'save_subdomainName_placeholder': 'yoursite.',
+  'save_siteName_label':            'Please enter the title of your website',
+  'save_plan_label':                'Please select your plan',
+  'save_theme_label':               'Please select your theme',
+  'welcome_continue':               'Next',
 
 
   /* Placeholder text for input fields*/
@@ -23,6 +25,7 @@ module.exports = {
   'error_password':         'Your password was not entered.',
   'error_password_repeat':  'Please repeat your password.',
   'error_password_match':   'Your password does not match',
+  'error_subdomainName':    'Please enter a name',
 
   /* Dashboard */
 
@@ -35,7 +38,10 @@ module.exports = {
   'about_tagline_help':   'Make it a zinger.',
 
   /* Contact */
-  'contact_page_label':   'Contact Me',
+  'contact_page_label':     'Contact Me',
+  'contact_email_label':    'You can reached at what email address?',
+  'contact_greeting_label': 'Invite people to reach you.',
+
 
   /* Gallery */
   'gallery_page_label':   'Gallery',

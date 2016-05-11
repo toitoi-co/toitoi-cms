@@ -93,3 +93,20 @@ function updateFirebase(response) {
     isFetching: false,
   }
 }
+
+export function addDataSkeleton(user) {
+  /* Add data skeleton for populating content */
+  let hostname = encodeURIComponent((user.site.subdomainName + '.toitoi.co').replace(/\./g, ',1'));
+  let firebaseURL = CST.FIREBASE_URL + hostname + '/' + user.site.bucketKey + '/dev/previewData';
+  firebaseRef = new Firebase(firebaseURL);
+  return function(dispatch) {
+    // dispatch(requestFirebase());
+    // firebaseRef.on('value', function(snapshot) {
+    //   // console.log('snapshot', snapshot.val());
+    //   dispatch(receiveFirebase(snapshot.val()));
+    // }, function (errorObject) {
+    //   dispatch(firebaseError(errorObject));
+    //   console.log('The read failed: ' + errorObject.code);
+    // });
+  }
+}

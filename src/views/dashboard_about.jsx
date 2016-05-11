@@ -1,8 +1,7 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { reduxForm } from 'redux-form';
 import { stateToHTML } from 'draft-js-export-html';
 import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry } from '../actions/index';
 import InputText from '../components/InputText';
@@ -74,15 +73,15 @@ let DashboardAbout = React.createClass({
               <p>{MSG.about_name_help}</p>
 
               <h4>{MSG.about_bio_label}</h4>
-              <RichEditor ref="bio" contentState={this.props.preview.bio?this.props.preview.bio:''} />
+              <RichEditor ref="bio" contentState={this.props.preview.aboutme.bio?this.props.preview.aboutme.bio:''} />
               <p>{MSG.about_bio_help}</p>
 
               <h4>{MSG.about_tagline_label}</h4>
-              <RichEditor ref="tagline" contentState={this.props.preview.tagline?this.props.preview.tagline:''} />
+              <RichEditor ref="tagline" contentState={this.props.preview.aboutme.tagline?this.props.preview.aboutme.tagline:''} />
               <p>{MSG.about_tagline_help}</p>
             </div>
-            {this.props.preview.photo ?
-              <img src={CST.IMAGES_URL + this.props.preview.photo.resize_url + '?token=' + this.props.imageToken}/> : null
+            {this.props.preview.aboutme.photo ?
+              <img src={CST.IMAGES_URL + this.props.preview.aboutme.photo.resize_url + '?token=' + this.props.imageToken}/> : null
             }
 
             <div>
@@ -112,10 +111,8 @@ function validate(values) {
   return errors;
 }
 
-function MapStateToProps(state) {
-  var contentType;
-  var preview;
-  preview = state.firebase.preview ? state.firebase.preview.aboutme : null;
+function mapStateToProps(state) {
+  let preview = state.firebase.preview ? state.firebase.preview : null;
   return {
     preview: preview,
     initialValues: preview,
@@ -134,7 +131,7 @@ DashboardAbout = reduxForm({
   fields: ['name'],
   validate
 },
-MapStateToProps,
+mapStateToProps,
 { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry })(DashboardAbout)
 
 export default DashboardAbout;

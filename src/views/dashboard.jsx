@@ -58,7 +58,7 @@ let Dashboard = React.createClass({
 
   formSubmit: function(entry) {
     console.log('entry:', entry);
-    this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
+    // this.props.updateSingleFirebaseData(entry, this.props.user, '/data/notablework');
   },
 
   getDataHandler: function(event) {
@@ -82,7 +82,7 @@ let Dashboard = React.createClass({
           <li><Link to="/dashboard/about">About</Link></li>
           <li><Link to="/dashboard/social">Social Links</Link></li>
           <li><Link to="/dashboard/gallery">Gallery</Link></li>
-          <li><Link to="/dashboard/media">Media Relations</Link></li>
+          <li><Link to="/dashboard/mediarelations">Media Relations</Link></li>
           <li><Link to="/dashboard/testimonials">Testimonials</Link></li>
           <li><Link to="/dashboard/contact">Public Contact Information</Link></li>
           <li><Link to="/dashboard/schmopera">Schmopera</Link></li>
