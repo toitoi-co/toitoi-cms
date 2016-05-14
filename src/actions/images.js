@@ -23,12 +23,12 @@ export function uploadImage(images, user) {
       console.log(response);
       let imageData = {
         cms_url: response.data.url,
+        cms_thumbnail_url: response.data.thumbnailUrl,
         fileSize: response.data.fileSize,
         height: response.data.height,
         resize_path: response.data.filename,
-        resize_url: response.data.thumbnailUrl,
         url: response.data.siteUrl,
-        width: response.data.url
+        width: response.data.width
       }
       console.log('upload response:', imageData);
       dispatch(imageUploadSuccess(imageData));
