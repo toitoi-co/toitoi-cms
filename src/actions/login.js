@@ -1,4 +1,5 @@
 'use strict';
+import { browserHistory } from 'react-router';
 
 const CST = require('../shared/constants');
 const axios = require('axios');
@@ -150,7 +151,10 @@ function tokenFailure(response) {
 }
 
 export function requestImageToken(user) {
+
   let hostname = user.site.subdomainName + '.toitoi.co';
+  console.log('hostname:', hostname);
+  console.log('token:', auth.getToken());
   return function(dispatch) {
     dispatch(imageTokenRequest());
     webSocketRef.send(JSON.stringify({
@@ -210,7 +214,7 @@ export function logoutUser() {
     axios.post(`${CST.LOGIN_URL}/logout`, {}, { withCredentials: true })
     .then((response) => {
       dispatch(logoutSuccess(response));
-      window.location = `${CST.CMS_URL}/`;
+      browserHistory.push('/');
     })
     .catch((err) => {
       console.log('Failed to logout user:', err);
@@ -251,7 +255,7 @@ export function reloadUser() {
     .catch((err) => {
       dispatch(loginFailure(err));
       if (err.status === 401) {
-        window.location = `${CST.CMS_URL}/`;
+        browserHistory.push('/');
       }
     });
   }

@@ -1,21 +1,18 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { saveSite } from '../actions/index'
 import { Link } from 'react-router';
+import { saveSite } from '../actions/index';
 import InputText from '../components/InputText';
 import classnames from 'classnames';
 
-require ('./styles/welcome.scss')
+require ('./styles/welcome.scss');
 
-const classes = classnames('welcome', {})
+const classes = classnames('welcome', {});
 const MSG = require('../shared/messages');
 
 let WelcomeSite = React.createClass({
-  contextTypes: {
-    router: PropTypes.object
-  },
-
   getInitialState: function() {
+    console.log('user:', this.props.user);
     return {
       saving: false
     }
@@ -26,12 +23,12 @@ let WelcomeSite = React.createClass({
     this.props.saveSite(vals);
   },
 
-  render() {
+  render: function() {
     const { fields, handleSubmit } = this.props;
     const { saving, submitted } = this.state;
 
     return (
-      <div>
+      <div className={classes}>
         <form onSubmit={handleSubmit(this.formSubmit)}>
           <h2>Step 1</h2>
           <h3>Site name</h3>
@@ -63,6 +60,9 @@ function validate(values) {
   const errors = {};
   if (!values.subdomainName) {
     errors.subdomainName = MSG.error_subdomainName
+  }
+  if (!values.siteName) {
+    errors.siteName = MSG.error_subdomainName
   }
   return errors;
 }

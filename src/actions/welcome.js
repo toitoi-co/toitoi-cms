@@ -1,7 +1,9 @@
 'use strict';
+import { browserHistory } from 'react-router';
 
 const CST = require('../shared/constants');
 const axios = require('axios');
+
 
 export function saveSite(vals) {
   return function(dispatch) {
@@ -9,7 +11,7 @@ export function saveSite(vals) {
     axios.put(`${CST.LOGIN_URL}/site`, vals, { withCredentials: true })
     .then((response) => {
       dispatch(saveSiteSuccess());
-      window.location = `${CST.CMS_URL}/welcome/theme`;
+      browserHistory.push('/welcome/theme');
     })
     .catch((err) => {
       dispatch(welcomeFailure(err));
@@ -60,7 +62,7 @@ function savePlanSuccess(response) {
   }
 }
 
-export function saveTheme(vals) {
+export function saveTheme__unused(vals) {
   return function(dispatch) {
     dispatch(saveThemeRequest());
     axios.put(`${CST.LOGIN_URL}/profile`, vals, { withCredentials: true })
@@ -72,6 +74,55 @@ export function saveTheme(vals) {
     })
   }
 }
+
+export function saveTheme(id, user) {
+  let hostname = user.site.subdomainName + '.toitoi.co';
+  return function(dispatch) {
+    dispatch(themeSelection());
+    let req = {
+      presetId: id,
+      hostname: hostname
+    };
+    axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
+    .then((response) => {
+      let signedRequest = response.data.signedRequest;
+      console.log('save theme:', response);
+      dispatch(saveThemeRequest(response));
+      webSocket.send(JSON.stringify({
+        'site': hostname,
+        'messageType': 'preset',
+        'signedRequest': signedRequest
+      }));
+      webSocket.onerror = function(error) {
+        console.log('WebSocket Error:', error);
+        dispatch(saveThemeFailure(error));
+      }
+      webSocket.onmessage = function(evt) {
+        console.log('WebSocket event:', evt);
+        console.log('WebSocket Message:', evt.data);
+        if (evt.data.messageType === 'done') {
+          dispatch(saveThemeSuccess(evt.data));
+        } else {
+          dispatch(welcomeFailure(evt.data.message));
+        }
+      }
+
+    })
+    .catch((error) => {
+      console.log('themes error:', error);
+      /* error object structured as
+      { config: Object
+      data: Object
+      headers: Object
+      status: 405
+      statusText: "Method Not Allowed" }
+      */
+      dispatch(welcomeFailure(error.data.message));
+    });
+  }
+}
+
+
 
 function saveThemeRequest(response) {
   return {
@@ -88,10 +139,10 @@ function saveThemeSuccess(response) {
   }
 }
 
-function welcomeFailure(err) {
+function welcomeFailure(errorMsg) {
   return {
     type: CST.WELCOME_FAILURE,
     isFetching: false,
-    payload: err
+    payload: errorMsg
   }
 }

@@ -12,6 +12,7 @@ import auth from '../shared/auth';
 // import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard.scss');
+
 const classes = classnames('dashboard', {});
 const MSG = require('../shared/messages');
 
@@ -63,6 +64,10 @@ let Dashboard = React.createClass({
 
   getDataHandler: function(event) {
     this.props.getFirebaseData(this.props.user);
+  },
+
+  previewSiteHandler: function(event) {
+    this.props.previewSite(this.props.user);
   },
 
   publishSiteHandler: function(event) {
@@ -143,7 +148,9 @@ let Dashboard = React.createClass({
             </div>
             <button type="submit">Update Data</button><br/><br/>
           </form>*/}
+          <button onClick={this.previewSiteHandler}>Publish Site</button><br/><br/>
           <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
+
           {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
@@ -153,8 +160,7 @@ let Dashboard = React.createClass({
             imageToken: this.props.imageToken,
             token: this.props.token,
             user: this.props.user
-           })
-          }
+          })}
         </div>
       );
     }

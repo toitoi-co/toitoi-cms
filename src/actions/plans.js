@@ -5,46 +5,45 @@ const axios = require('axios');
 const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 
 
-export function getThemes() {
+export function getPlans() {
   return function(dispatch) {
     axios.get(`${CST.LOGIN_URL}/presets`, { withCredentials: true })
     .then((response) => {
-      console.log('themes response:', response);
-      dispatch(themesRequestSuccess(response.data));
+      console.log('plans response:', response);
+      dispatch(plansRequestSuccess(response.data));
     })
     .catch((error) => {
-      // console.log('themes error:', error);
-      dispatch(themesRequestFailure(error));
+      // console.log('plans error:', error);
+      dispatch(plansRequestFailure(error));
     });
   }
 }
 
-function themesRequest() {
+function plansRequest() {
   return {
-    type: CST.THEMES_REQUEST,
+    type: CST.PLANS_REQUEST,
     isFetching: true
   }
 }
 
-function themesRequestSuccess(response) {
+function plansRequestSuccess(response) {
   return {
-    type: CST.THEMES_REQUEST_SUCCESS,
+    type: CST.PLANS_REQUEST_SUCCESS,
     isFetching: false,
     payload: response,
   }
 }
 
-function themesRequestFailure(response) {
+function plansRequestFailure(response) {
   return {
-    type: CST.THEMES_REQUEST_FAILURE,
+    type: CST.PLANS_REQUEST_FAILURE,
     isFetching: false,
     payload: response
   }
 }
 
-export function selectTheme(id, user) {
+export function selectPlan(id, user) {
   let hostname = user.site.subdomainName + '.toitoi.co';
-  console.log('id, hostname:', id, hostname);
   return function(dispatch) {
     dispatch(themeSelection());
     let req = {
@@ -54,10 +53,10 @@ export function selectTheme(id, user) {
     axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
     .then((response) => {
       let signedRequest = response.data.signedRequest;
-      console.log('themes response:', response);
+      console.log('plans response:', response);
       dispatch(themeSelectionSuccess(response));
       webSocket.send(JSON.stringify({
-        'site': hostname,
+        'site': site,
         'messageType': 'preset',
         'signedRequest': signedRequest
       }));
@@ -66,14 +65,13 @@ export function selectTheme(id, user) {
         dispatch(publishSiteError(error));
       }
       webSocket.onmessage = function(evt) {
-        console.log('WebSocket event:', evt);
         console.log('WebSocket Message:', evt.data);
         dispatch(themeSelectionSuccess(evt.data));
       }
 
     })
     .catch((error) => {
-      console.log('themes error:', error);
+      console.log('plans error:', error);
       /* error object structured as
       { config: Object
       data: Object
@@ -81,30 +79,29 @@ export function selectTheme(id, user) {
       status: 405
       statusText: "Method Not Allowed" }
       */
-      dispatch(themeSelectionFailure(error));
+      dispatch(themeSelectionFailure(error.data));
     });
   }
 }
 
 function themeSelection() {
   return {
-    type: CST.THEME_SELECTION,
+    type: CST.PLAN_SELECTION,
     isFetching: true
   }
 }
 
 function themeSelectionSuccess(response) {
   return {
-    type: CST.THEME_SELECTION_SUCCESS,
+    type: CST.PLAN_SELECTION_SUCCESS,
     isFetching: false,
     payload: response,
   }
 }
 
 function themeSelectionFailure(response) {
-  console.log('error:', response);
   return {
-    type: CST.THEME_SELECTION_FAILURE,
+    type: CST.PLAN_SELECTION_FAILURE,
     isFetching: false,
     payload: response
   }
