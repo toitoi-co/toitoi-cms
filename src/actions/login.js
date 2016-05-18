@@ -106,7 +106,7 @@ export function requestToken() {
           dispatch(tokenFailure(error));
         } else {
           console.log('Authenticated to Firebase.', authData);
-          // auth.setToken(authData.token);
+          auth.setToken(authData.token);
           dispatch(tokenSuccess(authData));
         }
       });

@@ -5,7 +5,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
-import { getFirebaseData, requestImageToken, updateSingleFirebaseData, publishSite, logoutUser, reloadUser } from '../actions/index';
+import { getFirebaseData, requestImageToken, updateSingleFirebaseData, buildSite, publishSite, logoutUser, reloadUser } from '../actions/index';
 import classnames from 'classnames';
 import auth from '../shared/auth';
 // import auth2 from '../shared/auth2';
@@ -67,7 +67,7 @@ let Dashboard = React.createClass({
   },
 
   previewSiteHandler: function(event) {
-    this.props.previewSite(this.props.user);
+    this.props.buildSite(this.props.user, true);
   },
 
   publishSiteHandler: function(event) {
@@ -148,7 +148,7 @@ let Dashboard = React.createClass({
             </div>
             <button type="submit">Update Data</button><br/><br/>
           </form>*/}
-          <button onClick={this.previewSiteHandler}>Publish Site</button><br/><br/>
+          <button onClick={this.previewSiteHandler}>Preview Site</button><br/><br/>
           <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
 
           {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
@@ -209,6 +209,6 @@ Dashboard = reduxForm({
   // validate
 },
 MapStateToProps,
-{ getFirebaseData, requestImageToken, updateSingleFirebaseData, publishSite, logoutUser, reloadUser })(Dashboard)
+{ getFirebaseData, requestImageToken, updateSingleFirebaseData, buildSite, publishSite, logoutUser, reloadUser })(Dashboard)
 
 export default Dashboard;

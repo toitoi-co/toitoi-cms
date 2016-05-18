@@ -9,6 +9,13 @@ const classes = classnames('welcome', {});
 require ('./styles/welcome.scss');
 
 let Welcome = React.createClass({
+  componentWillMount: function() {
+    if (!this.props.user) {
+      console.log('No data, get User and tokens')
+      this.props.reloadUser();
+    }
+  },
+
   render: function() {
     return (
       <div className={classes}>

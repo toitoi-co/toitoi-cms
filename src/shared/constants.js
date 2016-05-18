@@ -74,6 +74,9 @@ module.exports = {
   // WebSocket
   // WEBSOCKET_URL: 'ws://localhost:6557/ws',
   WEBSOCKET_URL:    'ws://' + window.location.hostname + ':6557/ws',
+  PREVIEW_REQUEST:  'preview_request',
+  PREVIEW_SUCCESS:  'preview_success',
+  PREVIEW_FAILURE:  'preview_failure',
   PUBLISH_REQUEST:  'publish_request',
   PUBLISH_SUCCESS:  'publish_success',
   PUBLISH_FAILURE:  'publish_failure'
