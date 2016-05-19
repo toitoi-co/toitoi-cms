@@ -16,7 +16,7 @@ export default function(state = INITIAL_STATE, action) {
     // return { dashboardData: action.payload[key], key: key }
       key = Object.keys(action.payload.notablework)[0];
       // return { dashboardData: action.payload.data.notablework[key], path: '/data/notablework', key: key }
-      return { preview: action.payload, dashboardData: action.payload.notablework[key], path: '', key: key }
+      return { data: action.payload, dashboardData: action.payload.notablework[key], path: '', key: key }
     case CST.FIREBASE_SAVE:
       return { dashboardData: action.payload.notablework[key], key: key }
     case CST.FIREBASE_UPDATE:

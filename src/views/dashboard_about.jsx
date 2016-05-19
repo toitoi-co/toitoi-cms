@@ -24,7 +24,7 @@ let DashboardAbout = React.createClass({
   },
 
   componentWillMount: function() {
-    if (!this.props.preview && this.props.user) {
+    if (!this.props.data && this.props.user) {
       console.log('okay now get firebase data');
       this.props.getFirebaseData(this.props.user);
     }
@@ -51,7 +51,7 @@ let DashboardAbout = React.createClass({
   render: function() {
     const { fields, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
 
-    if (!this.props.preview) {
+    if (!this.props.data) {
       return (
         <div>
           <h2>{MSG.about_page_label}</h2>
@@ -73,15 +73,15 @@ let DashboardAbout = React.createClass({
               <p>{MSG.about_name_help}</p>
 
               <h4>{MSG.about_bio_label}</h4>
-              <RichEditor ref="bio" contentState={this.props.preview.aboutme.bio?this.props.preview.aboutme.bio:''} />
+              <RichEditor ref="bio" contentState={this.props.data.aboutme.bio?this.props.data.aboutme.bio:''} />
               <p>{MSG.about_bio_help}</p>
 
               <h4>{MSG.about_tagline_label}</h4>
-              <RichEditor ref="tagline" contentState={this.props.preview.aboutme.tagline?this.props.preview.aboutme.tagline:''} />
+              <RichEditor ref="tagline" contentState={this.props.data.aboutme.tagline?this.props.data.aboutme.tagline:''} />
               <p>{MSG.about_tagline_help}</p>
             </div>
-            {this.props.preview.aboutme.photo ?
-              <img src={CST.IMAGES_URL + this.props.preview.aboutme.photo.resize_url + '?token=' + this.props.imageToken}/> : null
+            {this.props.data.aboutme.photo ?
+              <img src={CST.IMAGES_URL + this.props.data.aboutme.photo.resize_url + '?token=' + this.props.imageToken}/> : null
             }
 
             <div>
@@ -112,10 +112,10 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-  let preview = state.firebase.preview ? state.firebase.preview : null;
+  let data = state.firebase.data ? state.firebase.data : null;
   return {
-    preview: preview,
-    initialValues: preview,
+    data: data,
+    initialValues: data,
     imageData: state.images.imageData,
     dashboardData: state.firebase.dashboardData,
     entryKey: state.firebase.key,

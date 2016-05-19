@@ -1,12 +1,13 @@
 'use strict';
 
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
+import { reloadUser } from '../actions/index';
 import classnames from 'classnames';
 
-const classes = classnames('welcome', {});
-
 require ('./styles/welcome.scss');
+
+const classes = classnames('welcome', {});
 
 let Welcome = React.createClass({
   componentWillMount: function() {
@@ -17,17 +18,27 @@ let Welcome = React.createClass({
   },
 
   render: function() {
-    return (
-      <div className={classes}>
-        <h1>Welcome page</h1>
-        {/*{this.props.children}*/}
-        {React.cloneElement(this.props.children, {
-          imageToken: this.props.imageToken,
-          token: this.props.token,
-          user: this.props.user
-        })}
-      </div>
-    );
+    if (!this.props.error && !this.props.user) {
+      return (
+        <div className={classes}>
+          <p>Loading...</p>
+          <br/><br/>
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return (
+        <div className={classes}>
+          <h1>Welcome page</h1>
+          {/*{this.props.children}*/}
+          {React.cloneElement(this.props.children, {
+            imageToken: this.props.imageToken,
+            token: this.props.token,
+            user: this.props.user
+          })}
+        </div>
+      );
+    }
   }
 });
 
@@ -37,4 +48,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {})(Welcome)
+export default connect(mapStateToProps, { reloadUser })(Welcome)

@@ -26,7 +26,8 @@ let Dashboard = React.createClass({
     // this.props.getFirebaseData(this.props.user);
     // this.props.requestImageToken(this.props.user);
     return {
-      images: []
+      images: [],
+      previewReady: false
     };
   },
 
@@ -47,15 +48,7 @@ let Dashboard = React.createClass({
     // }
   },
 
-  componentWillUpdate: function() {
-  },
 
-  componentWillReceiveProps: function() {
-    // if (this.props.user && !this.props.preview) {
-    //   this.props.getFirebaseData(this.props.user);
-    //   this.props.requestImageToken(this.props.user);
-    // }
-  },
 
   formSubmit: function(entry) {
     console.log('entry:', entry);
@@ -179,7 +172,7 @@ function validate(values) {
   return errors;
 }
 
-function MapStateToProps(state) {
+function mapStateToProps(state) {
   // console.log('key:', state.firebase.key);
   // console.log('state:', state);
   if (state.images.error) {
@@ -188,8 +181,8 @@ function MapStateToProps(state) {
   return {
     initialValues: state.firebase.dashboardData,
     contentType: state.firebase.contentType,
-    preview: state.firebase,
-    dashboardData: state.firebase.dashboardData,
+    // dashboardData: state.firebase.dashboardData,
+    data: state.firebase,
     entryKey: state.firebase.key,
     error: state.firebase.error,
     imageToken: state.login.imageToken,
@@ -208,7 +201,7 @@ Dashboard = reduxForm({
   fields: ['key', 'name', 'description'],
   // validate
 },
-MapStateToProps,
+mapStateToProps,
 { getFirebaseData, requestImageToken, updateSingleFirebaseData, buildSite, publishSite, logoutUser, reloadUser })(Dashboard)
 
 export default Dashboard;

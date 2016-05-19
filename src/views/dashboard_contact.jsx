@@ -18,7 +18,7 @@ const MSG = require('../shared/messages');
 
 let DashboardContact = React.createClass({
   componentWillMount: function() {
-    if (!this.props.preview && this.props.user) {
+    if (!this.props.data && this.props.user) {
       console.log('okay now get firebase data');
       this.props.getFirebaseData(this.props.user);
     }
@@ -40,7 +40,7 @@ let DashboardContact = React.createClass({
   render: function() {
     const { fields, handleSubmit, entryKey, error, published, updated, user } = this.props;
 
-    if (!this.props.preview) {
+    if (!this.props.data) {
       return (
         <div>
           <h2>{MSG.contact_page_label}</h2>
@@ -61,7 +61,7 @@ let DashboardContact = React.createClass({
                 />
 
                 <h4>{MSG.contact_greeting_label}</h4>
-                {/*<RichEditor ref="greeting" contentState={this.props.preview.contact?this.props.preview.contact.greeting:''} />*/}
+                {/*<RichEditor ref="greeting" contentState={this.props.data.contact?this.props.data.contact.greeting:''} />*/}
               </div>
             </form>
         </div>
@@ -77,13 +77,13 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-  let preview = state.firebase.preview ? state.firebase.preview : null;
+  let data = state.firebase.data ? state.firebase.data : null;
   return {
-    preview: preview,
-    initialValues: preview,
-    imageData: state.images.imageData,
+    data: data,
     entryKey: state.firebase.key,
     error: state.firebase.error,
+    initialValues: data,
+    imageData: state.images.imageData,
     updated: state.firebase.updated
   };
 }
