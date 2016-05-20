@@ -29,11 +29,11 @@ let WelcomeTheme = React.createClass({
   // },
 
   formSubmit: function(values) {
-    this.props.selectTheme(values.theme, this.props.user);
+    this.props.selectTheme(values.theme, this.props.user, true);
   },
 
   render: function() {
-    const { fields: {theme}, handleSubmit, themes } = this.props;
+    const { fields: {theme}, error, handleSubmit, themes, loading } = this.props;
     const { saving, submitted } = this.state;
 
     if (!this.props.themes || this.props.themes.length < 1) {
@@ -41,6 +41,7 @@ let WelcomeTheme = React.createClass({
         <div className={classes}>
           <h2>Step 2</h2>
           <p>Loading...</p>
+          {error}
         </div>
       )
     } else {
@@ -63,10 +64,13 @@ let WelcomeTheme = React.createClass({
             <h3>Choose a theme!</h3>
             {radioButtons}
             <button type="submit" className="btn btn-primary">Next</button>
+            <br/><br/>
             {theme.touched && theme.error && <div>{theme.error}</div>}
+            {this.props.loading ? 'Installing...' : ''}
           </form>
+          {error}
         </div>
-      )
+      );
     }
   }
 });
@@ -82,7 +86,9 @@ function validate(values) {
 
 function mapStateToProps(state) {
   return {
-    themes: state.themes.list
+    themes: state.themes.list,
+    error: state.themes.error,
+    loading: state.themes.loading
   }
 }
 

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   // Content
   IMAGE_UPLOAD_REQUEST: 'image_upload_request',

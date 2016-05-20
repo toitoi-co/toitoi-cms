@@ -8,14 +8,6 @@ const firebaseRef = new Firebase(CST.FIREBASE_URL);
 const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
 
-/*** TODO remove the following after setpassword code is finalized ***/
-export const LOGIN_USER = 'LOGIN_USER';
-export const AUTH_SET_TOKEN = 'SET_TOKEN';
-export const AUTH_DISCARD_TOKEN = 'DISCARD_TOKEN';
-export const AUTH_SET_USER = 'SET_USER';
-/*** end TODO ***/
-
-
 export function confirmUser(id) {
   return function(dispatch) {
     axios.post(`${CST.LOGIN_URL}/confirm/${id}`, {})
@@ -214,6 +206,7 @@ export function logoutUser() {
     axios.post(`${CST.LOGIN_URL}/logout`, {}, { withCredentials: true })
     .then((response) => {
       dispatch(logoutSuccess(response));
+      auth.removeToken();
       browserHistory.push('/');
     })
     .catch((err) => {

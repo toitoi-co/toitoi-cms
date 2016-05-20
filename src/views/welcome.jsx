@@ -30,7 +30,6 @@ let Welcome = React.createClass({
       return (
         <div className={classes}>
           <h1>Welcome page</h1>
-          {/*{this.props.children}*/}
           {React.cloneElement(this.props.children, {
             imageToken: this.props.imageToken,
             token: this.props.token,

@@ -1,7 +1,7 @@
 const CST = require('../shared/constants');
 const INITIAL_STATE = {
-  selected: false,
   error: null,
+  loading: false,
   // Keep oldlist as reference until hosted dev or prod server has presets. For now, ensure -admin on localhost has some presets
   oldList: [
     {
@@ -59,11 +59,11 @@ export default function(state = INITIAL_STATE, action) {
     case CST.THEMES_REQUEST_FAILURE:
       return state;
     case CST.THEME_SELECTION:
-      return state;
+      return { ...state, loading: action.isFetching}
     case CST.THEME_SELECTION_SUCCESS:
-      return { ...state, selected: true }
+      return { ...state, loading: action.isFetching}
     case CST.THEME_SELECTION_FAILURE:
-      return { ...state, error: action.payload.message }
+      return { ...state, error: action.payload.message, loading: action.isFetching}
     default:
       return state;
   }

@@ -9,9 +9,9 @@ require ('./styles/themes.scss');
 const classes = classnames('themes', {});
 
 
-const Themes = React.createClass({
+let Themes = React.createClass({
   installThemeHandler: function(id) {
-    this.props.selectTheme(id, this.props.user);
+    this.props.selectTheme(id, this.props.user, false);
   },
 
   renderThemes(themes) {
@@ -28,17 +28,10 @@ const Themes = React.createClass({
           <button onClick={this.installThemeHandler.bind(this, id)}>Install</button>
         </li>
       );
-    } else {
-      return null;
     }
-
   },
 
   componentWillMount: function() {
-    // if (!this.props.user) {
-    //   // if there isn't user info that means, login and subsequent user data is not stored
-    //   // in app and should go
-    // }
     if (!this.props.user) {
       console.log('No data, get User and tokens')
       this.props.reloadUser();
@@ -47,7 +40,7 @@ const Themes = React.createClass({
   },
 
   render: function() {
-    const { themes, error, selected, user } = this.props;
+    const { themes, error, user } = this.props;
     if (!this.props.user || !this.props.themes || this.props.themes.length < 1) {
       console.log('user:', this.props.user);
       console.log('themes:', this.props.themes);
@@ -65,6 +58,7 @@ const Themes = React.createClass({
           <ul className="select_themes">
             {themes.map(this.renderThemes)}
           </ul>
+          {this.props.loading ? 'Installing...' : ''}
           {error}
         </div>
       )
@@ -76,7 +70,7 @@ function mapStateToProps(state) {
   return {
     themes: state.themes.list,
     error: state.themes.error,
-    selected: state.themes.selected,
+    loading: state.themes.loading,
     user: state.login.user
   };
 }

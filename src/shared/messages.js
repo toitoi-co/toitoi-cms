@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   /* Button labels */
   'button_login':'Login',

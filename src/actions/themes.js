@@ -1,15 +1,15 @@
 'use strict';
+import { browserHistory } from 'react-router';
 
 const CST = require('../shared/constants');
 const axios = require('axios');
 const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 
-
 export function getThemes() {
   return function(dispatch) {
     axios.get(`${CST.LOGIN_URL}/presets`, { withCredentials: true })
     .then((response) => {
-      console.log('themes response:', response);
+      // console.log('themes response:', response);
       dispatch(themesRequestSuccess(response.data));
     })
     .catch((error) => {
@@ -42,7 +42,7 @@ function themesRequestFailure(response) {
   }
 }
 
-export function selectTheme(id, user) {
+export function selectTheme(id, user, onboard) {
   let hostname = user.site.subdomainName + '.toitoi.co';
   console.log('id, hostname:', id, hostname);
   return function(dispatch) {
@@ -51,11 +51,14 @@ export function selectTheme(id, user) {
       presetId: id,
       hostname: hostname
     };
+    /*
+
+    */
+
     axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
     .then((response) => {
       let signedRequest = response.data.signedRequest;
       console.log('themes response:', response);
-      dispatch(themeSelectionSuccess(response));
       webSocket.send(JSON.stringify({
         'site': hostname,
         'messageType': 'preset',
@@ -63,12 +66,24 @@ export function selectTheme(id, user) {
       }));
       webSocket.onerror = function(error) {
         console.log('WebSocket Error:', error);
-        dispatch(publishSiteError(error));
+        dispatch(themeSelectionFailure(error));
       }
       webSocket.onmessage = function(evt) {
-        console.log('WebSocket event:', evt);
-        console.log('WebSocket Message:', evt.data);
-        dispatch(themeSelectionSuccess(evt.data));
+        // console.log('WebSocket event:', evt);
+        // console.log('WebSocket Message:', evt.data);
+        let preset = {
+          presetId: id
+        }
+        axios.put(`${CST.LOGIN_URL}/site`, preset, { withCredentials: true })
+        .then(() => {
+          dispatch(themeSelectionSuccess(evt.data));
+          if (onboard) {
+            browserHistory.push('/welcome/plan');
+          }
+        })
+        .catch((error) => {
+          dispatch(themeSelectionFailure(error));
+        });
       }
 
     })
@@ -106,6 +121,7 @@ function themeSelectionFailure(response) {
   return {
     type: CST.THEME_SELECTION_FAILURE,
     isFetching: false,
+    isSelected: false,
     payload: response
   }
 }
