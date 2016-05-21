@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { loginUser, requestToken, getFirebaseData } from '../actions/index';
 import { Link } from 'react-router';
 import InputText from '../components/InputText';
@@ -23,15 +24,28 @@ let Login = React.createClass({
   getInitialState: function() {
     return {
       errorMsg: null,
+      reCaptcha: null
     }
   },
 
   formSubmit: function(creds) {
+    if (this.props.login.reCaptcha) {
+      // creds.g-recaptcha-response = this.props.login.reCaptcha;
+      // Object.defineProperty(creds, g-recaptcha-response, withValue(this.props.login.reCaptcha));
+      creds['g-recaptcha-response'] = this.state.reCaptcha;
+    }
     this.props.loginUser(creds);
   },
 
   getTokenHandler: function() {
     this.props.requestToken();
+  },
+
+  onChange: function(value) {
+    console.log("Captcha value:", value);
+    this.setState({
+      reCaptcha: value
+    })
   },
 
   componentDidUpdate: function() {
@@ -89,6 +103,14 @@ let Login = React.createClass({
               placeholder=''
             />
           </div>
+          {this.props.login.reCaptcha ?
+            <ReCAPTCHA
+              ref='recaptcha'
+              sitekey='6LcZgSATAAAAANy30TLKDmmBsjVWJ-PHG8OtidI4'
+              onChange={this.onChange}
+            /> : null
+          }
+
           <button type="submit">{MSG.button_login}</button><br/><br/>
         </form>
         {this.props.login.error ? this.props.login.error.data.message:''}
