@@ -1,11 +1,11 @@
 const CST = require('../shared/constants');
-const INITIAL_STATE = { user: null, error: null, imageToken: null, loggedIn: null, token: null, passwordReset: null, reCaptcha: false }
+const INITIAL_STATE = { confirmed: false, user: null, error: null, imageToken: null, loggedIn: null, token: null, passwordReset: null, reCaptcha: false }
 
 export default function(state = INITIAL_STATE, action) {
   // console.log('action:', action);
   switch(action.type){
     case CST.CONFIRM_USER_SUCCESS:
-      return { ...state, loggedIn: true}
+      return { ...state, confirmed: true}
     case CST.CONFIRM_USER_FAILURE:
       return { ...state, error: action.payload }
     case CST.LOGIN_REQUEST:

@@ -14,6 +14,7 @@ import DashboardMediaRelations from './views/dashboard_mediarelations';
 import DashboardSchmopera from './views/dashboard_schmopera';
 import DashboardSocial from './views/dashboard_social';
 import DashboardTestimonials from './views/dashboard_testimonials';
+import NoConfirmation from './views/noconfirmation';
 import PasswordReset from './views/password_reset';
 import Themes from './views/themes';
 import Welcome from './views/welcome';
@@ -32,7 +33,9 @@ import CST from './shared/constants';
 let routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Landing}/>
+    <Route path="unconfirmed" component={Confirmation}/>
     <Route path="confirm/:id" component={Confirmation}/>
+    <Route path="confirmed" component={Confirmation}/>
     <Route path="reset" component={PasswordReset}/>
     <Route path="reset/:id" component={PasswordReset}/>
     <Route path="dashboard" component={Dashboard}>

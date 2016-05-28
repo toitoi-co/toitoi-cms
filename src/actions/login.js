@@ -7,6 +7,7 @@ const Firebase = require('firebase');
 const firebaseRef = new Firebase(CST.FIREBASE_URL);
 const webSocketRef = new WebSocket(CST.WEBSOCKET_URL);
 const auth = require('../shared/auth');
+const settings = require('../shared/settings');
 
 export function confirmUser(id) {
   return function(dispatch) {
@@ -40,6 +41,13 @@ export function loginUser(creds) {
     axios.post(`${CST.LOGIN_URL}/login`, creds, { withCredentials: true })
     .then((response) => {
       dispatch(loginSuccess(response));
+      if (response.data.role === 'unconfirmed') {
+        browserHistory.push('/unconfirmed');
+        dispatch(confirmUserFailure('Account not yet confirmed'));
+      } else {
+        browserHistory.push('/confirmed');
+        dispatch(confirmUserSuccess());
+      }
       if (response.data.onboardingFlowCompleted) {
         dispatch(requestToken());
       }
@@ -238,11 +246,13 @@ export function reloadUser() {
     // })
     .then((response) => {
       dispatch(loginSuccess(response));
-      if (response.data.onboardingFlowCompleted) {
-        dispatch(requestToken());
-      }
-      if (response.data.site.subdomainName) {
-        dispatch(requestImageToken(response.data));
+      if (settings.release !== CST.MARKETING_LAUNCH) {
+        if (response.data.onboardingFlowCompleted) {
+          dispatch(requestToken());
+        }
+        if (response.data.site.subdomainName) {
+          dispatch(requestImageToken(response.data));
+        }
       }
     })
     .catch((err) => {

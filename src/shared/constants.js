@@ -1,6 +1,11 @@
 'use strict';
 
 module.exports = {
+  // Marketing phase only?
+  MARKETING_LAUNCH: 'marketing_launch',
+  PHASE1_LAUNCH:    'phase1_launch',
+  UNRESTRICTED:     'no_launch_restrictions',
+
   // Content
   IMAGE_UPLOAD_REQUEST: 'image_upload_request',
   IMAGE_UPLOAD_SUCCESS: 'image_upload_success',

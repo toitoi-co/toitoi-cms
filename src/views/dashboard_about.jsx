@@ -49,7 +49,7 @@ let DashboardAbout = React.createClass({
   },
 
   render: function() {
-    const { fields, handleSubmit, dashboardData, entryKey, error, published, updated, user } = this.props;
+    const { fields, handleSubmit, data, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.data) {
       return (
