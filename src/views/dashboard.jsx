@@ -147,7 +147,6 @@ let Dashboard = React.createClass({
           {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
           <div>{ this.props.updated ? 'Saved!' : '' }</div>
           <div>{ this.props.published }</div>
-          <br/><br/>
           {/*{this.props.children}*/}
           {React.cloneElement(this.props.children, {
             imageToken: this.props.imageToken,

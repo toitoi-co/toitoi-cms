@@ -3,11 +3,11 @@
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { stateToHTML } from 'draft-js-export-html';
+import classnames from 'classnames';
+import Dropzone from 'react-dropzone';
 import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry } from '../actions/index';
 import InputText from '../components/InputText';
 import RichEditor from '../components/RichEditor';
-import classnames from 'classnames';
-import Dropzone from 'react-dropzone';
 
 require ('./styles/dashboard_about.scss');
 

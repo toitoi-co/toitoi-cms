@@ -15,6 +15,7 @@ import DashboardSchmopera from './views/dashboard_schmopera';
 import DashboardSocial from './views/dashboard_social';
 import DashboardTestimonials from './views/dashboard_testimonials';
 import NoConfirmation from './views/noconfirmation';
+import NoMatch from './views/nomatch';
 import PasswordReset from './views/password_reset';
 import Themes from './views/themes';
 import Welcome from './views/welcome';
@@ -55,6 +56,7 @@ let routes = (
       <Route path="theme" component={WelcomeTheme}/>
     </Route>
     <Route path="giantform" component={GiantForm}/>
+    <Route path="*" component={NoMatch}/>
   </Route>
 );
 

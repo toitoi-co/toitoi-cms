@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { confirmUser, reloadUser } from '../actions/index';
 import classnames from 'classnames';
 
+const obj = require('lodash/fp/object');
 const classes = classnames('confirmation', {});
 const settings = require('../shared/settings');
 const CST = require('../shared/constants');
-const obj = require('lodash/fp/object');
 
 require ('./styles/confirmation.scss');
 
@@ -71,15 +71,6 @@ let Confirmation = React.createClass({
         return
       }
     }
-
-    //   this.setState({pageState: 3});
-    //   return;
-    // }
-    // if (!this.state.hasConfirmationId && this.props.user.role && this.props.user.role === 'unconfirmed') {
-    //   this.setState({pageState: 4});
-    //   return;
-    // }
-    // console.log('pageState:', this.state.pageState);
   },
 
   continueHandler: function() {
@@ -88,6 +79,7 @@ let Confirmation = React.createClass({
 
 
   render: function() {
+    /* states are listed in assignPageState */
     switch (this.state.pageState) {
       case 1:
         return(
@@ -137,34 +129,6 @@ let Confirmation = React.createClass({
         return null
         break;
     }
-
-    // if (this.state.hasConfirmationId) {
-    //   if (this.props.login.confirmed) {
-    //     return (
-    //       <div className={classes}>
-    // <h3>Confirmation page</h3>
-    //         <p>Thanks for confirming your account.</p>
-    //         {(settings.release===CST.MARKETING_LAUNCH) ?
-    //           null : (<button onClick={this.continueHandler}>Next</button>)}
-    //         <br/><br/>
-    //       </div>
-    //     )
-    //   } else {
-    //     return (
-    //       <div className={classes}>
-    //         <h3>Confirmation page</h3>
-    //         <p>Sorry, we couldn't confirm your account.</p>
-    //         {this.props.login.error ? this.props.login.error.data.message:''}
-    //       </div>
-    //     )
-    //   }
-    // } else {
-    //   return (
-    //     <div>
-    //       <h3>Hello!</h3>
-    //     </div>
-    //   )
-    // }
   }
 });
 
