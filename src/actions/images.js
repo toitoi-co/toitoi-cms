@@ -11,7 +11,6 @@ export function uploadImage(images, user) {
   return function(dispatch) {
     dispatch(imageUpload());
     axios.put(`${CST.GENERATE_URL}/images/${hostname}/${images[0].name}`, images[0], {
-    // axios.get(`${CST.GENERATE_URL}/images/${hostname}`, {
       headers: {
         'X-Token': auth.getToken(),
       },

@@ -9,6 +9,8 @@ import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, up
 import InputText from '../components/InputText';
 import RichEditor from '../components/RichEditor';
 
+export const fields = ['name'];
+
 require ('./styles/dashboard_about.scss');
 
 const classes = classnames('dashboard__about', {});
@@ -25,7 +27,7 @@ let DashboardAbout = React.createClass({
 
   componentWillMount: function() {
     if (!this.props.data && this.props.user) {
-      console.log('okay now get firebase data');
+      console.log('No data but user detected; will now get firebase data');
       this.props.getFirebaseData(this.props.user);
     }
   },
@@ -49,7 +51,7 @@ let DashboardAbout = React.createClass({
   },
 
   render: function() {
-    const { fields, handleSubmit, data, dashboardData, entryKey, error, published, updated, user } = this.props;
+    const { fields, handleSubmit, initialValues, data, dashboardData, entryKey, error, published, updated, user } = this.props;
 
     if (!this.props.data) {
       return (
@@ -59,6 +61,7 @@ let DashboardAbout = React.createClass({
         </div>
       )
     } else {
+      console.log('fields:', fields);
       return (
         <div>
           <h2>{MSG.about_page_label}</h2>
@@ -73,15 +76,16 @@ let DashboardAbout = React.createClass({
               <p>{MSG.about_name_help}</p>
 
               <h4>{MSG.about_bio_label}</h4>
-              <RichEditor ref="bio" contentState={this.props.data.aboutme.bio?this.props.data.aboutme.bio:''} />
+              <RichEditor ref="bio" contentState={this.props.data.bio?this.props.data.bio:''} />
               <p>{MSG.about_bio_help}</p>
 
               <h4>{MSG.about_tagline_label}</h4>
-              <RichEditor ref="tagline" contentState={this.props.data.aboutme.tagline?this.props.data.aboutme.tagline:''} />
+              <RichEditor ref="tagline" contentState={this.props.data.tagline?this.props.data.tagline:''} />
               <p>{MSG.about_tagline_help}</p>
             </div>
-            {this.props.data.aboutme.photo ?
-              <img src={CST.IMAGES_URL + this.props.data.aboutme.photo.resize_url + '?token=' + this.props.imageToken}/> : null
+            {this.props.data.photo ?
+              <img src={CST.IMAGES_URL + this.props.data.photo.cms_thumbnail_url
+ + '?token=' + this.props.imageToken}/> : null
             }
 
             <div>
@@ -112,7 +116,8 @@ function validate(values) {
 }
 
 function mapStateToProps(state) {
-  let data = state.firebase.data ? state.firebase.data : null;
+  let data = state.firebase.data ? state.firebase.data.aboutme : null;
+  console.log('data', data);
   return {
     data: data,
     initialValues: data,
@@ -126,9 +131,14 @@ function mapStateToProps(state) {
   };
 }
 
+DashboardAbout.propTypes = {
+  fields: PropTypes.object.isRequired
+}
+
 DashboardAbout = reduxForm({
   form: 'AboutForm', //name of the form, doesn't have to be same as component
-  fields: ['name'],
+  // fields: ['name'],
+  fields,
   validate
 },
 mapStateToProps,

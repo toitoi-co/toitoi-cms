@@ -19,6 +19,9 @@ let Welcome = React.createClass({
 
   render: function() {
     if (!this.props.error && !this.props.user) {
+
+      // TODO add conditional to see if user has completed onboard. If so, redirect to dashboard
+
       return (
         <div className={classes}>
           <p>Loading...</p>
