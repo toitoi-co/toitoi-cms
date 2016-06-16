@@ -51,6 +51,13 @@ module.exports = {
   /* Media Relations */
   'mediarelations_page_label':   'Media Relations',
 
+  /* Payment */
+  'payment_cvc_label':    'CVC',
+  'payment_expiry_label': 'Expiry',
+  'payment_month_label':  'Month',
+  'payment_number_label': 'Number',
+  'payment_year_label':   'Year',
+
   /* Schmopera */
   'schmopera_page_label':   'Schmopera',
 
