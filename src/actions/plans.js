@@ -106,3 +106,40 @@ function themeSelectionFailure(response) {
     payload: response
   }
 }
+
+export function saveStripeToken(token) {
+  return function(dispatch) {
+    axios.post(`${CST.LOGIN_URL}/stripe-token`, {token: token}, { withCredentials: true })
+    .then((response) => {
+      console.log('save token response:', response);
+      dispatch(saveStripeTokenSuccess(response.data));
+    })
+    .catch((error) => {
+      console.log('plans error:', error);
+      /* error object structured as
+      { config: Object
+      data: Object
+      headers: Object
+      status: 405
+      statusText: "Method Not Allowed" }
+      */
+      dispatch(themeSelectionFailure(error.data));
+    });
+  }
+}
+
+function saveStripeTokenSuccess(response) {
+  return {
+    type: CST.SAVE_STRIPE_TOKEN_SUCCESS,
+    isFetching: false,
+    payload: response
+  }
+}
+
+function saveStripeTokenFailure(response) {
+  return {
+    type: CST.SAVE_STRIPE_TOKEN_FAILURE,
+    isFetching: false,
+    payload: response
+  }
+}

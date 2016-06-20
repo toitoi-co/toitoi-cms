@@ -1,6 +1,7 @@
 const CST = require('../shared/constants');
 const INITIAL_STATE = {
   selected: false,
+  savedStripeToken: false,
   error: null
 };
 
@@ -20,6 +21,10 @@ export default function(state = INITIAL_STATE, action) {
     case CST.PLAN_SELECTION_SUCCESS:
       return { ...state, selected: true }
     case CST.PLAN_SELECTION_FAILURE:
+      return { ...state, error: action.payload.message }
+    case CST.SAVE_STRIPE_TOKEN_SUCCESS:
+      return { ...state, savedStripeToken: true }
+    case CST.SAVE_STRIPE_TOKEN_FAILURE:
       return { ...state, error: action.payload.message }
     default:
       return state;

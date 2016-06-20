@@ -37,13 +37,15 @@ module.exports = {
   RESET_PASSWORD_FAILURE: 'password_reset_failure',
 
   // Welcome or onboard flow
-  WELCOME_SITE_REQUEST:   'site_request',
-  WELCOME_SITE_SUCCESS:   'site_success',
-  WELCOME_PLAN_REQUEST:   'plan_request',
-  WELCOME_PLAN_SUCCESS:   'plan_success',
-  WELCOME_THEME_REQUEST:  'theme_request',
-  WELCOME_THEME_SUCCESS:  'theme_success',
-  WELCOME_FAILURE:        'welcome_failure',
+  WELCOME_SITE_REQUEST:       'site_request',
+  WELCOME_SITE_SUCCESS:       'site_success',
+  WELCOME_PLAN_REQUEST:       'plan_request',
+  WELCOME_PLAN_SUCCESS:       'plan_success',
+  WELCOME_THEME_REQUEST:      'theme_request',
+  WELCOME_THEME_SUCCESS:      'theme_success',
+  WELCOME_FAILURE:            'welcome_failure',
+  SAVE_STRIPE_TOKEN_SUCCESS:  'save_strip_token_success',
+  SAVE_STRIPE_TOKEN_FAILURE:  'save_strip_token_failure',
 
   // Database
   FIREBASE_URL:     'https://toitoidev.firebaseio.com/buckets/',
