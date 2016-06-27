@@ -3,12 +3,11 @@
 import React from 'react';
 import classnames from 'classnames';
 
+require ('../scss/views/dashboard_mediarelations.scss');
+
 const classes = classnames('dashboard__mediarelations', {});
 const CST = require('../shared/constants');
 const MSG = require('../shared/messages');
-
-
-require ('./styles/dashboard_mediarelations.scss');
 
 const DashboardMediaRelations = React.createClass({
   render: function() {

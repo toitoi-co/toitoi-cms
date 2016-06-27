@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { getThemes, selectTheme, reloadUser } from '../actions/index';
 import classnames from 'classnames';
 
-require ('./styles/themes.scss');
-const classes = classnames('themes', {});
+require ('../scss/views/themes.scss');
 
+const classes = classnames('themes', {});
 
 let Themes = React.createClass({
   installThemeHandler: function(id) {

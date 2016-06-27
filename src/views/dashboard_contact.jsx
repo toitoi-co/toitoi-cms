@@ -8,13 +8,11 @@ import InputText from '../components/InputText';
 import RichEditor from '../components/RichEditor';
 import classnames from 'classnames';
 
-require ('./styles/dashboard_contact.scss');
+require ('../scss/views/dashboard_contact.scss');
 
 const classes = classnames('dashboard__contact', {});
 const CST = require('../shared/constants');
 const MSG = require('../shared/messages');
-
-
 
 let DashboardContact = React.createClass({
   componentWillMount: function() {

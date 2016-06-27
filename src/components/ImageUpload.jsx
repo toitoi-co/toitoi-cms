@@ -7,7 +7,8 @@ import DropzoneComponent from 'react-dropzone-component';
 import Dropzone from 'toitoi-dropzone';
 import classnames from 'classnames';
 
-require ('./styles/imageupload.scss');
+// require ('./styles/imageupload.scss');
+require ('../scss/components/imageupload.scss');
 
 const CST = require('../shared/constants');
 const auth = require('../shared/auth');

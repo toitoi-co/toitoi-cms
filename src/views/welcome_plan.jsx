@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 import PaymentWrapper from '../components/PaymentWrapper';
 
-require ('./styles/welcome.scss');
+require ('../scss/views/welcome.scss');
 
 const classes = classnames('welcome', {})
 const publicKey = 'pk_test_gBQEOMI18FWm9j9xM27zM1Jg';

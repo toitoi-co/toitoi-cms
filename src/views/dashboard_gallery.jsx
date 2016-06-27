@@ -9,7 +9,7 @@ import classnames from 'classnames';
 // import Dropzone from 'react-dropzone';
 import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry } from '../actions/index';
 
-require ('./styles/dashboard_gallery.scss');
+require ('../scss/views/dashboard_gallery.scss');
 
 const classes = classnames('dashboard__gallery', {});
 const settings = require('../shared/settings');

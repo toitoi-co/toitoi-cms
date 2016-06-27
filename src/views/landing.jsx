@@ -4,15 +4,15 @@ import React from 'react';
 import Login from './login';
 import classnames from 'classnames';
 
-const classes = classnames('landing', {});
+require ('../scss/views/landing.scss');
 
-require ('./styles/landing.scss');
+const classes = classnames('landing', {});
 
 const Landing = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        <h1>Landing page</h1>
+        {/*<h1>Landing page</h1>*/}
         <Login />
       </div>
     )

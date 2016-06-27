@@ -3,9 +3,9 @@
 import React from 'react'
 import classnames from 'classnames';
 
-const classes = classnames('giantform', {});
+require ('../scss/views/welcome.scss');
 
-require ('./styles/welcome.scss');
+const classes = classnames('giantform', {});
 
 const GiantForm = React.createClass({
   render: function() {

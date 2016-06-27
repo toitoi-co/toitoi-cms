@@ -1,6 +1,8 @@
 // Typography
-$base-font-family: $helvetica;
-$heading-font-family: $base-font-family;
+$futura: "Futura PT", "Helvetica", "Arial", sans-serif;
+$museo: "Museo Sans", "Helvetica", "Arial", sans-serif;
+$base-font-family: $museo;
+$heading-font-family: $futura;
 
 // Font Sizes
 $base-font-size: 1em;
@@ -9,6 +11,9 @@ $base-font-size: 1em;
 $base-line-height: 1.5;
 $heading-line-height: 1.2;
 
+// Letter small-spacing
+$base-letter-spacing: 0.05em;
+
 // Other Sizes
 $base-border-radius: 3px;
 $base-spacing: $base-line-height * 1em;
@@ -16,13 +21,19 @@ $small-spacing: $base-spacing / 2;
 $base-z-index: 0;
 
 // Colors
-$blue: #1565c0;
+$blue: #6bd6fa;
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
+$brand-green: #bbf5b8;
+$brand-purple: #3b354c;
+$brand-black: #282828;
+$brand-gray: #212121;
+$almost-white: #fefefe;
+$placeholder-gray: #43404a;
 
 // Font Colors
-$base-font-color: $dark-gray;
+$base-font-color: #ffffff;
 $action-color: $blue;
 
 // Border

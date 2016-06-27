@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { reloadUser } from '../actions/index';
 import classnames from 'classnames';
 
-require ('./styles/welcome.scss');
+require ('../scss/views/welcome.scss');
 
 const classes = classnames('welcome', {});
 

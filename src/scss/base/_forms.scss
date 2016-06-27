@@ -21,7 +21,12 @@ input,
 select {
   display: block;
   font-family: $base-font-family;
-  font-size: $base-font-size;
+  // font-size: $base-font-size;
+  font-size: 1.25em;
+  letter-spacing: 0.05em;
+  @include placeholder {
+    color: $placeholder-gray;
+  }
 }
 
 #{$all-text-inputs},
@@ -32,7 +37,8 @@ select[multiple] {
   box-shadow: $form-box-shadow;
   box-sizing: border-box;
   font-family: $base-font-family;
-  font-size: $base-font-size;
+  // font-size: $base-font-size;
+  font-size: 1.25em;
   margin-bottom: $small-spacing;
   padding: $base-spacing / 3;
   transition: border-color $base-duration $base-timing;
@@ -81,4 +87,8 @@ select {
   margin-bottom: $base-spacing;
   max-width: 100%;
   width: auto;
+}
+
+.help-block {
+  margin-bottom: 1.5em !important;
 }

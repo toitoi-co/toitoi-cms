@@ -5,7 +5,8 @@ import FormField from './FormField';
 import classnames from 'classnames';
 const classes = classnames('input-password', {});
 
-require ('./styles/input.scss');
+// require ('./styles/input.scss');
+require ('../scss/components/input.scss');
 
 const InputPassword = React.createClass({
   propTypes: {

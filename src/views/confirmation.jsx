@@ -10,7 +10,7 @@ const classes = classnames('confirmation', {});
 const settings = require('../shared/settings');
 const CST = require('../shared/constants');
 
-require ('./styles/confirmation.scss');
+require ('../scss/views/confirmation.scss');
 
 let Confirmation = React.createClass({
   contextTypes: {

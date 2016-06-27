@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import classnames from 'classnames';
 
-require ('./styles/nomatch.scss');
+require ('../scss/views/nomatch.scss');
 
 const classes = classnames('no-match', {});
 

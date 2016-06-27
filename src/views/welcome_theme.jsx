@@ -4,7 +4,7 @@ import { getThemes, selectTheme } from '../actions/index';
 // import { Link } from 'react-router';
 import classnames from 'classnames';
 
-require ('./styles/welcome.scss');
+require ('../scss/views/welcome.scss');
 
 const classes = classnames('welcome', {});
 const MSG = require('../shared/messages');

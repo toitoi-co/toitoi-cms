@@ -1,0 +1,35 @@
+/* add input-related styles */
+
+$input-gray: #35323b;
+$border-gray: #43404a;
+@mixin input {
+  color: #fff;
+  max-width: 26.875rem;
+  background-color: $input-gray;
+  border-color: $border-gray;
+  border-radius: 2em;
+  margin-bottom: 1.5rem;
+  padding: 0 1.5rem;
+  height: 3.75rem;
+
+}
+@mixin input-focus {
+  border-color: #6bd6fa;
+  box-shadow: rgba(107,214,250,0.7);
+}
+
+input[type=text] {
+  @include input;
+  // @include placeholder {
+  //   color: hsl(0, 0, 50%);
+  // }
+}
+input[type=text]:focus {
+  @include input-focus;
+}
+input[type=password] {
+  @include input;
+}
+input[type=password]:focus {
+  @include input-focus;
+}

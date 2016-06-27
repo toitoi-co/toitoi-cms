@@ -1,0 +1,17 @@
+.login {
+  flex: 1;
+  overflow: auto;
+
+  h2 {
+    font-size: 3.125em;
+  }
+
+  form {
+    margin-top: 6.5em;
+  }
+
+  input[type="text"], input[type="password"] {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

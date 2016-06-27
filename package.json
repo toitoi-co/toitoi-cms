@@ -62,6 +62,7 @@
     "st": "^1.1.0",
     "style-loader": "^0.13.0",
     "toitoi-dropzone": "^4.3.0",
+    "webfontloader": "^1.6.24",
     "webpack": "^1.12.11",
     "webpack-stream": "^3.1.0"
   },

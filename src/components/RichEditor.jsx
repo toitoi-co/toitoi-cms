@@ -4,7 +4,8 @@ import React from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
 import { stateFromHTML } from 'draft-js-import-html';
 
-require ('./styles/rich-editor.scss');
+// require ('./styles/rich-editor.scss');
+require ('../scss/components/rich-editor.scss');
 
 const RichEditor = React.createClass({
     getInitialState: function() {

@@ -11,7 +11,7 @@ import RichEditor from '../components/RichEditor';
 
 export const fields = ['name'];
 
-require ('./styles/dashboard_about.scss');
+require ('../scss/views/dashboard_about.scss');
 
 const classes = classnames('dashboard__about', {});
 const CST = require('../shared/constants');

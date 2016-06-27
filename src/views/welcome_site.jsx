@@ -5,7 +5,7 @@ import { saveSite } from '../actions/index';
 import InputText from '../components/InputText';
 import classnames from 'classnames';
 
-require ('./styles/welcome.scss');
+require ('../scss/views/welcome.scss');
 
 const classes = classnames('welcome', {});
 const MSG = require('../shared/messages');

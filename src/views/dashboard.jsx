@@ -11,7 +11,7 @@ import auth from '../shared/auth';
 // import auth2 from '../shared/auth2';
 // import Dropzone from 'react-dropzone';
 
-require ('./styles/dashboard.scss');
+require ('../scss/views/dashboard.scss');
 
 const classes = classnames('dashboard', {});
 const MSG = require('../shared/messages');

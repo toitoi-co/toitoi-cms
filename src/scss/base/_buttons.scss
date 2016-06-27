@@ -1,25 +1,37 @@
 #{$all-buttons} {
   appearance: none;
-  background-color: $action-color;
+  background-color: $brand-green;
   border: 0;
-  border-radius: $base-border-radius;
-  color: #fff;
+  // border-radius: $base-border-radius;
+  color: $brand-gray;
   cursor: pointer;
-  display: inline-block;
+  // display: inline-block;
   font-family: $base-font-family;
   font-size: $base-font-size;
   -webkit-font-smoothing: antialiased;
-  font-weight: 600;
+  font-weight: 300;
   line-height: 1;
-  padding: $small-spacing $base-spacing;
-  text-decoration: none;
+  // padding: $small-spacing $base-spacing;
+  // text-decoration: none;
+  // text-transform: uppercase;
   transition: background-color $base-duration $base-timing;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
 
+  margin-top: 1rem;
+  padding: .75rem 2.75rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 2em;
+  text-decoration: none;
+  height: 2.5em;
+  outline: 0;
+
   &:hover,
-  &:focus {
+  &:focus {}
+
+  &:active {
     background-color: shade($action-color, 20%);
     color: #fff;
   }

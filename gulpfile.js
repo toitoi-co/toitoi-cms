@@ -114,9 +114,20 @@ function createSassTask(options) {
 	}
 }
 
+function createImagesTask(options) {
+	var options = (options != null) ? options : {};
+
+	return function() {
+		return gulp.src('./src/img/**/*')
+    .pipe(gulp.dest('./public/img'));
+    // .pipe(notify({ message: 'Images task complete' }));
+	}
+
+}
+
 gulp.task('serve', function() {
 	startLocalServer();
-})
+});
 
 gulp.task('webpack', createWebpackTask());
 
@@ -130,15 +141,22 @@ gulp.task('sass-production', createSassTask({
 	production: true
 }));
 
+gulp.task('images', createImagesTask());
+
+gulp.task('images-production', createImagesTask({
+	production: true
+}));
+
 gulp.task('watch', function() {
 	livereload.listen();
 	gulp.watch(['./src/scss/**/*'], ['sass']);
+	gulp.watch( './src/img/**/*', [ 'img' ] );
 	gulp.watch(['./public/**/*'], livereload.changed);
 
 	startLocalServer().on('listening', function() {
 		livereload.changed('*');
 	});
-})
+});
 
-gulp.task('default', ['webpack', 'watch', 'sass'])
-gulp.task('build', ['webpack-production', 'sass-production'])
+gulp.task('default', ['webpack', 'sass', 'images', 'watch']);
+gulp.task('build', ['webpack-production', 'sass-production', 'images-production']);

@@ -4,10 +4,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
+require ('../scss/views/confirmation.scss');
+
 const classes = classnames('confirmation', {});
 const settings = require('../shared/settings');
-
-require ('./styles/confirmation.scss');
 
 let NoConfirmation = React.createClass({
   render: function() {

@@ -7,7 +7,7 @@ var classnames = require("classnames");
  * for a component. Mind that the class that is defined in test-component.scss refers
  * to the same class that is defined below in the `classnames` call.
  */
-require("./styles/test-component.scss")
+require ('../scss/components/test-component.scss');
 
 var classes = classnames("test-component", {
 	// no conditional classes yet - docs at https://www.npmjs.com/package/classnames

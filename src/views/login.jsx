@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { loginUser, requestToken, getFirebaseData } from '../actions/index';
 import { Link } from 'react-router';
 import InputText from '../components/InputText';
@@ -10,7 +10,7 @@ import InputPassword from '../components/InputPassword';
 import classnames from 'classnames';
 // import auth from '../shared/auth';
 
-require('./styles/login.scss');
+require('../scss/views/login.scss');
 
 const classes = classnames('login', {});
 const CST = require('../shared/constants');
@@ -29,11 +29,11 @@ let Login = React.createClass({
   },
 
   formSubmit: function(creds) {
-    if (this.props.login.reCaptcha) {
-      // creds.g-recaptcha-response = this.props.login.reCaptcha;
-      // Object.defineProperty(creds, g-recaptcha-response, withValue(this.props.login.reCaptcha));
-      creds['g-recaptcha-response'] = this.state.reCaptcha;
-    }
+    // if (this.props.login.reCaptcha) {
+    //   // creds.g-recaptcha-response = this.props.login.reCaptcha;
+    //   // Object.defineProperty(creds, g-recaptcha-response, withValue(this.props.login.reCaptcha));
+    //   creds['g-recaptcha-response'] = this.state.reCaptcha;
+    // }
     this.props.loginUser(creds);
   },
 
@@ -88,28 +88,29 @@ let Login = React.createClass({
     const { fields, handleSubmit, login } = this.props;
     return (
       <div className={classes}>
+        <h2>LOGIN</h2>
         <form onSubmit={handleSubmit(this.formSubmit)}>
           <div className="form-group">
             <InputText
+              className='input-email'
               field={fields.email}
               id='login-email'
-              label={MSG.login_email_label}
-              placeholder='joe@example.com'
+              placeholder={MSG.login_email_text}
             />
             <InputPassword
+              className='input-password'
               field={fields.password}
               id='login-pwd'
-              label={MSG.login_password_label}
-              placeholder=''
+              placeholder={MSG.login_password_text}
             />
           </div>
-          {this.props.login.reCaptcha ?
+          {/*{this.props.login.reCaptcha ?
             <ReCAPTCHA
               ref='recaptcha'
               sitekey='6LcZgSATAAAAANy30TLKDmmBsjVWJ-PHG8OtidI4'
               onChange={this.onChange}
             /> : null
-          }
+          }*/}
 
           <button type="submit">{MSG.button_login}</button><br/><br/>
         </form>

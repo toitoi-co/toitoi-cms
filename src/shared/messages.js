@@ -16,8 +16,8 @@ module.exports = {
 
 
   /* Placeholder text for input fields*/
-  'login_email_text':     'joe@example.com',
-  'login_password_text':  'password',
+  'login_email_text':     'Email Address',
+  'login_password_text':  'Password',
   'password_text':        'Enter a password',
   'password_repeat_text': 'Repeat your password',
 

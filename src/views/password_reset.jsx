@@ -8,9 +8,9 @@ import InputText from '../components/InputText'
 import messages from '../shared/messages';
 import classnames from 'classnames';
 
-const classes = classnames('password-reset', {});
+require ('../scss/views/confirmation.scss');
 
-require ('./styles/confirmation.scss');
+const classes = classnames('password-reset', {});
 
 let PasswordReset = React.createClass({
   contextTypes: {

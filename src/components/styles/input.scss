@@ -1,9 +1,23 @@
-/* add input-related styles */
-.input-email {
-}
-
-.input-password {
-}
-
-.input-text {
-}
+// /* add input-related styles */
+//
+// $input-gray: #35323b;
+// $border-gray: #43404a;
+// @mixin input {
+//   color: #fff;
+//   max-width: 26.9em;
+//   background-color: $input-gray;
+//   border-color: $border-gray;
+//   border-radius: 2em;
+//   margin-bottom: 1.5em;
+// }
+//
+// input[type=text] {
+//   @include input;
+//   // @include placeholder {
+//   //   color: hsl(0, 0, 50%);
+//   // }
+// }
+//
+// input[type=password] {
+//   @include input;
+// }

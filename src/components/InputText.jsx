@@ -6,7 +6,8 @@ import classnames from 'classnames';
 
 const classes = classnames('input-text', {});
 
-require ('./styles/input.scss');
+// require ('./styles/input.scss');
+require ('../scss/components/input.scss');
 
 const InputText = React.createClass({
   propTypes: {

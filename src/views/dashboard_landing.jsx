@@ -3,9 +3,9 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const classes = classnames('dashboard__landing', {});
+require ('../scss/views/dashboard_landing.scss');
 
-require ('./styles/dashboard_landing.scss');
+const classes = classnames('dashboard__landing', {});
 
 const DashboardLanding = React.createClass({
   render: function() {

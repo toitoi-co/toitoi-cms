@@ -3,12 +3,11 @@
 import React from 'react';
 import classnames from 'classnames';
 
+require ('../scss/views/dashboard_social.scss');
+
 const classes = classnames('dashboard__social', {});
 const CST = require('../shared/constants');
 const MSG = require('../shared/messages');
-
-
-require ('./styles/dashboard_social.scss');
 
 const DashboardSocial = React.createClass({
   render: function() {

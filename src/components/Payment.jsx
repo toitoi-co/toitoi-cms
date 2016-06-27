@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { saveStripeToken } from '../actions/index';
 import classnames from 'classnames';
 
-require ('./styles/payment.scss');
+// require ('./styles/payment.scss');
+require ('../scss/components/payment.scss');
 
 const classes = classnames('payment', {});
 const MSG = require('../shared/messages');
