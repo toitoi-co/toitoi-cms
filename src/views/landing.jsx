@@ -11,10 +11,12 @@ const classes = classnames('landing', {});
 const Landing = React.createClass({
   render: function() {
     return (
-      <div className={classes}>
+      <section className={classes}>
+        {/*<div  className={classes}>*/}
         {/*<h1>Landing page</h1>*/}
-        <Login />
-      </div>
+          <Login />
+        {/*</div>*/}
+      </section>
     )
   }
 });

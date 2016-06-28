@@ -83,46 +83,54 @@ let Confirmation = React.createClass({
     switch (this.state.pageState) {
       case 1:
         return(
-          <div className={classes}>
-            <h3>Confirmation page</h3>
-            <p>Thanks for confirming your account. Watch your email for details about our launch in the near future.</p>
-            {(settings.release===CST.MARKETING_LAUNCH) ?
-              null : (<button onClick={this.continueHandler}>Next</button>)}
-            <br/><br/>
-          </div>
+          <section className={classes}>
+            <div>
+              <h3>Confirmation page</h3>
+              <p>Thanks for confirming your account. Watch your email for details about our launch in the near future.</p>
+              {(settings.release===CST.MARKETING_LAUNCH) ?
+                null : (<button onClick={this.continueHandler}>Next</button>)}
+              <br/><br/>
+            </div>
+          </section>
         )
         break;
       case 2:
         return(
-          <div className={classes}>
-            <h3>Confirmation page</h3>
-            <p>We're sorry but we're having trouble confirming your account.</p>
-            <p>Would you mind terribly contacting us at <a href="mailto:support@toitoi.co">support@toitoi.co</a> to help figure out what the issue may be?</p>
-            {this.props.error ? this.props.error.data.message:''}
-            <br/><br/>
-          </div>
+          <section className={classes}>
+            <div>
+              <h3>Confirmation page</h3>
+              <p>We're sorry but we're having trouble confirming your account.</p>
+              <p>Would you mind terribly contacting us at <a href="mailto:support@toitoi.co">support@toitoi.co</a> to help figure out what the issue may be?</p>
+              {this.props.error ? this.props.error.data.message:''}
+              <br/><br/>
+            </div>
+          </section>
         )
         break;
       case 3:
         return(
-          <div className={classes}>
-            <h3>Confirmation page</h3>
-            <p>Hi, there. Your account has already been confirmed. Watch your email for details about our launch in the near future.</p>
-            {(settings.release===CST.MARKETING_LAUNCH) ?
-              null : (<button onClick={this.continueHandler}>Next</button>)}
-            <br/><br/>
-          </div>
+          <section className={classes}>
+            <div>
+              <h3>Confirmation page</h3>
+              <p>Hi, there. Your account has already been confirmed. Watch your email for details about our launch in the near future.</p>
+              {(settings.release===CST.MARKETING_LAUNCH) ?
+                null : (<button onClick={this.continueHandler}>Next</button>)}
+              <br/><br/>
+            </div>
+          </section>
         )
         break;
       case 4:
         return(
-          <div className={classes}>
-            <h3>Confirmation page</h3>
-            <p>Hi, there. Your account has not yet been confirmed. Please check your e-mail for the confirmation link.</p>
-            {(settings.release===CST.MARKETING_LAUNCH) ?
-              null : (<button onClick={this.continueHandler}>Next</button>)}
-            <br/><br/>
-          </div>
+          <section className={classes}>
+            <div>
+              <h3>Confirmation page</h3>
+              <p>Hi, there. Your account has not yet been confirmed. Please check your e-mail for the confirmation link.</p>
+              {(settings.release===CST.MARKETING_LAUNCH) ?
+                null : (<button onClick={this.continueHandler}>Next</button>)}
+              <br/><br/>
+            </div>
+          </section>
         )
         break;
       default:

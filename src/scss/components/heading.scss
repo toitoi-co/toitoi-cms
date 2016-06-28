@@ -8,4 +8,11 @@
     text-indent: 100%;
     white-space: nowrap;
     background: url(/img/logo.svg);
-    background-size: cover; }
+    background-size: cover;
+
+  & button {
+    position: absolute;
+    top: 35px;
+    right: 50px;
+  }
+}

@@ -2,7 +2,7 @@
 
 $input-gray: #35323b;
 $border-gray: #43404a;
-@mixin input {
+@mixin text-input {
   color: #fff;
   max-width: 26.875rem;
   background-color: $input-gray;
@@ -11,25 +11,50 @@ $border-gray: #43404a;
   margin-bottom: 1.5rem;
   padding: 0 1.5rem;
   height: 3.75rem;
-
+  // &:-webkit-autofill {
+  //   border-color: $border-gray;
+  //   border-radius: 2em;
+  //   -webkit-box-shadow: 0 0 0px 500px $input-gray inset;
+  //   background-color: #000;
+  // }
 }
 @mixin input-focus {
-  border-color: #6bd6fa;
-  box-shadow: rgba(107,214,250,0.7);
+  // border-color: #bbf5b8;
+  // box-shadow: rgba(187,245,184,0.7);
+  background-image:url('/img/arrow.svg');
+  background-repeat: no-repeat;
+  background-position: calc(100% - 1.5em) center;
+  background-size: 1.875rem auto;
 }
 
 input[type=text] {
-  @include input;
-  // @include placeholder {
-  //   color: hsl(0, 0, 50%);
-  // }
+  @include text-input;
 }
 input[type=text]:focus {
   @include input-focus;
 }
 input[type=password] {
-  @include input;
+  @include text-input;
 }
 input[type=password]:focus {
   @include input-focus;
+}
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover,
+// input:-webkit-autofill:active,
+// input:-webkit-autofill:focus {
+//   border-color: $border-gray !important;
+//   border-radius: 2em !important;
+//   background-color: #ccffff !important;
+//   -webkit-box-shadow: 0 0 0px 1000px $input-gray inset !important;
+//   -webkit-text-fill-color: #fff !important;
+// }
+input:-webkit-autofill {
+  &,
+  &:hover,
+  &:focus,
+  &:active {
+    transition-delay: 9999s;
+    transition-property: background-color, color;
+  }
 }

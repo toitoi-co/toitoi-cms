@@ -1,13 +1,11 @@
 .login {
-  flex: 1;
-  overflow: auto;
-
   h2 {
     font-size: 3.125em;
   }
 
   form {
     margin-top: 6.5em;
+    width: 100%;
   }
 
   input[type="text"], input[type="password"] {

@@ -1,6 +1,8 @@
 'use strict';
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { logoutUser } from '../actions/index';
 import classnames from 'classnames';
 
 const classes = classnames('heading', {});
@@ -9,22 +11,24 @@ require ('../scss/components/heading.scss');
 
 let Heading = React.createClass({
 
+  logoutHandler: function(event) {
+    this.props.logoutUser();
+  },
+
   render: function() {
     return(
       <header className={classes}>
-        {/*<h1 class="branding">toitoi.co - site in a box for classical musicians and opera performers</h1>*/}
-        {/*<nav>
-          <h2>Primary Navigation</h2>
-          <a href="#about" class="skip">Skip to content</a>
-          <ul>
-            <li><a href="">Login</a></li>
-            <!-- <li><a href="">Sign up</a></li> -->
-          </ul>
-        </nav>*/}
+        {this.props.user ? <button onClick={this.logoutHandler}>Logout</button> : null}
       </header>
     )
   }
 
 });
 
-export default Heading;
+function mapStateToProps(state) {
+  return {
+    // user: state.login.user
+  }
+}
+
+export default connect(mapStateToProps, { logoutUser })(Heading)

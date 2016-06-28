@@ -34,8 +34,7 @@ let App = React.createClass({
           <li><Link to="/welcome">Welcome</Link></li>
         </ul>
         <br/>*/}
-        <Heading/>
-        {this.props.user ? <button onClick={this.logoutHandler}>Logout</button> : null}
+        <Heading user={this.props.user}/>
         {this.props.children}
         {/*{React.cloneElement(this.props.children, { msg: messages })*/}
       </div>

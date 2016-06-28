@@ -96,6 +96,7 @@ let Login = React.createClass({
               field={fields.email}
               id='login-email'
               placeholder={MSG.login_email_text}
+              autoComplete='off'
             />
             <InputPassword
               className='input-password'
