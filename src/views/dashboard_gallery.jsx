@@ -11,6 +11,8 @@ import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, up
 
 require ('../scss/views/dashboard_gallery.scss');
 
+const _result = require('lodash/fp/result');
+const collection = require('lodash/fp/collection');
 const classes = classnames('dashboard__gallery', {});
 const settings = require('../shared/settings');
 const CST = require('../shared/constants');
@@ -19,15 +21,65 @@ const MSG = require('../shared/messages');
 let imageDropzone = null;
 
 let DashboardGallery = React.createClass({
+  getInitialState: function() {
+    return {
+      queue: []
+    }
+  },
+
+  componentWillMount: function() {
+
+  },
+
   dropHandler: function(images) {
     console.log('received:', images);
     // this.props.uploadImage(images, this.props.user);
     // this.setState({images: images});
   },
 
+  componentDidUpdate: function() {
+    let base = this;
+    if (this.props.addition) {
+      console.log(this.props.addition);
+      let queue = this.state.queue;
+      /* if image is not already in queue (search by filename), add it */
+      // if (!collection.find(queue, { 'name': this.props.addition.name })) {
+      //   queue.push(this.props.addition);
+      //   this.setState( {queue: queue} );
+      // }
+
+      let dupe = queue.filter(function (el) {
+          return el.filename === base.props.addition.filename;
+      });
+      if (dupe.length == 0) {
+        queue.push(this.props.addition);
+        this.setState( {queue: queue} )
+      }
+      console.info('queue:', this.state.queue);
+    }
+  },
+
   render: function() {
     let base = this;
+    // console.info('addition:', this.props.addition);
+    if (this.props.addition) {
+      let queue = this.state.queue;
+      /* if image is not already in queue (search by filename), add it */
+      // if (!collection.find(queue, { 'name': this.props.addition.name })) {
+      //   queue.push(this.props.addition);
+      //   this.setState( {queue: queue} );
+      // }
 
+      // let dupe = queue.filter(function (el) {
+      //     return el.name === this.props.addition.name;
+      // });
+      // if (dupe.length == 0) {
+      //   queue.push(this.props.addition);
+      //   this.setState( {queue: queue} )
+      // }
+      // console.info('queue:', this.state.queue);
+
+    }
     // const componentConfig = {
     //     iconFiletypes: ['.jpg', '.png', '.gif'],
     //     showFiletypeIcon: true
@@ -147,7 +199,8 @@ function mapStateToProps(state) {
     error: state.firebase.error,
     published: state.publish.published,
     updated: state.firebase.updated,
-    uploadError: state.images.error
+    uploadError: state.images.error,
+    addition: state.images.queueAddition
   }
 }
 

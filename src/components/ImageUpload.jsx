@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { addToGalleryQueue } from '../actions/index';
 import DropzoneComponent from 'react-dropzone-component';
 import Dropzone from 'toitoi-dropzone';
 import classnames from 'classnames';
@@ -10,9 +11,9 @@ import classnames from 'classnames';
 // require ('./styles/imageupload.scss');
 require ('../scss/components/imageupload.scss');
 
-const CST = require('../shared/constants');
 const auth = require('../shared/auth');
 const classes = classnames('image-upload', {});
+const CST = require('../shared/constants');
 
 
 
@@ -36,6 +37,7 @@ let ImageUpload = React.createClass({
         this.on('success', function(file, response) {
           console.info('success file:', file);
           console.info('success response:', response);
+          base.props.addToGalleryQueue(response);
         },
         )
       },
@@ -164,4 +166,4 @@ let ImageUpload = React.createClass({
   }
 });
 
-export default connect(null, null)(ImageUpload)
+export default connect(null, { addToGalleryQueue })(ImageUpload)

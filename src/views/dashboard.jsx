@@ -93,67 +93,73 @@ let Dashboard = React.createClass({
 
     if (!this.props.error && !this.props.user && !this.props.token && !this.props.imageToken) {
       return (
-        <div className={classes}>
-          <h1>Dashboard page</h1>
-          <p>Loading...</p>
-          {/*{links}*/}
-          {/*<button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>*/}
-          <br/><br/>
-          {this.props.children}
-        </div>
+        <section className={classes}>
+          <div>
+            <h1>Dashboard page</h1>
+            <p>Loading...</p>
+            {/*{links}*/}
+            {/*<button onClick={this.getDataHandler} disabled={!this.props.user}>Get Data</button><br/><br/>*/}
+            <br/><br/>
+            {this.props.children}
+          </div>
+        </section>
       )
     }
     if (this.props.error) {
       return (
-        <div className={classes}>
-          <h1>Dashboard page</h1>
-          {links}
-          <div>{this.props.error}</div>
-          <br/><br/>
-          {this.props.children}
-        </div>
+        <section className={classes}>
+          <div>
+            <h1>Dashboard page</h1>
+            {links}
+            <div>{this.props.error}</div>
+            <br/><br/>
+            {this.props.children}
+          </div>
+        </section>
       );
     } else {
       return (
-        <div className={classes}>
-          <h1>Dashboard page</h1>
-          {links}
-          {/*<div>{JSON.stringify(this.props.dashboardData)}</div>
-        <form onSubmit={handleSubmit(this.formSubmit)} onFocus={() => {
-            this.props.fields.key.onChange(this.props.entryKey);
-          }}>
-            <div className="form-group">
-              <label>Name<br/><input
-                type="text"
-                onChange=''
-                {...name} /></label>
-              <div className="text-help">
-                {name.touched ? name.error:''}
-              </div>
-              <label>Description<br/><textarea
-                type="text"
-                onChange=''
-                {...description} /></label>
+        <section className={classes}>
+          <div>
+            <h1>Dashboard page</h1>
+            {links}
+            {/*<div>{JSON.stringify(this.props.dashboardData)}</div>
+          <form onSubmit={handleSubmit(this.formSubmit)} onFocus={() => {
+              this.props.fields.key.onChange(this.props.entryKey);
+            }}>
+              <div className="form-group">
+                <label>Name<br/><input
+                  type="text"
+                  onChange=''
+                  {...name} /></label>
                 <div className="text-help">
-                  {description.touched ? description.error:''}
-                  {error}
+                  {name.touched ? name.error:''}
                 </div>
-            </div>
-            <button type="submit">Update Data</button><br/><br/>
-          </form>*/}
-          <button onClick={this.previewSiteHandler}>Preview Site</button><br/><br/>
-          <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
+                <label>Description<br/><textarea
+                  type="text"
+                  onChange=''
+                  {...description} /></label>
+                  <div className="text-help">
+                    {description.touched ? description.error:''}
+                    {error}
+                  </div>
+              </div>
+              <button type="submit">Update Data</button><br/><br/>
+            </form>*/}
+            <button onClick={this.previewSiteHandler}>Preview Site</button><br/><br/>
+            <button onClick={this.publishSiteHandler}>Publish Site</button><br/><br/>
 
-          {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
-          <div>{ this.props.updated ? 'Saved!' : '' }</div>
-          <div>{ this.props.published }</div>
-          {/*{this.props.children}*/}
-          {React.cloneElement(this.props.children, {
-            imageToken: this.props.imageToken,
-            token: this.props.token,
-            user: this.props.user
-          })}
-        </div>
+            {/*<button onClick={this.logoutHandler}>Logout</button><br/><br/>*/}
+            <div>{ this.props.updated ? 'Saved!' : '' }</div>
+            <div>{ this.props.published }</div>
+            {/*{this.props.children}*/}
+            {React.cloneElement(this.props.children, {
+              imageToken: this.props.imageToken,
+              token: this.props.token,
+              user: this.props.user
+            })}
+          </div>
+        </section>
       );
     }
   }

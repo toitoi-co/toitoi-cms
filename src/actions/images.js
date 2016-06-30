@@ -61,3 +61,17 @@ function imageUploadError(response) {
     payload: response
   }
 }
+
+export function addToGalleryQueue(response) {
+  return {
+    type: CST.ADD_TO_GALLERY_QUEUE,
+    payload: response
+  }
+}
+
+export function removeFromGalleryQueue(response) {
+  return {
+    type: CST.REMOVE_FROM_GALLERY_QUEUE,
+    payload: response
+  }
+}

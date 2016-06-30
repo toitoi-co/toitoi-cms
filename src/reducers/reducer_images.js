@@ -18,6 +18,10 @@ export default function(state = INITIAL_STATE, action) {
         action.payload.data.message = 'There was a problem with the upload.'
       }
       return { ...state, error: action.payload }
+    case CST.ADD_TO_GALLERY_QUEUE:
+      return { ...state, queueAddition: action.payload }
+    case CST.REMOVE_FROM_GALLERY_QUEUE:
+      return { ...state, queueRemoval: action.payload }
     default:
       return state;
   }

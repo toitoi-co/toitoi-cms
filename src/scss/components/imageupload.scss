@@ -1,5 +1,14 @@
 .image-upload {
-
+  .dropzone {
+    background: #ccc;
+    color: #fff;
+    border-radius: 2em;
+    margin: 0 auto;
+    width: 75%;
+  }
+  .dz-error-message {
+    margin-top: 20px;
+  }
 }
 
 /* Filepicker CSS */

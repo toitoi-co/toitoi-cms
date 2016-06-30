@@ -57,12 +57,15 @@ module.exports = {
 
   // Image requests/queries
   IMAGES_URL:           getHostURL() + ':6557',
-  IMAGE_UPLOAD_REQUEST: 'image_upload_request',
-  IMAGE_UPLOAD_SUCCESS: 'image_upload_success',
-  IMAGE_UPLOAD_FAILURE: 'image_upload_failure',
-  IMAGE_TOKEN_REQUEST:  'image_token_request',
-  IMAGE_TOKEN_SUCCESS:  'image_token_success',
-  IMAGE_TOKEN_FAILURE:  'image_token_failure',
+  IMAGE_UPLOAD_REQUEST:       'image_upload_request',
+  IMAGE_UPLOAD_SUCCESS:       'image_upload_success',
+  IMAGE_UPLOAD_FAILURE:       'image_upload_failure',
+  IMAGE_TOKEN_REQUEST:        'image_token_request',
+  IMAGE_TOKEN_SUCCESS:        'image_token_success',
+  IMAGE_TOKEN_FAILURE:        'image_token_failure',
+  ADD_TO_GALLERY_QUEUE:       'add_to_gallery_queue',
+  REMOVE_FROM_GALLERY_QUEUE:  'remove_from_gallery_queue',
+
 
 
   // Generate & Images

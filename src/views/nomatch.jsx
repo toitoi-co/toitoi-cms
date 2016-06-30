@@ -16,12 +16,14 @@ let NoMatch = React.createClass({
 
   render: function() {
     return (
-      <div className={classes}>
-        <h1>Page not found.</h1>
-        <p>
-          <button onClick={this.clickHandler}>Go to the main page.</button>
-        </p>
-      </div>
+      <section className={classes}>
+        <div>
+          <h1>Page not found.</h1>
+          <p>
+            <button onClick={this.clickHandler}>Go to the main page.</button>
+          </p>
+        </div>
+      </section>
     );
   }
 });

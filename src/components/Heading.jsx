@@ -25,10 +25,4 @@ let Heading = React.createClass({
 
 });
 
-function mapStateToProps(state) {
-  return {
-    // user: state.login.user
-  }
-}
-
-export default connect(mapStateToProps, { logoutUser })(Heading)
+export default connect(null, { logoutUser })(Heading)
