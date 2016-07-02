@@ -37,110 +37,57 @@ let DashboardGallery = React.createClass({
     // this.setState({images: images});
   },
 
-  componentDidUpdate: function() {
+  componentWillReceiveProps: function(nextProps) {
     let base = this;
-    if (this.props.addition) {
-      console.log(this.props.addition);
-      let queue = this.state.queue;
-      /* if image is not already in queue (search by filename), add it */
-      // if (!collection.find(queue, { 'name': this.props.addition.name })) {
-      //   queue.push(this.props.addition);
-      //   this.setState( {queue: queue} );
-      // }
-
+    /* Add file object as a placeholder in the queue */
+    if (nextProps.addition) {
+      /* if placeholder is not already in queue (search by filename), add it */
+      // console.log(this.props.addition);
+      let queue = base.state.queue;
       let dupe = queue.filter(function (el) {
-          return el.filename === base.props.addition.filename;
+          return el.filename === nextProps.addition.name;
       });
-      if (dupe.length == 0) {
-        queue.push(this.props.addition);
-        this.setState( {queue: queue} )
+      if (dupe.length === 0) {
+        queue.push(nextProps.addition);
+        base.setState( {queue: queue} );
       }
-      console.info('queue:', this.state.queue);
     }
+    /* now that image has successfully uploaded, swap file information with
+    response information */
+    if (nextProps.confirmation) {
+      let queue = base.state.queue;
+      let objIndex = queue.map(function(el) {return el.name}).indexOf(nextProps.confirmation.filename);
+      if (objIndex !== -1) {
+        queue.splice(objIndex, 1, nextProps.confirmation);
+        base.setState( {queue: queue} );
+      }
+      console.info('queue:', base.state.queue);
+    }
+    /* remove object from the queue when user decides to remove it */
+    if (nextProps.removal) {
+      let queue = base.state.queue;
+      /* if image is not already in queue (search by filename), add it */
+      let objIndex = queue.map(function(el) {return el.filename}).indexOf(nextProps.removal.name);
+      if (objIndex !== -1) {
+        queue.splice(objIndex, 1);
+        base.setState( {queue: queue} );
+      }
+      console.log(objIndex);
+      console.info('updated queue:', base.state.queue);
+    }
+
+  },
+
+  handleUpdate: function(queue) {
+    this.setState({ queue: queue });
+    console.log('getting update:', queue);
   },
 
   render: function() {
-    let base = this;
-    // console.info('addition:', this.props.addition);
-    if (this.props.addition) {
-      let queue = this.state.queue;
-      /* if image is not already in queue (search by filename), add it */
-      // if (!collection.find(queue, { 'name': this.props.addition.name })) {
-      //   queue.push(this.props.addition);
-      //   this.setState( {queue: queue} );
-      // }
-
-      // let dupe = queue.filter(function (el) {
-      //     return el.name === this.props.addition.name;
-      // });
-      // if (dupe.length == 0) {
-      //   queue.push(this.props.addition);
-      //   this.setState( {queue: queue} )
-      // }
-      // console.info('queue:', this.state.queue);
-
+    let props = {
+      handleUpdate: this.handleUpdate,
+      user: this.props.user
     }
-    // const componentConfig = {
-    //     iconFiletypes: ['.jpg', '.png', '.gif'],
-    //     showFiletypeIcon: true
-    // };
-    // const eventHandlers = {
-    //     // This one receives the dropzone object as the first parameter
-    //     // and can be used to additional work with the dropzone.js
-    //     // object
-    //     init: null,
-    //     // All of these receive the event as first parameter:
-    //     drop: callbackArray,
-    //     dragstart: null,
-    //     dragend: null,
-    //     dragenter: null,
-    //     dragover: null,
-    //     dragleave: null,
-    //     // All of these receive the file as first parameter:
-    //     addedfile: simpleCallBack,
-    //     removedfile: null,
-    //     thumbnail: null,
-    //     error: null,
-    //     processing: null,
-    //     uploadprogress: null,
-    //     sending: null,
-    //     success: null,
-    //     complete: null,
-    //     canceled: null,
-    //     maxfilesreached: null,
-    //     maxfilesexceeded: null,
-    //     // All of these receive a list of files as first parameter
-    //     // and are only called if the uploadMultiple option
-    //     // in djsConfig is true:
-    //     processingmultiple: null,
-    //     sendingmultiple: null,
-    //     successmultiple: null,
-    //     completemultiple: null,
-    //     canceledmultiple: null,
-    //     // Special Events
-    //     totaluploadprogress: null,
-    //     reset: null,
-    //     queuecomplete: null
-    // };
-    // const djsConfig = {
-    //     addRemoveLinks: true,
-    //     params: {
-    //       myParameter: "I'm a parameter!"
-    //     }
-    // };
-    // const callbackArray = [
-    //     function () {
-    //         console.log('Look Ma, I\'m a callback in an array!');
-    //     },
-    //     function () {
-    //         console.log('Wooooow!');
-    //     }
-    // ];
-    // const simpleCallBack = function () {
-    //     console.log('I\'m a simple callback');
-    // };
-
-
     return (
       <div className={classes}>
         <h2>{MSG.gallery_page_label}</h2>
@@ -163,29 +110,10 @@ let DashboardGallery = React.createClass({
                         onDrop={this.dropHandler}
                         eventHandlers={eventHandlers}
                         djsConfig={djsConfig} />*/}
-        <ImageUpload user={this.props.user} />
+        <ImageUpload {...props} />
       </div>
     )
   },
-
-  componentDidMount: function() {
-    // imageDropzone = new Dropzone('div#imageDropzone');
-    // Dropzone.options.imageDropzone = {
-    //   paramName: "file", // The name that will be used to transfer the file
-    //   maxFilesize: 2, // MB
-    //   accept: function(file, done) {
-    //     if (file.name == "justinbieber.jpg") {
-    //       done("Naha, you don't.");
-    //     }
-    //     else { done(); }
-    //   },
-    //   previewTemplate: function() {
-    //     return (
-    //       {}
-    //     )
-    //   }
-    // };
-  }
 
 });
 
@@ -200,7 +128,9 @@ function mapStateToProps(state) {
     published: state.publish.published,
     updated: state.firebase.updated,
     uploadError: state.images.error,
-    addition: state.images.queueAddition
+    addition: state.images.queueAddition,
+    confirmation: state.images.queueConfirmation,
+    removal: state.images.queueRemoval
   }
 }
 

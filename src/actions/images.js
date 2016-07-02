@@ -69,6 +69,14 @@ export function addToGalleryQueue(response) {
   }
 }
 
+export function confirmGalleryQueue(response) {
+  return {
+    type: CST.CONFIRM_GALLERY_QUEUE,
+    payload: response
+  }
+}
+
+
 export function removeFromGalleryQueue(response) {
   return {
     type: CST.REMOVE_FROM_GALLERY_QUEUE,

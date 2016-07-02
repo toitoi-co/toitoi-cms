@@ -9,7 +9,7 @@ module.exports = {
   // Content
   IMAGE_UPLOAD_REQUEST: 'image_upload_request',
   IMAGE_UPLOAD_SUCCESS: 'image_upload_success',
-  IMAGE_UPLOAD_ERROR: 'image_upload_error',
+  IMAGE_UPLOAD_ERROR:   'image_upload_error',
 
   // CMS
   CMS_URL: getHostURL() + ':4000',
@@ -56,7 +56,7 @@ module.exports = {
   FIREBASE_FAILURE: 'firebase_failure',
 
   // Image requests/queries
-  IMAGES_URL:           getHostURL() + ':6557',
+  IMAGES_URL:                 getHostURL() + ':6557',
   IMAGE_UPLOAD_REQUEST:       'image_upload_request',
   IMAGE_UPLOAD_SUCCESS:       'image_upload_success',
   IMAGE_UPLOAD_FAILURE:       'image_upload_failure',
@@ -64,13 +64,14 @@ module.exports = {
   IMAGE_TOKEN_SUCCESS:        'image_token_success',
   IMAGE_TOKEN_FAILURE:        'image_token_failure',
   ADD_TO_GALLERY_QUEUE:       'add_to_gallery_queue',
+  CONFIRM_GALLERY_QUEUE:      'confirm_gallery_queue',
   REMOVE_FROM_GALLERY_QUEUE:  'remove_from_gallery_queue',
 
 
 
   // Generate & Images
   // GENERATE_URL: 'http://localhost:6557',
-  GENERATE_URL: getHostURL() + ':6557',
+  GENERATE_URL:             getHostURL() + ':6557',
 
   // Themes
   THEMES_REQUEST:           'themes_request',

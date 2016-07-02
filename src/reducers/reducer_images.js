@@ -19,9 +19,11 @@ export default function(state = INITIAL_STATE, action) {
       }
       return { ...state, error: action.payload }
     case CST.ADD_TO_GALLERY_QUEUE:
-      return { ...state, queueAddition: action.payload }
+      return { ...state, queueAddition: action.payload, queueConfirmation: null, queueRemoval: null }
+    case CST.CONFIRM_GALLERY_QUEUE:
+      return { ...state, queueAddition: null, queueConfirmation: action.payload, queueRemoval: null }
     case CST.REMOVE_FROM_GALLERY_QUEUE:
-      return { ...state, queueRemoval: action.payload }
+      return { ...state, queueAddition: null, queueConfirmation: null, queueRemoval: action.payload }
     default:
       return state;
   }
