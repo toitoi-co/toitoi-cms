@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import DropzoneComponent from 'react-dropzone-component';
-import Dropzone from 'dropzone';
+// import DropzoneComponent from 'react-dropzone-component';
+// import Dropzone from 'dropzone';
 import ImageUpload from '../components/ImageUpload';
 import classnames from 'classnames';
 // import Dropzone from 'react-dropzone';
@@ -18,17 +18,14 @@ const settings = require('../shared/settings');
 const CST = require('../shared/constants');
 const MSG = require('../shared/messages');
 
-let imageDropzone = null;
+// let imageDropzone = null;
 
 let DashboardGallery = React.createClass({
   getInitialState: function() {
     return {
-      queue: []
+      queue: [],
+      disableSave: true
     }
-  },
-
-  componentWillMount: function() {
-
   },
 
   dropHandler: function(images) {
@@ -63,7 +60,7 @@ let DashboardGallery = React.createClass({
       }
       console.info('queue:', base.state.queue);
     }
-    /* remove object from the queue when user decides to remove it */
+    /* remove Object (ignores File since saveImagesHandler will skip it anyway) from the queue when user clicks 'Remove file', */
     if (nextProps.removal) {
       let queue = base.state.queue;
       /* if image is not already in queue (search by filename), add it */
@@ -78,16 +75,43 @@ let DashboardGallery = React.createClass({
 
   },
 
-  handleUpdate: function(queue) {
-    this.setState({ queue: queue });
-    console.log('getting update:', queue);
+  disableSave: function(bool) {
+    this.setState({ disableSave: bool });
+  },
+
+  queueCompleteHandler: function() {
+    let objects = 0;
+    for (var i = 0; i < this.state.queue.length; i++) {
+      if (this.state.queue[i].siteUrl) {
+        // canceled or error images do not have a siteUrl
+        objects++;
+      }
+    }
+    if (objects > 0) {
+      this.disableSave(false);
+    }
+  },
+
+  saveImagesHandler: function(event) {
+    let firebaseQueue = this.state.queue;
+    let index = firebaseQueue.length - 1;
+    while (index >= 0) {
+      if (firebaseQueue[index].status === 'error' || firebaseQueue[index].status === 'canceled') {
+        firebaseQueue.splice(index, 1);
+      }
+      index -= 1;
+    }
+    console.info(firebaseQueue);
   },
 
   render: function() {
+    let base = this;
     let props = {
-      handleUpdate: this.handleUpdate,
+      disableSave: this.disableSave,
+      queueCompleteHandler: this.queueCompleteHandler,
       user: this.props.user
-    }
+    };
+
     return (
       <div className={classes}>
         <h2>{MSG.gallery_page_label}</h2>
@@ -111,6 +135,7 @@ let DashboardGallery = React.createClass({
                         eventHandlers={eventHandlers}
                         djsConfig={djsConfig} />*/}
         <ImageUpload {...props} />
+        <button disabled={this.state.disableSave} onClick={this.saveImagesHandler}>Save Images</button><br/><br/>
       </div>
     )
   },
