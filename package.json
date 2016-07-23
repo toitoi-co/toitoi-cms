@@ -41,6 +41,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
     "immutable": "^3.8.1",
+    "lodash": "^4.13.1",
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2",
     "node-sass": "^3.4.2",
