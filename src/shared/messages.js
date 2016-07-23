@@ -47,6 +47,8 @@ module.exports = {
 
   /* Gallery */
   'gallery_page_label':   'Gallery',
+  'gallery_name_label':   'Name',
+  'gallery_name_help':    'What you want to name your gallery.',
 
   /* Media Relations */
   'mediarelations_page_label':   'Media Relations',

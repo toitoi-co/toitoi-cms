@@ -14,6 +14,7 @@ const DashboardSocial = React.createClass({
     return (
       <div className={classes}>
         <h2>{MSG.social_page_label}</h2>
+        <div className="help"></div>
       </div>
     )
   }

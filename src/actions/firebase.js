@@ -75,15 +75,21 @@ export function updateSingleFirebaseData(entry, user, entryPath) {
         dispatch(updateFirebase());
       }
     });
-
   }
 }
 
 export function updateFirebaseEntry(path, entry) {
-  /* writing this new function to be the only update function... */
+  /* writing this simpler function to replace updateSingleFirebaseData */
   return function(dispatch) {
     let childRef = firebaseRef.child(path);
-    childRef.update(entry);
+    childRef.update(entry, function(error){
+      if (error) {
+        console.log('Data could not be saved.', error);
+        dispatch(firebaseError(error));
+      } else {
+        dispatch(updateFirebase({message: 'success'}));
+      }
+    });
   }
 }
 
@@ -91,8 +97,11 @@ function updateFirebase(response) {
   return {
     type: CST.FIREBASE_UPDATE,
     isFetching: false,
+    payload: response
   }
 }
+
+
 
 export function addDataSkeleton(user) {
   /* Add data skeleton for populating content */

@@ -14,6 +14,7 @@ const DashboardMediaRelations = React.createClass({
     return (
       <div className={classes}>
         <h2>{MSG.mediarelations_page_label}</h2>
+        <div className="help"></div>
       </div>
     )
   }

@@ -8,6 +8,7 @@ require ('../scss/views/welcome.scss');
 
 const classes = classnames('welcome', {});
 const MSG = require('../shared/messages');
+const STEPS = require('../shared/welcome_steps');
 
 let WelcomeTheme = React.createClass({
   getInitialState: function() {
@@ -19,6 +20,14 @@ let WelcomeTheme = React.createClass({
 
   componentWillMount: function() {
     this.props.getThemes();
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.user) {
+      if (nextProps.user.site.presetId) {
+        STEPS.gotoNextStep();
+      }
+    }
   },
 
   // formSubmit: function(vals) {

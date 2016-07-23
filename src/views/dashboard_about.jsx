@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { stateToHTML } from 'draft-js-export-html';
 import classnames from 'classnames';
 import Dropzone from 'react-dropzone';
-import { getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry } from '../actions/index';
+import { getFirebaseData, requestImageToken, publishSite, uploadImage, updateFirebaseEntry } from '../actions/index';
 import InputText from '../components/InputText';
 import RichEditor from '../components/RichEditor';
 
@@ -19,6 +19,11 @@ const MSG = require('../shared/messages');
 
 
 let DashboardAbout = React.createClass({
+  /* the following comes from parent, Dashboard:
+    this.props.imageToken,
+    this.props.token,
+    this.props.user */
+
   getInitialState: function() {
     return {
       images: []
@@ -28,7 +33,14 @@ let DashboardAbout = React.createClass({
   componentWillMount: function() {
     if (!this.props.data && this.props.user) {
       console.log('No data but user detected; will now get firebase data');
+      console.log('user:', this.props.user);
       this.props.getFirebaseData(this.props.user);
+    }
+    if (this.props.login && this.props.user) {
+      if (!this.props.login.imageToken) {
+        console.log('get imageToken');
+        this.props.requestImageToken(this.props.user);
+      }
     }
   },
 
@@ -61,7 +73,7 @@ let DashboardAbout = React.createClass({
         </div>
       )
     } else {
-      console.log('fields:', fields);
+      // console.log('fields:', fields);
       return (
         <div>
           <h2>{MSG.about_page_label}</h2>
@@ -84,8 +96,7 @@ let DashboardAbout = React.createClass({
               <p>{MSG.about_tagline_help}</p>
             </div>
             {this.props.data.photo ?
-              <img src={CST.IMAGES_URL + this.props.data.photo.cms_thumbnail_url
- + '?token=' + this.props.imageToken}/> : null
+              <img src={CST.IMAGES_URL + this.props.data.photo.cms_thumbnail_url + '?token=' + this.props.imageToken}/> : null
             }
 
             <div>
@@ -103,6 +114,7 @@ let DashboardAbout = React.createClass({
             <br/>
             <button type="submit">Save updates</button>
           </form>
+          <div className="help"></div>
         </div>
       )
     }
@@ -110,14 +122,15 @@ let DashboardAbout = React.createClass({
 });
 
 function validate(values) {
-  const errors = {};
+  const errors = {}
 
   return errors;
 }
 
 function mapStateToProps(state) {
   let data = state.firebase.data ? state.firebase.data.aboutme : null;
-  console.log('data', data);
+  console.info('data', data);
+  console.info('login', state.login);
   return {
     data: data,
     initialValues: data,
@@ -128,7 +141,7 @@ function mapStateToProps(state) {
     published: state.publish.published,
     updated: state.firebase.updated,
     uploadError: state.images.error
-  };
+  }
 }
 
 DashboardAbout.propTypes = {
@@ -142,6 +155,6 @@ DashboardAbout = reduxForm({
   validate
 },
 mapStateToProps,
-{ getFirebaseData, updateSingleFirebaseData, publishSite, uploadImage, updateFirebaseEntry })(DashboardAbout)
+{ getFirebaseData, requestImageToken, publishSite, uploadImage, updateFirebaseEntry })(DashboardAbout)
 
 export default DashboardAbout;

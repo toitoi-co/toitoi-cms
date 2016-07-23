@@ -237,17 +237,19 @@ export function logoutUser() {
 export function reloadUser() {
   console.log('about to get user!');
   return function(dispatch) {
-    axios.get(`${CST.LOGIN_URL}/profile`, { withCredentials: true })
     // .then((response) => {
     //   dispatch(returnUser(response));
     // })
     // .catch((err) => {
     //   console.log('Failed to get user:', err);
     // })
+    axios.get(`${CST.LOGIN_URL}/profile`, { withCredentials: true })
     .then((response) => {
+      console.log('----------------------');
+      console.info('response data:', response.data);
       dispatch(loginSuccess(response));
       if (settings.release !== CST.MARKETING_LAUNCH) {
-        if (response.data.onboardingFlowCompleted) {
+        if (response.onboardingFlowCompleted) {
           dispatch(requestToken());
         }
         if (response.data.site.subdomainName) {

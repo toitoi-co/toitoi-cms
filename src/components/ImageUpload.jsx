@@ -4,11 +4,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { addToGalleryQueue, confirmGalleryQueue, removeFromGalleryQueue } from '../actions/index';
-// import DropzoneComponent from 'react-dropzone-component';
 import Dropzone from 'toitoi-dropzone';
 import classnames from 'classnames';
 
-// require ('./styles/imageupload.scss');
 require ('../scss/components/imageupload.scss');
 
 const auth = require('../shared/auth');
@@ -34,7 +32,6 @@ let ImageUpload = React.createClass({
         // });
         // this.on('sending', function(file, xhr, data) {
         //   console.info('xhr:', xhr);
-        //   data.append('image', file);
         // });
         // this.on('uploadprogress', function(file, progress) {
         //   console.log('File progress', progress);
@@ -67,21 +64,6 @@ let ImageUpload = React.createClass({
     });
   },
 
-  // simpleCallBack: function () {
-  //     console.log('I\'m a simple callback');
-  // },
-  //
-  // imageUploadUrl: function(files) {
-  //   let hostname = this.props.user.site.subdomainName + '.toitoi.co';
-  //   return (`${CST.GENERATE_URL}/images/${hostname}/${files[0].name}`);
-  // },
-  //
-  // thumbnailTemplate: function() {
-  //   return(
-  //     {}
-  //   )
-  // },
-
   componentDidMount: function() {
     let myDropzone = new Dropzone('div#dropzone');
   },
@@ -89,13 +71,7 @@ let ImageUpload = React.createClass({
   render: function() {
     return (
       <div className={classes}>
-        {/*<form action='/api/upload' className='dropzone' id='dropzone'>
-             <div className='dz-default dz-message text-center'></div>
-         </form>*/}
         <div id='dropzone' className='dropzone'></div>
-        {/*<DropzoneComponent config={componentConfig}
-                        eventHandlers={eventHandlers}
-                        djsConfig={djsConfig} />*/}
       </div>
     );
   }

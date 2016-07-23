@@ -7,14 +7,22 @@ import classnames from 'classnames';
 
 require ('../scss/views/welcome.scss');
 
-const classes = classnames('welcome', {});
+const classes = classnames('welcome_site', {});
 const MSG = require('../shared/messages');
+const STEPS = require('../shared/welcome_steps');
 
 let WelcomeSite = React.createClass({
   getInitialState: function() {
-    console.log('user:', this.props.user);
     return {
       saving: false
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.user) {
+      if (nextProps.user.site.subdomainName && nextProps.user.site.subdomainName!=='') {
+        STEPS.gotoNextStep();
+      }
     }
   },
 
@@ -22,6 +30,8 @@ let WelcomeSite = React.createClass({
     console.log('vals:', vals);
     this.props.saveSite(vals);
   },
+
+
 
   render: function() {
     const { fields, handleSubmit } = this.props;
@@ -69,6 +79,7 @@ function validate(values) {
 
 function mapStateToProps(state) {
   return {
+    login: state.login,
     welcome: state.welcome
   }
 }

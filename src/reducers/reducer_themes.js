@@ -3,7 +3,7 @@ const INITIAL_STATE = {
   error: null,
   loading: false,
   // Keep oldlist as reference until hosted dev or prod server has presets. For now, ensure -admin on localhost has some presets
-  oldList: [
+  /*oldList: [
     {
       id:        '1',
       plandId:   '1',
@@ -43,7 +43,7 @@ const INITIAL_STATE = {
       createdAt: 1455656864917,
       updatedAt: 1455656864917
     }
-  ],
+  ],*/
   list: []
 }
 

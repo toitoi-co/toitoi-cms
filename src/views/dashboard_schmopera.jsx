@@ -14,6 +14,7 @@ const DashboardSchmopera = React.createClass({
     return (
       <div className={classes}>
         <h2>{MSG.schmopera_page_label}</h2>
+        <div className="help"></div>
       </div>
     )
   }

@@ -23,22 +23,22 @@ let Welcome = React.createClass({
       // TODO add conditional to see if user has completed onboard. If so, redirect to dashboard
 
       return (
-        <div className={classes}>
+        <section className={classes}>
           <p>Loading...</p>
           <br/><br/>
           {this.props.children}
-        </div>
+        </section>
       );
     } else {
       return (
-        <div className={classes}>
+        <section className={classes}>
           <h1>Welcome page</h1>
           {React.cloneElement(this.props.children, {
             imageToken: this.props.imageToken,
             token: this.props.token,
             user: this.props.user
           })}
-        </div>
+        </section>
       );
     }
   }

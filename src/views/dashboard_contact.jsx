@@ -62,6 +62,7 @@ let DashboardContact = React.createClass({
                 {/*<RichEditor ref="greeting" contentState={this.props.data.contact?this.props.data.contact.greeting:''} />*/}
               </div>
             </form>
+            <div className="help"></div>
         </div>
       )
     }

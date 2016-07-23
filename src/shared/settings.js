@@ -3,5 +3,10 @@
 const CST = require('./constants');
 
 module.exports = {
-  release: CST.MARKETING_LAUNCH
+  /* release options:
+    MARKETING_LAUNCH,
+    PHASE1_LAUNCH,
+    UNRESTRICTED */
+  // release: CST.MARKETING_LAUNCH
+  release: CST.UNRESTRICTED
 }

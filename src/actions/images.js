@@ -15,11 +15,11 @@ export function uploadImage(images, user) {
         'X-Token': auth.getToken(),
       },
       progress: function(progressEvent) {
-        console.log('upload:', progressEvent);
+        // console.log('upload:', progressEvent);
       }
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       let imageData = {
         cms_url: response.data.url,
         cms_thumbnail_url: response.data.thumbnailUrl,

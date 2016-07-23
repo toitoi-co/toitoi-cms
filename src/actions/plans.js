@@ -1,6 +1,7 @@
 'use strict';
 
 const CST = require('../shared/constants');
+const STEPS = require('../shared/welcome_steps');
 const axios = require('axios');
 const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 
@@ -42,7 +43,7 @@ function plansRequestFailure(response) {
   }
 }
 
-export function selectPlan(id, user) {
+export function selectPlan(id, user, onboard) {
   let hostname = user.site.subdomainName + '.toitoi.co';
   return function(dispatch) {
     dispatch(themeSelection());
@@ -112,7 +113,20 @@ export function saveStripeToken(token) {
     axios.post(`${CST.LOGIN_URL}/stripe-token`, {token: token}, { withCredentials: true })
     .then((response) => {
       console.log('save token response:', response);
-      dispatch(saveStripeTokenSuccess(response.data));
+      // dispatch(saveStripeTokenSuccess(response.data));
+
+
+      /* temp placholder to set plan */
+      let vals = {
+        presetId: 3,
+        planId: 2
+      }
+      axios.put(`${CST.LOGIN_URL}/site`, vals, { withCredentials: true })
+        .then((response) => {
+          console.info('save plan + preset response:', response);
+        });
+
+
     })
     .catch((error) => {
       console.log('plans error:', error);

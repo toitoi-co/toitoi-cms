@@ -10,6 +10,7 @@ const classes = classnames('heading', {});
 require ('../scss/components/heading.scss');
 
 let Heading = React.createClass({
+  /* this.props.user coming from parent, App */
 
   logoutHandler: function(event) {
     this.props.logoutUser();

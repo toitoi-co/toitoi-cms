@@ -2,6 +2,7 @@
 import { browserHistory } from 'react-router';
 
 const CST = require('../shared/constants');
+const STEPS = require('../shared/welcome_steps');
 const axios = require('axios');
 const webSocket = new WebSocket(CST.WEBSOCKET_URL);
 
@@ -42,7 +43,7 @@ function themesRequestFailure(response) {
   }
 }
 
-export function selectTheme(id, user, onboard) {
+export function installTheme(id, user, onboard) {
   let hostname = user.site.subdomainName + '.toitoi.co';
   console.log('id, hostname:', id, hostname);
   return function(dispatch) {
@@ -50,7 +51,7 @@ export function selectTheme(id, user, onboard) {
     let req = {
       presetId: id,
       hostname: hostname
-    };
+    }
     /*
 
     */
@@ -69,15 +70,105 @@ export function selectTheme(id, user, onboard) {
         dispatch(themeSelectionFailure(error));
       }
       webSocket.onmessage = function(evt) {
-        // console.log('WebSocket event:', evt);
-        // console.log('WebSocket Message:', evt.data);
+        console.log('WebSocket event:', evt);
+        console.log('WebSocket Message:', evt.data);
         let preset = {
           presetId: id
+          // planId:
         }
         axios.put(`${CST.LOGIN_URL}/site`, preset, { withCredentials: true })
         .then(() => {
           dispatch(themeSelectionSuccess(evt.data));
           if (onboard) {
+            STEPS.setStep(2);
+            browserHistory.push('/welcome/plan');
+          }
+        })
+        .catch((error) => {
+          dispatch(themeSelectionFailure(error));
+        });
+      }
+
+    })
+    .catch((error) => {
+      console.log('themes error:', error);
+      /* error object structured as
+      { config: Object
+      data: Object
+      headers: Object
+      status: 405
+      statusText: "Method Not Allowed" }
+      */
+      dispatch(themeSelectionFailure(error));
+    });
+  }
+}
+
+export function selectTheme(id, user, onboard) {
+  let hostname = user.site.subdomainName + '.toitoi.co';
+  console.log('id, hostname:', id, hostname);
+  return function(dispatch) {
+    dispatch(themeSelection());
+    let req = {
+      presetId: id,
+    }
+    let preset = {
+      presetId: id,
+      plan: 1
+    }
+    axios.put(`${CST.LOGIN_URL}/site`, preset, { withCredentials: true })
+    .then((response) => {
+      console.log(response);
+      dispatch(themeSelectionSuccess(evt.data));
+      if (onboard) {
+        // STEPS.setStep(2);
+        // browserHistory.push('/welcome/plan');
+      }
+    })
+    .catch((error) => {
+      dispatch(themeSelectionFailure(error));
+    });
+  }
+}
+
+export function selectTheme2(id, user, onboard) {
+  let hostname = user.site.subdomainName + '.toitoi.co';
+  console.log('id, hostname:', id, hostname);
+  return function(dispatch) {
+    dispatch(themeSelection());
+    let req = {
+      presetId: id,
+      hostname: hostname
+    }
+    /*
+
+    */
+
+    axios.post(`${CST.LOGIN_URL}/generate-signed-request/preset`, req, { withCredentials: true })
+    .then((response) => {
+      let signedRequest = response.data.signedRequest;
+      console.log('themes response:', response);
+      webSocket.send(JSON.stringify({
+        'site': hostname,
+        'messageType': 'preset',
+        'signedRequest': signedRequest
+      }));
+      webSocket.onerror = function(error) {
+        console.log('WebSocket Error:', error);
+        dispatch(themeSelectionFailure(error));
+      }
+      webSocket.onmessage = function(evt) {
+        console.log('WebSocket event:', evt);
+        console.log('WebSocket Message:', evt.data);
+        let preset = {
+          presetId: id
+          // planId:
+        }
+        axios.put(`${CST.LOGIN_URL}/site`, preset, { withCredentials: true })
+        .then(() => {
+          dispatch(themeSelectionSuccess(evt.data));
+          if (onboard) {
+            STEPS.setStep(2);
             browserHistory.push('/welcome/plan');
           }
         })
@@ -104,7 +195,8 @@ export function selectTheme(id, user, onboard) {
 function themeSelection() {
   return {
     type: CST.THEME_SELECTION,
-    isFetching: true
+    isFetching: true,
+    isSelected: false,
   }
 }
 
@@ -112,6 +204,7 @@ function themeSelectionSuccess(response) {
   return {
     type: CST.THEME_SELECTION_SUCCESS,
     isFetching: false,
+    isSelected: true,
     payload: response,
   }
 }
