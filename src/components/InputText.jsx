@@ -18,12 +18,12 @@ const InputText = React.createClass({
 
   render: function() {
     // const {field, label, onChange, ...inputProps} = this.props;
-    const {field, label, onChange, ...inputProps, ...rest} = this.props;
+    const {field, label, onChange, ...inputProps} = this.props;
     return (
       <FormField field={field} inputProps={inputProps} label={label}>
         <input
           {...field}
-          {...rest}
+          {...inputProps}
           type='text'
         />
       {/*{...inputProps}
