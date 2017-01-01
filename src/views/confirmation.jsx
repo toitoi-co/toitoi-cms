@@ -43,7 +43,7 @@ let Confirmation = React.createClass({
 
   assignPageState(props) {
     console.log('has id:', this.state.hasConfirmationId);
-    console.log('user check:', obj.has(props, 'user'));
+    console.log('user check:', obj.has('user', props));
     console.log('user:', props.user);
 
     // console.log('hasId, role:', this.state.hasConfirmationId, this.props.user.role)
@@ -62,7 +62,7 @@ let Confirmation = React.createClass({
       this.setState({pageState: 2});
       return;
     }
-    if (!this.state.hasConfirmationId && obj.has(props.user, 'role')) {
+    if (!this.state.hasConfirmationId && obj.has('role', props.user)) {
       if (props.user.role !== 'unconfirmed') {
         this.setState({pageState: 3});
         return
